@@ -1,0 +1,97 @@
+apt_packages:
+  - curl
+  - git
+  - git-extras
+  - htop
+  - jq
+  - nmap
+  - sl
+  - tree
+  - neofetch
+  - rsync
+  - unrar
+  - p7zip-full
+  - p7zip-rar
+  - vim
+  - neovim
+  - fish
+  - nodejs
+  - yarn
+  - python3-pip
+  - python-pip
+  - python-neovim
+  - python3-neovim
+  - unzip
+
+apt_packages_to_remove:
+  - docker.io
+
+# pyenv_packages:
+#   - make
+#   - libbz2-dev
+#   - libreadline-dev
+#   - libsqlite3-dev
+#   - llvm
+#   - libncursesw5-dev
+#   - xz-utils
+#   - tk-dev
+
+apt_signing_keys:
+  - https://deb.nodesource.com/gpgkey/nodesource.gpg.key
+  - https://dl.yarnpkg.com/debian/pubkey.gpg
+
+ubuntu_keyserver_keys:
+  - E1DD270288B4E6030699E45FA1715D88E1DF1F24 # git core
+  - 59FDA1CE1B84B3FAD89366C027557F056DC33CA5 # fish shell
+  - 9DBB0BE9366964F134855E2255F96FCF8231B6DD # neovim
+
+apt_repositories:
+  - "deb https://deb.nodesource.com/node_8.x {{ ubuntu_distribution }} main"
+  - "deb https://dl.yarnpkg.com/debian/ stable main"
+
+ppa_repositories:
+  - "ppa:git-core/ppa"
+  - "ppa:fish-shell/release-2"
+  - "ppa:neovim-ppa/stable"
+
+user_pip_packages:
+  - awscli
+  - pydf
+
+global_npm_packages:
+  - neovim
+  - npm-check-updates
+  - serverless
+
+terraform_version: 0.11.7
+terragrunt_version: 0.14.11
+
+# debs:
+#   - https://www.dropbox.com/download?dl=packages/ubuntu/dropbox_2015.10.28_amd64.deb
+
+
+# stuff that just needs unpacking
+# archives_to_unpack:
+#   - https://download.jetbrains.com/toolbox/jetbrains-toolbox-1.8.3678.tar.gz
+
+# random stuff in zips/tars/gz etc 
+non_standard_packages:
+  - name: terraform
+    url: "https://releases.hashicorp.com/terraform/{{ terraform_version }}/terraform_{{ terraform_version }}_linux_amd64.zip"
+    version: 0.11.7
+
+straight_downloads:
+  - name: plugged
+    url: "https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim"
+    dir: "/home/{{ username }}/.local/share/nvim"
+  - name: terragrunt
+    url: "https://github.com/gruntwork-io/terragrunt/releases/download/v{{ terragrunt_version }}/terragrunt_linux_amd64"
+    dir: "/home/{{ username }}/programs/terragrunt-{{ terragrunt_version }}"
+
+# stuff in rar packages (seriously?!)
+# rar_packages:
+#   - name: netrunner
+#     url: http://www.mysticbbs.com/downloads/nr20b186.rar
+#     version: 2.0b186
+
+# nvm_install_script: https://raw.githubusercontent.com/creationix/nvm/v0.33.11/install.sh

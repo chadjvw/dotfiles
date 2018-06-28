@@ -1,0 +1,15 @@
+---
+- hosts: all
+  connection: local
+
+  tasks:
+    - include: tasks/packages.yml
+      tags: packages
+
+    - include: tasks/dotfiles.yml
+      tags: dotfiles
+
+    - include: tasks/shell.yml
+      tags: shell
+      
+# Modified from https://github.com/davestephens/ansible-dotfiles

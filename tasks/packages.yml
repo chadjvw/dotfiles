@@ -1,0 +1,118 @@
+---
+- name: Install package signing keys via download
+  apt_key:
+    url: "{{ item }}"
+    state: present
+  with_items: "{{ apt_signing_keys }}"
+
+- name: Install signing keys from ubuntu keyserver
+  apt_key:
+    keyserver: keyserver.ubuntu.com
+    id: "{{ item }}"
+  with_items: "{{ ubuntu_keyserver_keys }}"
+
+- name: Add package sources
+  apt_repository:
+    repo: "{{ item }}"
+    state: present
+  with_items: "{{ apt_repositories }}"
+
+- name: Add ppa repositories
+  apt_repository:
+    repo: "{{ item }}"
+  with_items: "{{ ppa_repositories }}"
+
+- name: Update apt cache
+  apt:
+    update_cache: yes
+    cache_valid_time: 3600
+  changed_when: false
+
+- name: Remove packages
+  apt:
+    name: "{{ item }}"
+    state: absent
+  with_items: "{{ apt_packages_to_remove }}"
+
+- name: Update all packages to the latest version
+  apt:
+    upgrade: dist
+    autoclean: yes
+    autoremove: yes
+    state: latest
+  when: update_all_packages == True
+
+- name: "Install packages"
+  apt:
+    name: "{{ item }}"
+  with_items: "{{ apt_packages }}"
+
+# - name: Install debs
+#   apt:
+#     deb: "{{ item }}"
+#   with_items: "{{ debs }}"
+
+- name: Install pip packages
+  pip:
+    name: "{{ item }}"
+    extra_args: --user
+    state: latest
+  with_items: "{{ user_pip_packages }}"
+
+- name: Install global npm packages
+  npm:
+    name: "{{ item }}"
+    global: yes
+    production: yes
+  with_items: "{{ global_npm_packages }}"
+
+## random stuff that requires custom hacking as the user
+- block:
+  # - name: Unarchive things that just need unpacking
+  #   unarchive:
+  #     src: "{{ item }}"
+  #     dest: "/home/{{ username }}/programs/"
+  #     remote_src: true
+  #   with_items:
+  #     - "{{ archives_to_unpack }}"
+
+  - name: Create directories for archive packages
+    file:
+      path: "/home/{{ username }}/programs/{{ item.name }}-{{ item.version }}"
+      state: directory
+    with_items: "{{ non_standard_packages }}"
+
+  - name: Unpack archived packages
+    unarchive:
+      src: "{{ item.url }}"
+      dest: "/home/{{ username }}/programs/{{ item.name }}-{{ item.version }}"
+      remote_src: true
+    with_items: "{{ non_standard_packages }}"
+
+  - name: Create directories for binaries
+    file:
+      path: "{{ item.dir }}"
+      state: directory
+    with_items: "{{ straight_downloads }}"
+
+  - name: Downlaod Binaries
+    get_url:
+      url: "{{ item.url }}"
+      dest: "{{ item.dir }}/{{ item.name }}"
+      mode: 0770
+    with_items: "{{ straight_downloads }}"
+
+#   - name: Create directories for rar packages
+#     file:
+#       path: "/home/{{ username }}/programs/{{ item.name }}-{{ item.version }}"
+#       state: directory
+#     with_items: "{{ rar_packages }}"
+
+#   - name: Unpack rar packages
+#     shell: "curl -O {{ item.url }} -sSf && unrar x -y $(basename {{ item.url }}) {{ item.name }}-{{ item.version }} && rm $(basename {{ item.url }})"
+#     args:
+#       chdir: "/home/{{ username }}/programs/"
+#     with_items: "{{ rar_packages }}"
+
+  become: yes
+  become_user: "{{ username }}"

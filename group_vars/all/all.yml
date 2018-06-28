@@ -1,0 +1,10 @@
+full_name: Chad Van Wyhe
+work_username: cvanwyhe
+work_email: cvanwyhe@powercosts.com
+username: chad
+email: chadjvw@gmail.com
+ubuntu_distribution: bionic
+update_all_packages: true
+
+## dotfiles
+dotfiles_home: "/home/{{ username }}/.dotfiles"

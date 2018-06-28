@@ -1,0 +1,1 @@
+set -gx PATH /home/{{ username }}/programs /home/{{ username }}/.local $PATH

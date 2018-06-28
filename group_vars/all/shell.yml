@@ -1,0 +1,4 @@
+user_directories:
+  - git
+omf_plugins:
+  - z

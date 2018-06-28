@@ -1,0 +1,63 @@
+---
+- block:
+    - name: Create misc user directories
+      file: 
+        path: "/home/{{ username }}/{{ item }}"
+        state: directory
+      with_items: "{{ user_directories }}"
+
+    - name: Check Powerline Install
+      stat:
+        path: "/home/{{ username }}/.local/share/fonts/Hack-Bold.ttf"
+      register: font_install
+
+    - name: Clone Powerline fonts installer
+      git:
+        repo: https://github.com/powerline/fonts.git
+        dest: "/home/{{ username }}/fonts"
+      when: font_install.stat.exists == False
+
+    - name: Run Powerline fonts installer
+      shell: "/home/{{ username }}/fonts/install.sh"
+      when: font_install.stat.exists == False
+
+    - name: Tidy up Powerline fonts installer
+      file:
+        path: "/home/{{ username }}/fonts"
+        state: absent
+      when: font_install.stat.exists == False
+    
+    - name: Check OMF Installation
+      stat:
+        path: /home/{{ username }}/.local/share/omf
+      register: omf_installed
+
+    - name: Copy Oh My Fish installer
+      get_url:
+        url: https://get.oh-my.fish
+        dest: /tmp/fish-installer
+        mode: 0770
+      when: omf_installed.stat.exists == False
+
+    - name: Locate Fish Shell
+      shell: which fish
+      register: fish_shell
+
+    - name: Install OMF
+      shell: "fish /tmp/fish-installer --path=/home/{{ username }}/.local/share/omf --config=/home/{{ username }}/.config/omf --noninteractive"
+      when: omf_installed.stat.exists == False
+
+    - name: Install OMF Plugins
+      shell: "omf install {{ item }}"
+      args:
+        executable: "{{ fish_shell.stdout }}"
+      with_items: "{{ omf_plugins }}"
+
+    - name: Remove OMF Installer
+      file:
+        path: /tmp/fish-installer
+        state: absent
+      when: omf_installed.stat.exists == False
+
+  become: yes
+  become_user: "{{ username }}"
