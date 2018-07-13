@@ -1,7 +1,7 @@
 ---
 - block:
     - name: Create misc user directories
-      file: 
+      file:
         path: "/home/{{ username }}/{{ item }}"
         state: directory
       with_items: "{{ user_directories }}"
@@ -26,7 +26,7 @@
         path: "/home/{{ username }}/fonts"
         state: absent
       when: font_install.stat.exists == False
-    
+
     - name: Check OMF Installation
       stat:
         path: /home/{{ username }}/.local/share/omf
@@ -52,6 +52,11 @@
       args:
         executable: "{{ fish_shell.stdout }}"
       with_items: "{{ omf_plugins }}"
+
+    - name: Update OMF Plugins
+      shell: "omf update"
+      args:
+        executable: "{{ fish_shell.stdout }}"
 
     - name: Remove OMF Installer
       file:
