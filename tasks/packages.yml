@@ -52,13 +52,6 @@
 #     deb: "{{ item }}"
 #   with_items: "{{ debs }}"
 
-- name: Install pip packages
-  pip:
-    name: "{{ item }}"
-    extra_args: --user
-    state: latest
-  with_items: "{{ user_pip_packages }}"
-
 - name: Install global npm packages
   npm:
     name: "{{ item }}"
@@ -68,6 +61,22 @@
 
 ## random stuff that requires custom hacking as the user
 - block:
+  - name: Install pip2 packages for user
+    pip:
+      name: "{{ item }}"
+      extra_args: --user
+      state: latest
+      executable: pip2
+    with_items: "{{ user_pip2_packages }}"
+
+  - name: Install pip3 packages for user
+    pip:
+      name: "{{ item }}"
+      extra_args: --user
+      state: latest
+      executable: pip3
+    with_items: "{{ user_pip3_packages }}"
+
   # - name: Unarchive things that just need unpacking
   #   unarchive:
   #     src: "{{ item }}"

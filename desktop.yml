@@ -11,5 +11,5 @@
 
     - include: tasks/shell.yml
       tags: shell
-      
+
 # Modified from https://github.com/davestephens/ansible-dotfiles

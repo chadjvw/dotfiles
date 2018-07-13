@@ -1,5 +1,6 @@
 apt_packages:
   - curl
+  - wget
   - git
   - git-extras
   - htop
@@ -54,8 +55,14 @@ ppa_repositories:
   - "ppa:fish-shell/release-2"
   - "ppa:neovim-ppa/stable"
 
-user_pip_packages:
+user_pip2_packages:
+  # - pip
+  # - pydf
+
+user_pip3_packages:
+  - thefuck
   - awscli
+  # - pip
   - pydf
 
 global_npm_packages:
@@ -74,16 +81,16 @@ terragrunt_version: 0.14.11
 # archives_to_unpack:
 #   - https://download.jetbrains.com/toolbox/jetbrains-toolbox-1.8.3678.tar.gz
 
-# random stuff in zips/tars/gz etc 
+# random stuff in zips/tars/gz etc
 non_standard_packages:
   - name: terraform
     url: "https://releases.hashicorp.com/terraform/{{ terraform_version }}/terraform_{{ terraform_version }}_linux_amd64.zip"
     version: 0.11.7
 
 straight_downloads:
-  - name: plugged
+  - name: "plug.vim"
     url: "https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim"
-    dir: "/home/{{ username }}/.local/share/nvim"
+    dir: "/home/{{ username }}/.local/share/nvim/site/autoload"
   - name: terragrunt
     url: "https://github.com/gruntwork-io/terragrunt/releases/download/v{{ terragrunt_version }}/terragrunt_linux_amd64"
     dir: "/home/{{ username }}/programs/terragrunt-{{ terragrunt_version }}"

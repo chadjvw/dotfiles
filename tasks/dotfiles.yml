@@ -18,6 +18,13 @@
       state: directory
     with_items: "{{ linked_config_folders }}"
 
+  - name: Find manually installed progreams
+    find:
+      paths: /home/{{ username }}/programs
+      recurse: yes
+      file_type: directory
+    register: manual_programs
+
   - name: Template linked dotfiles
     template:
       src: "dotfiles/link/{{ item }}"
@@ -61,7 +68,7 @@
     when:
       - not item is skipped
       - item.stat.exists == true
-      - item.stat.islnk == false  
+      - item.stat.islnk == false
 
   - name: Remove existing dotfiles if they aren't links to our dotfiles
     file:
