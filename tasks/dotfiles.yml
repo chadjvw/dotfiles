@@ -87,6 +87,11 @@
       state: link
     with_items: "{{ linked_dotfiles }}"
 
+  - name: Create config folder
+    file:
+      path: "/home/{{ username }}/.config"
+      state: directory
+
   - name: Link config folders
     file:
       src: "{{ dotfiles_home }}/link/{{ item }}"
