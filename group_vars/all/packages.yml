@@ -8,7 +8,7 @@ apt_packages:
   - nmap
   - sl
   - tree
-  - neofetch
+  # - neofetch
   - rsync
   - unrar
   - p7zip-full
@@ -20,8 +20,8 @@ apt_packages:
   - yarn
   - python3-pip
   - python-pip
-  - python-neovim
-  - python3-neovim
+  # - python-neovim
+  # - python3-neovim
   - unzip
 
 apt_packages_to_remove:
@@ -57,12 +57,12 @@ ppa_repositories:
 
 user_pip2_packages:
   # - pip
-  # - pydf
+  - neovim
 
 user_pip3_packages:
   - thefuck
   - awscli
-  # - pip
+  - neovim
   - pydf
 
 global_npm_packages:
