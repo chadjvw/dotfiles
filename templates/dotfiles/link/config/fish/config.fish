@@ -2,6 +2,7 @@
 set fish_user_paths $fish_user_paths {{ file.path }}
 {% endfor %}
 set fish_user_paths $fish_user_paths /home/{{ username }}/.local/bin
+set fish_user_paths $fish_user_paths /home/{{ username }}/programs/pcicloud
 
 alias vi="nvim"
 alias vim="nvim"
