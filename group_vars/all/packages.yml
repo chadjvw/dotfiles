@@ -7,6 +7,7 @@ apt_packages:
   - jq
   - nmap
   - sl
+  - zip
   - tree
   # - neofetch
   - rsync
@@ -23,9 +24,19 @@ apt_packages:
   # - python-neovim
   # - python3-neovim
   - unzip
+  - openjdk-8-jdk-headless
+  - lxappearance
+  - adapta-gtk-theme
+  - papirus-icon-theme
+  - tilix
+  - dbus-x11
 
 apt_packages_to_remove:
   - docker.io
+  - xscreensaver
+  - gnome-screensaver
+  - light-locker
+  - i3lock
 
 # pyenv_packages:
 #   - make
@@ -45,6 +56,8 @@ ubuntu_keyserver_keys:
   - E1DD270288B4E6030699E45FA1715D88E1DF1F24 # git core
   - 59FDA1CE1B84B3FAD89366C027557F056DC33CA5 # fish shell
   - 9DBB0BE9366964F134855E2255F96FCF8231B6DD # neovim
+  - 9461999446FAF0DF770BFC9AE58A9D36647CAE7F # papirus
+  - EAC0D406E5D79A82ADEEDFDFB76E53652D87398A # Adapta
 
 apt_repositories:
   - "deb https://deb.nodesource.com/node_8.x {{ ubuntu_distribution }} main"
@@ -54,6 +67,8 @@ ppa_repositories:
   - "ppa:git-core/ppa"
   - "ppa:fish-shell/release-2"
   - "ppa:neovim-ppa/stable"
+  - "ppa:papirus/papirus"
+  - "ppa:tista/adapta"
 
 user_pip2_packages:
   # - pip

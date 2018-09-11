@@ -1,8 +1,13 @@
 {% for file in manual_programs.files %}
 set fish_user_paths $fish_user_paths {{ file.path }}
 {% endfor %}
+set fish_user_paths $fish_user_paths /home/{{ username }}/source
 set fish_user_paths $fish_user_paths /home/{{ username }}/.local/bin
 set fish_user_paths $fish_user_paths /home/{{ username }}/programs/pcicloud
+set -Ux JAVA_HOME (which java)
+set -Ux DISPLAY 127.0.0.1:0.0
+set -Ux GDK_THEME Adapta-Nokto-Eta
+set -Ux QT_STYLE_OVERRIDE Adapta-Nokto-Eta
 
 alias vi="nvim"
 alias vim="nvim"
