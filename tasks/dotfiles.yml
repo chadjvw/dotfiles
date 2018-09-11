@@ -31,11 +31,11 @@
       dest: "{{ dotfiles_home }}/link/{{ item }}"
     with_items: "{{ linked_dotfiles }}"
 
-  # - name: Copy static sourced dotfiles
-  #   copy:
-  #     src: "{{ item }}"
-  #     dest: "{{ dotfiles_home }}/source/"
-  #   with_fileglob: "dotfiles/source/*"
+  - name: Copy static sourced dotfiles
+    copy:
+      src: "{{ item }}"
+      dest: "{{ dotfiles_home }}/source/"
+    with_fileglob: "dotfiles/source/*"
 
   - name: Gather nested template files
     file:
