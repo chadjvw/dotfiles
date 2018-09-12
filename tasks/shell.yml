@@ -6,16 +6,6 @@
         state: directory
       with_items: "{{ user_directories }}"
 
-    - name: Create script directory
-      file:
-        path: "/home/{{ username }}/scripts"
-        state: directory
-
-    - name: Create script directory
-      file:
-        path: "/home/{{ username }}/scripts"
-        state: directory
-
     - name: Check Powerline Install
       stat:
         path: "/home/{{ username }}/.local/share/fonts/Hack-Bold.ttf"

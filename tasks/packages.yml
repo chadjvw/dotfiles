@@ -51,10 +51,10 @@
     name: "{{ item }}"
   with_items: "{{ apt_packages }}"
 
-# - name: Install debs
-#   apt:
-#     deb: "{{ item }}"
-#   with_items: "{{ debs }}"
+- name: Install debs
+  apt:
+    deb: "{{ item }}"
+  with_items: "{{ debs }}"
 
 - name: Install global npm packages
   npm:

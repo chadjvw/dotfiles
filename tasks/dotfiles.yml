@@ -32,10 +32,17 @@
     with_items: "{{ linked_dotfiles }}"
 
   - name: Copy static sourced dotfiles
-    copy:
+    template:
       src: "{{ item }}"
       dest: "{{ dotfiles_home }}/source/"
-    with_fileglob: "dotfiles/source/*"
+    with_fileglob: "{{ playbook_dir }}/templates/dotfiles/source/*"
+
+  - name: Update static file permissions
+    file:
+      path: "{{ item }}"
+      state: file
+      mode: 0755
+    with_fileglob: "{{ dotfiles_home }}/source/*"
 
   - name: Gather nested template files
     file:

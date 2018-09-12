@@ -88,9 +88,8 @@ global_npm_packages:
 terraform_version: 0.11.7
 terragrunt_version: 0.14.11
 
-# debs:
-#   - https://www.dropbox.com/download?dl=packages/ubuntu/dropbox_2015.10.28_amd64.deb
-
+debs:
+  - https://github.com/BurntSushi/ripgrep/releases/download/0.10.0/ripgrep_0.10.0_amd64.deb
 
 # stuff that just needs unpacking
 # archives_to_unpack:
