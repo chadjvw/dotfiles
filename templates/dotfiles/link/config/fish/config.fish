@@ -1,7 +1,7 @@
 {% for file in manual_programs.files %}
 set fish_user_paths $fish_user_paths {{ file.path }}
 {% endfor %}
-set fish_user_paths $fish_user_paths /home/{{ username }}/source
+set fish_user_paths $fish_user_paths /home/{{ username }}/.dotfiles/source
 set fish_user_paths $fish_user_paths /home/{{ username }}/.local/bin
 set fish_user_paths $fish_user_paths /home/{{ username }}/programs/pcicloud
 set -Ux JAVA_HOME (which java)
