@@ -1,32 +1,23 @@
-# Ansible Playbook - Ubuntu Dev Desktop Setup
+# Ansible Playbook - WSL Ubuntu Dev Setup
 
-This is an Ansible version of my [dotfiles](https://github.com/davestephens/dotfiles) repo. Does exactly the same thing, just with a lot less clunk and complication. 
+This is an Ansible playbook to setup my [dotfiles](https://gitlab.com/chadjvw/dotfiles).
 
-Sets up and configures all of the software I use for development on an Ubuntu desktop - currently targets Ubuntu 18.04. 
+Sets up and configures all of the software I use for development on in WSL Ubuntu 18.04.1.
+
+If you get an error about 'no dirmngr found' its a know issue: https://github.com/Microsoft/WSL/issues/3286#issuecomment-404282617
+
+Ubuntu needs to carry the fix down from mainstream GPG. In the interim you will have to manually add each ppa with the following command `sudo add-apt-repository ppa:git-core/ppa` then run the playbook.
 
 ## What It Does
 - Installs packages
 - Set up my dotfiles
   - Super-custom git config
-  - Sexy bash prompt
+  - Sexy fish prompt
   - Lots of useful shortcuts
-- Sets up vim, vim-plug and plugins
-- Sets up rvm and installs Ruby
+- Sets up nvim, vim-plug and plugins
 - Installs proper fonts
-
-
-## What It'll Do Soon
-- Configure Visual Studio Code (not just install it)
-- Set up pyenv and pythons
-- Set up nvm and nodes
-- Set up my keys
-- Other stuff I can't think of right now
-
-## TODO
-- Tidy the vim config
-- Switch to Docker repos once they exist for Bionic
 
 ## Quick Installation
 1. Install Ansible and git: `sudo apt-get install ansible git`
-2. Clone the playbook: `git clone https://github.com/davestephens/ansible-playbook-ubuntu-dev-desktop.git && cd ansible-playbook-ubuntu-dev-desktop`
+2. Clone the playbook: `git clone https://gitlab.com/chadjvw/dotfiles.git && cd dotfiles`
 3. Run it: `ansible-playbook -i inventory desktop.yml -b -K`
