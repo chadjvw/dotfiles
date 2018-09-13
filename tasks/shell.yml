@@ -1,11 +1,25 @@
 ---
+- name: Create mount dirs
+  file:
+    path: "{{ item.dir }}"
+    state: directory
+  with_items: "{{ fstab }}"
+
+- name: Mount directories
+  mount:
+    fstype: "{{ item.type }}"
+    path: "{{ item.dir }}"
+    src: "{{ item.src }}"
+    state: mounted
+  with_items: "{{ fstab }}"
+
 - block:
     - name: Create misc user directories
       file:
         path: "/home/{{ username }}/{{ item }}"
         state: directory
       with_items: "{{ user_directories }}"
-
+      
     - name: Check Powerline Install
       stat:
         path: "/home/{{ username }}/.local/share/fonts/Hack-Bold.ttf"

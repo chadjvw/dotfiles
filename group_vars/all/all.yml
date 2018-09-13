@@ -4,7 +4,7 @@ work_email: cvanwyhe@powercosts.com
 username: chad
 email: chadjvw@gmail.com
 ubuntu_distribution: bionic
-update_all_packages: true
+update_all_packages: false
 
 ## dotfiles
 dotfiles_home: "/home/{{ username }}/.dotfiles"
