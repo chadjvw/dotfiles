@@ -4,6 +4,8 @@ set fish_user_paths $fish_user_paths {{ file.path }}
 set fish_user_paths $fish_user_paths /home/{{ username }}/.dotfiles/source
 set fish_user_paths $fish_user_paths /home/{{ username }}/.local/bin
 set fish_user_paths $fish_user_paths /home/{{ username }}/programs/pcicloud
+
+set -Ux DOCKER_HOST localhost:2375
 set -Ux JAVA_HOME (which java)
 set -Ux DISPLAY 127.0.0.1:0.0
 set -Ux GDK_THEME Adapta-Nokto-Eta

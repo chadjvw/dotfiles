@@ -27,6 +27,7 @@ apt_packages:
   - adapta-gtk-theme
   - tilix
   - dbus-x11
+  - docker-ce
 
 apt_packages_to_remove:
   - docker.io
@@ -34,7 +35,7 @@ apt_packages_to_remove:
   - gnome-screensaver
   - light-locker
   - i3lock
-
+  
 # pyenv_packages:
 #   - make
 #   - libbz2-dev
@@ -48,6 +49,7 @@ apt_packages_to_remove:
 apt_signing_keys:
   - https://deb.nodesource.com/gpgkey/nodesource.gpg.key
   - https://dl.yarnpkg.com/debian/pubkey.gpg
+  - https://download.docker.com/linux/ubuntu/gpg
 
 ubuntu_keyserver_keys:
   - E1DD270288B4E6030699E45FA1715D88E1DF1F24 # git core
@@ -58,6 +60,7 @@ ubuntu_keyserver_keys:
 apt_repositories:
   - "deb https://deb.nodesource.com/node_8.x {{ ubuntu_distribution }} main"
   - "deb https://dl.yarnpkg.com/debian/ stable main"
+  - "deb [arch=amd64] https://download.docker.com/linux/ubuntu {{ ubuntu_distribution }} stable"
 
 ppa_repositories:
   - "ppa:git-core/ppa"
