@@ -10,6 +10,7 @@ set -Ux JAVA_HOME (which java)
 set -Ux DISPLAY 127.0.0.1:0.0
 set -Ux GDK_THEME Adapta-Nokto-Eta
 set -Ux QT_STYLE_OVERRIDE Adapta-Nokto-Eta
+set -gx EDITOR nvim
 
 alias vi="nvim"
 alias vim="nvim"
