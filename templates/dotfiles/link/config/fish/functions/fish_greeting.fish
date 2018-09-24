@@ -1,7 +1,7 @@
-function fst; set_color -o fa0; end
-function snd; set_color -o 36f; end
-function trd; set_color -o f06; end
-function dim; set_color    666; end
+function fst; set_color -o yellow; end
+function snd; set_color -o blue; end
+function trd; set_color -o magenta; end
+function dim; set_color    brblack; end
 function off; set_color normal; end
 
 function fish_greeting
