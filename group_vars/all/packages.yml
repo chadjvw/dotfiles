@@ -82,6 +82,7 @@ global_npm_packages:
   - neovim
   - npm-check-updates
   - serverless
+  - npx
 
 terraform_version: 0.11.7
 terragrunt_version: 0.14.11

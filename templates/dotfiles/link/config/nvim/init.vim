@@ -7,12 +7,15 @@ Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'sheerun/vim-polyglot'
 Plug 'dracula/vim', { 'as': 'dracula' }
+Plug 'haishanh/night-owl.vim'
 call plug#end()
 " 
 " Colors 
 syntax enable           " enable syntax processing
-colorscheme dracula
-set termguicolors
+colorscheme night-owl
+if (has("termguicolors"))
+ set termguicolors
+endif
 " 
 " Misc 
 set backspace=indent,eol,start
