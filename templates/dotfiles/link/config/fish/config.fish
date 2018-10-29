@@ -6,7 +6,7 @@ set fish_user_paths $fish_user_paths /home/{{ username }}/.local/bin
 set fish_user_paths $fish_user_paths /home/{{ username }}/programs/pcicloud
 
 set -Ux DOCKER_HOST localhost:2375
-set -Ux JAVA_HOME (which java)
+set -Ux JAVA_HOME /usr/lib/jvm/java-8-openjdk-amd64/jre
 set -Ux DISPLAY 127.0.0.1:0.0
 set -Ux GDK_THEME Adapta-Nokto-Eta
 set -Ux QT_STYLE_OVERRIDE Adapta-Nokto-Eta
@@ -18,7 +18,12 @@ alias svim="sudo nvim"
 alias svi="sudo nvim"
 alias edit="nvim"
 
-alias la="ls -alhF"
+alias clean-branches='git branch | grep -ve "master\$" | xargs git branch -D'
+
+alias ls="ls --color=auto"
+alias la="ls -alhF --color=auto"
+alias grep="grep --color=auto"
+alias rg="rg -S"
 alias ..="cd .."
 alias ...="cd ../.."
 
@@ -28,12 +33,8 @@ alias rm="rm -vi"
 alias cp="cp -v"
 
 alias update="sudo apt update; sudo apt upgrade -y"
-
-## set some other defaults ##
 alias df="df -H"
 alias du="du -ch"
-
-# top is atop, just like vi is vim
 alias top="htop"
 
 alias netstat="sudo netstat -tulpn"
