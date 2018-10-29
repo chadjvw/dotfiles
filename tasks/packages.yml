@@ -34,9 +34,9 @@
 
 - name: Remove apt packages
   apt:
-    name: "{{ item }}"
+    name: u'{{ apt_packages_to_remove }}'
     state: absent
-  with_items: "{{ apt_packages_to_remove }}"
+  # with_items: "{{ apt_packages_to_remove }}"
 
 - name: Update all packages to the latest version
   apt:
@@ -48,8 +48,8 @@
 
 - name: Install apt packages
   apt:
-    name: "{{ item }}"
-  with_items: "{{ apt_packages }}"
+    name: u'{{ apt_packages }}'
+  # with_items: "{{ apt_packages }}"
 
 - name: Install debs
   apt:
@@ -68,19 +68,19 @@
 - block:
   - name: Install pip2 packages for user
     pip:
-      name: "{{ item }}"
+      name: u'{{ user_pip2_packages }}'
       extra_args: --user
       state: latest
       executable: pip2
-    with_items: "{{ user_pip2_packages }}"
+    # with_items: "{{ user_pip2_packages }}"
 
   - name: Install pip3 packages for user
     pip:
-      name: "{{ item }}"
+      name: u'{{ user_pip3_packages }}'
       extra_args: --user
       state: latest
       executable: pip3
-    with_items: "{{ user_pip3_packages }}"
+    # with_items: "{{ user_pip3_packages }}"
 
   # - name: Unarchive things that just need unpacking
   #   unarchive:
