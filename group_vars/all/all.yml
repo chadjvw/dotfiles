@@ -7,4 +7,4 @@ ubuntu_distribution: bionic
 update_all_packages: false
 
 ## dotfiles
-dotfiles_home: "/home/{{ username }}/.dotfiles"
+dotfiles_home: '/home/{{ username }}/.dotfiles'

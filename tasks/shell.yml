@@ -1,43 +1,43 @@
 ---
 - name: Create mount dirs
   file:
-    path: "{{ item.dir }}"
+    path: '{{ item.dir }}'
     state: directory
-  with_items: "{{ fstab }}"
+  with_items: '{{ fstab }}'
 
 - name: Mount directories
   mount:
-    fstype: "{{ item.type }}"
-    path: "{{ item.dir }}"
-    src: "{{ item.src }}"
+    fstype: '{{ item.type }}'
+    path: '{{ item.dir }}'
+    src: '{{ item.src }}'
     state: mounted
-  with_items: "{{ fstab }}"
+  with_items: '{{ fstab }}'
 
 - block:
     - name: Create misc user directories
       file:
-        path: "/home/{{ username }}/{{ item }}"
+        path: '/home/{{ username }}/{{ item }}'
         state: directory
-      with_items: "{{ user_directories }}"
+      with_items: '{{ user_directories }}'
       
     - name: Check Powerline Install
       stat:
-        path: "/home/{{ username }}/.local/share/fonts/Hack-Bold.ttf"
+        path: '/home/{{ username }}/.local/share/fonts/Hack-Bold.ttf'
       register: font_install
 
     - name: Clone Powerline fonts installer
       git:
         repo: https://github.com/powerline/fonts.git
-        dest: "/home/{{ username }}/fonts"
+        dest: '/home/{{ username }}/fonts'
       when: font_install.stat.exists == False
 
     - name: Run Powerline fonts installer
-      shell: "/home/{{ username }}/fonts/install.sh"
+      shell: '/home/{{ username }}/fonts/install.sh'
       when: font_install.stat.exists == False
 
     - name: Tidy up Powerline fonts installer
       file:
-        path: "/home/{{ username }}/fonts"
+        path: '/home/{{ username }}/fonts'
         state: absent
       when: font_install.stat.exists == False
 
@@ -58,19 +58,19 @@
       register: fish_shell
 
     - name: Install OMF
-      shell: "fish /tmp/fish-installer --path=/home/{{ username }}/.local/share/omf --config=/home/{{ username }}/.config/omf --noninteractive"
+      shell: 'fish /tmp/fish-installer --path=/home/{{ username }}/.local/share/omf --config=/home/{{ username }}/.config/omf --noninteractive'
       when: omf_installed.stat.exists == False
 
     - name: Install OMF Plugins
-      shell: "omf install {{ item }}"
+      shell: 'omf install {{ item }}'
       args:
-        executable: "{{ fish_shell.stdout }}"
-      with_items: "{{ omf_plugins }}"
+        executable: '{{ fish_shell.stdout }}'
+      with_items: '{{ omf_plugins }}'
 
     - name: Update OMF Plugins
-      shell: "omf update"
+      shell: 'omf update'
       args:
-        executable: "{{ fish_shell.stdout }}"
+        executable: '{{ fish_shell.stdout }}'
 
     - name: Remove OMF Installer
       file:
@@ -79,4 +79,4 @@
       when: omf_installed.stat.exists == False
 
   become: yes
-  become_user: "{{ username }}"
+  become_user: '{{ username }}'

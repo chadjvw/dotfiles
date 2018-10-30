@@ -1,30 +1,30 @@
 ---
 - name: Install package signing keys via download
   apt_key:
-    url: "{{ item }}"
+    url: '{{ item }}'
     state: present
-  with_items: "{{ apt_signing_keys }}"
+  with_items: '{{ apt_signing_keys }}'
 
 - name: Install signing keys from ubuntu keyserver
   apt_key:
     keyserver: keyserver.ubuntu.com
-    id: "{{ item }}"
-  with_items: "{{ ubuntu_keyserver_keys }}"
+    id: '{{ item }}'
+  with_items: '{{ ubuntu_keyserver_keys }}'
 
 # - name: Install signing keys from ubuntu keyserver via curl
-#   command: "curl -sL https://keyserver.ubuntu.com/pks/lookup?op=get&search=0x{{ item }} | sudo apt-key add"
-#   with_items: "{{ ubuntu_keyserver_keys }}"
+#   command: 'curl -sL https://keyserver.ubuntu.com/pks/lookup?op=get&search=0x{{ item }} | sudo apt-key add'
+#   with_items: '{{ ubuntu_keyserver_keys }}'
 
 - name: Add apt package sources
   apt_repository:
-    repo: "{{ item }}"
+    repo: '{{ item }}'
     state: present
-  with_items: "{{ apt_repositories }}"
+  with_items: '{{ apt_repositories }}'
 
 - name: Add ppa repositories
   apt_repository:
-    repo: "{{ item }}"
-  with_items: "{{ ppa_repositories }}"
+    repo: '{{ item }}'
+  with_items: '{{ ppa_repositories }}'
 
 - name: Update apt cache
   apt:
@@ -34,9 +34,9 @@
 
 - name: Remove apt packages
   apt:
-    name: u'{{ apt_packages_to_remove }}'
+    name: '{{ apt_packages_to_remove }}'
     state: absent
-  # with_items: "{{ apt_packages_to_remove }}"
+  # with_items: '{{ apt_packages_to_remove }}'
 
 - name: Update all packages to the latest version
   apt:
@@ -48,85 +48,85 @@
 
 - name: Install apt packages
   apt:
-    name: u'{{ apt_packages }}'
-  # with_items: "{{ apt_packages }}"
+    name: '{{ apt_packages }}'
+  # with_items: '{{ apt_packages }}'
 
 - name: Install debs
   apt:
-    deb: "{{ item }}"
-  with_items: "{{ debs }}"
+    deb: '{{ item }}'
+  with_items: '{{ debs }}'
 
 - name: Install global npm packages
   npm:
-    name: "{{ item }}"
+    name: '{{ item }}'
     global: yes
     production: yes
     state: latest
-  with_items: "{{ global_npm_packages }}"
+  with_items: '{{ global_npm_packages }}'
 
 ## random stuff that requires custom hacking as the user
 - block:
   - name: Install pip2 packages for user
     pip:
-      name: u'{{ user_pip2_packages }}'
+      name: '{{ user_pip2_packages }}'
       extra_args: --user
       state: latest
       executable: pip2
-    # with_items: "{{ user_pip2_packages }}"
+    # with_items: '{{ user_pip2_packages }}'
 
   - name: Install pip3 packages for user
     pip:
-      name: u'{{ user_pip3_packages }}'
+      name: '{{ user_pip3_packages }}'
       extra_args: --user
       state: latest
       executable: pip3
-    # with_items: "{{ user_pip3_packages }}"
+    # with_items: '{{ user_pip3_packages }}'
 
   # - name: Unarchive things that just need unpacking
   #   unarchive:
-  #     src: "{{ item }}"
-  #     dest: "/home/{{ username }}/programs/"
+  #     src: '{{ item }}'
+  #     dest: '/home/{{ username }}/programs/'
   #     remote_src: true
   #   with_items:
-  #     - "{{ archives_to_unpack }}"
+  #     - '{{ archives_to_unpack }}'
 
   - name: Create directories for archive packages
     file:
-      path: "/home/{{ username }}/programs/{{ item.name }}-{{ item.version }}"
+      path: '/home/{{ username }}/programs/{{ item.name }}-{{ item.version }}'
       state: directory
-    with_items: "{{ non_standard_packages }}"
+    with_items: '{{ non_standard_packages }}'
 
   - name: Unpack archived packages
     unarchive:
-      src: "{{ item.url }}"
-      dest: "/home/{{ username }}/programs/{{ item.name }}-{{ item.version }}"
+      src: '{{ item.url }}'
+      dest: '/home/{{ username }}/programs/{{ item.name }}-{{ item.version }}'
       remote_src: true
-    with_items: "{{ non_standard_packages }}"
+    with_items: '{{ non_standard_packages }}'
 
   - name: Create directories for binaries
     file:
-      path: "{{ item.dir }}"
+      path: '{{ item.dir }}'
       state: directory
-    with_items: "{{ straight_downloads }}"
+    with_items: '{{ straight_downloads }}'
 
   - name: Downlaod Binaries
     get_url:
-      url: "{{ item.url }}"
-      dest: "{{ item.dir }}/{{ item.name }}"
+      url: '{{ item.url }}'
+      dest: '{{ item.dir }}/{{ item.name }}'
       mode: 0770
-    with_items: "{{ straight_downloads }}"
+    with_items: '{{ straight_downloads }}'
 
 #   - name: Create directories for rar packages
 #     file:
-#       path: "/home/{{ username }}/programs/{{ item.name }}-{{ item.version }}"
+#       path: '/home/{{ username }}/programs/{{ item.name }}-{{ item.version }}'
 #       state: directory
-#     with_items: "{{ rar_packages }}"
+#     with_items: '{{ rar_packages }}'
 
 #   - name: Unpack rar packages
-#     shell: "curl -O {{ item.url }} -sSf && unrar x -y $(basename {{ item.url }}) {{ item.name }}-{{ item.version }} && rm $(basename {{ item.url }})"
+#     shell: 'curl -O {{ item.url }} -sSf && unrar x -y $(basename {{ item.url }}) {{ item.name }}-{{ item.version }} && rm $(basename {{ item.url }})'
 #     args:
-#       chdir: "/home/{{ username }}/programs/"
-#     with_items: "{{ rar_packages }}"
+#       chdir: '/home/{{ username }}/programs/'
+#     with_items: '{{ rar_packages }}'
 
   become: yes
-  become_user: "{{ username }}"
+  become_user: '{{ username }}'
