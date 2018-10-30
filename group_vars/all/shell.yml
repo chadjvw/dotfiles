@@ -4,7 +4,8 @@ omf_plugins:
   - z
   - aws
   - thefuck
+  - fzf
 fstab:
   - dir: /mnt/daily-builds
-    src: "\\\\nas2\\shared\\daily builds"
+    src: '\\\\nas2\\shared\\daily builds'
     type: drvfs

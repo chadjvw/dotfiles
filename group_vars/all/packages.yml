@@ -60,16 +60,16 @@ ubuntu_keyserver_keys:
   - EAC0D406E5D79A82ADEEDFDFB76E53652D87398A # Adapta
 
 apt_repositories:
-  - "deb https://deb.nodesource.com/node_8.x {{ ubuntu_distribution }} main"
-  - "deb https://dl.yarnpkg.com/debian/ stable main"
-  - "deb [arch=amd64] https://download.docker.com/linux/ubuntu {{ ubuntu_distribution }} stable"
-  - "deb https://apt.patrickwu.ml/ stable main"
+  - 'deb https://deb.nodesource.com/node_8.x {{ ubuntu_distribution }} main'
+  - 'deb https://dl.yarnpkg.com/debian/ stable main'
+  - 'deb [arch=amd64] https://download.docker.com/linux/ubuntu {{ ubuntu_distribution }} stable'
+  - 'deb https://apt.patrickwu.ml/ stable main'
 
 ppa_repositories:
-  - "ppa:git-core/ppa"
-  - "ppa:fish-shell/release-2"
-  - "ppa:neovim-ppa/stable"
-  - "ppa:tista/adapta"
+  - 'ppa:git-core/ppa'
+  - 'ppa:fish-shell/release-2'
+  - 'ppa:neovim-ppa/stable'
+  - 'ppa:tista/adapta'
 
 user_pip2_packages:
   # - pip
@@ -106,16 +106,19 @@ debs:
 # random stuff in zips/tars/gz etc
 non_standard_packages:
   - name: terraform
-    url: "https://releases.hashicorp.com/terraform/{{ terraform_version }}/terraform_{{ terraform_version }}_linux_amd64.zip"
+    url: 'https://releases.hashicorp.com/terraform/{{ terraform_version }}/terraform_{{ terraform_version }}_linux_amd64.zip'
     version: 0.11.7
+  - name: fzf
+    url: 'https://github.com/junegunn/fzf-bin/releases/download/0.17.5/fzf-0.17.5-linux_amd64.tgz'
+    version: 0.17.5
 
 straight_downloads:
-  - name: "plug.vim"
-    url: "https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim"
-    dir: "/home/{{ username }}/.local/share/nvim/site/autoload"
+  - name: 'plug.vim'
+    url: 'https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
+    dir: '/home/{{ username }}/.local/share/nvim/site/autoload'
   - name: terragrunt
-    url: "https://github.com/gruntwork-io/terragrunt/releases/download/v{{ terragrunt_version }}/terragrunt_linux_amd64"
-    dir: "/home/{{ username }}/programs/terragrunt-{{ terragrunt_version }}"
+    url: 'https://github.com/gruntwork-io/terragrunt/releases/download/v{{ terragrunt_version }}/terragrunt_linux_amd64'
+    dir: '/home/{{ username }}/programs/terragrunt-{{ terragrunt_version }}'
 
 # stuff in rar packages (seriously?!)
 # rar_packages:

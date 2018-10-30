@@ -2,21 +2,21 @@
 - block:
   - name: Create dotfiles directories
     file:
-      path: "{{ item }}"
+      path: '{{ item }}'
       state: directory
     with_items:
-      - "{{ dotfiles_home }}"
-      - "{{ dotfiles_home }}/caches"
-      - "{{ dotfiles_home }}/backups"
-      - "{{ dotfiles_home }}/caches/nvim"
-      - "{{ dotfiles_home }}/link"
-      - "{{ dotfiles_home }}/source"
+      - '{{ dotfiles_home }}'
+      - '{{ dotfiles_home }}/caches'
+      - '{{ dotfiles_home }}/backups'
+      - '{{ dotfiles_home }}/caches/nvim'
+      - '{{ dotfiles_home }}/link'
+      - '{{ dotfiles_home }}/source'
 
   - name: Create config directories
     file:
-      path: "{{ dotfiles_home }}/link/{{ item }}"
+      path: '{{ dotfiles_home }}/link/{{ item }}'
       state: directory
-    with_items: "{{ linked_config_folders }}"
+    with_items: '{{ linked_config_folders }}'
 
   - name: Find manually installed progreams
     find:
@@ -27,41 +27,41 @@
 
   - name: Template linked dotfiles
     template:
-      src: "dotfiles/link/{{ item }}"
-      dest: "{{ dotfiles_home }}/link/{{ item }}"
-    with_items: "{{ linked_dotfiles }}"
+      src: 'dotfiles/link/{{ item }}'
+      dest: '{{ dotfiles_home }}/link/{{ item }}'
+    with_items: '{{ linked_dotfiles }}'
 
   - name: Copy static sourced dotfiles
     template:
-      src: "{{ item }}"
-      dest: "{{ dotfiles_home }}/source/"
-    with_fileglob: "{{ playbook_dir }}/templates/dotfiles/source/*"
+      src: '{{ item }}'
+      dest: '{{ dotfiles_home }}/source/'
+    with_fileglob: '{{ playbook_dir }}/templates/dotfiles/source/*'
 
   - name: Update static file permissions
     file:
-      path: "{{ item }}"
+      path: '{{ item }}'
       state: file
       mode: 0755
-    with_fileglob: "{{ dotfiles_home }}/source/*"
+    with_fileglob: '{{ dotfiles_home }}/source/*'
 
   - name: Gather nested template files
     file:
-      path: "{{ dotfiles_home }}/link/{{ item.path }}"
+      path: '{{ dotfiles_home }}/link/{{ item.path }}'
       state: directory
-    with_filetree: "{{ playbook_dir }}/templates/dotfiles/link/config"
+    with_filetree: '{{ playbook_dir }}/templates/dotfiles/link/config'
     when: item.state == 'directory'
 
   - name: Generate nested template files
     template:
-      src: "{{ item.src }}"
-      dest: "{{ dotfiles_home }}/link/{{ item.path }}"
-    with_filetree: "{{ playbook_dir }}/templates/dotfiles/link/config"
+      src: '{{ item.src }}'
+      dest: '{{ dotfiles_home }}/link/{{ item.path }}'
+    with_filetree: '{{ playbook_dir }}/templates/dotfiles/link/config'
     when: item.state == 'file'
 
   - name: Check existing dotfiles
     stat:
-      path: "/home/{{ username }}/{{ item }}"
-    with_items: "{{ linked_dotfiles }}"
+      path: '/home/{{ username }}/{{ item }}'
+    with_items: '{{ linked_dotfiles }}'
     register: dotfiles_stat
 
   # - debug:
@@ -69,9 +69,9 @@
 
   - name: Backup existing dotfiles if they aren't links to our dotfiles
     copy:
-      src: "/home/{{ username }}/{{ item.item }}"
-      dest: "{{ dotfiles_home }}/backups"
-    with_items: "{{ dotfiles_stat.results }}"
+      src: '/home/{{ username }}/{{ item.item }}'
+      dest: '{{ dotfiles_home }}/backups'
+    with_items: '{{ dotfiles_stat.results }}'
     when:
       - not item is skipped
       - item.stat.exists == true
@@ -79,9 +79,9 @@
 
   - name: Remove existing dotfiles if they aren't links to our dotfiles
     file:
-      path: "/home/{{ username }}/{{ item.item }}"
+      path: '/home/{{ username }}/{{ item.item }}'
       state: absent
-    with_items: "{{ dotfiles_stat.results }}"
+    with_items: '{{ dotfiles_stat.results }}'
     when:
       - not item is skipped
       - item.stat.exists == true
@@ -89,22 +89,22 @@
 
   - name: Link dotfiles
     file:
-      src: "{{ dotfiles_home }}/link/{{ item }}"
-      dest: "/home/{{ username }}/{{ item }}"
+      src: '{{ dotfiles_home }}/link/{{ item }}'
+      dest: '/home/{{ username }}/{{ item }}'
       state: link
-    with_items: "{{ linked_dotfiles }}"
+    with_items: '{{ linked_dotfiles }}'
 
   - name: Create config folder
     file:
-      path: "/home/{{ username }}/.config"
+      path: '/home/{{ username }}/.config'
       state: directory
 
   - name: Link config folders
     file:
-      src: "{{ dotfiles_home }}/link/{{ item }}"
-      dest: "/home/{{ username }}/.config/{{ item }}"
+      src: '{{ dotfiles_home }}/link/{{ item }}'
+      dest: '/home/{{ username }}/.config/{{ item }}'
       state: link
-    with_items: "{{ linked_config_folders }}"
+    with_items: '{{ linked_config_folders }}'
 
   become: yes
-  become_user: "{{ username }}"
+  become_user: '{{ username }}'
