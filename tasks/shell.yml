@@ -43,7 +43,7 @@
 
     - name: Check OMF Installation
       stat:
-        path: /home/{{ username }}/.local/share/omf
+        path: '/home/{{ username }}/.local/share/omf'
       register: omf_installed
 
     - name: Copy Oh My Fish installer
