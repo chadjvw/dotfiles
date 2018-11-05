@@ -41,5 +41,7 @@ alias netstat="sudo netstat -tulpn"
 
 alias sudo="sudo "
 alias ping="ping -c 5"
-alias cloud="ssh {{ work_username }}@cloud.powercosts.com"
+alias cloud="ssh cvanwyhe@cloud.powercosts.com"
 alias untar="tar -xvf"
+
+test -x (which aws_completer); and complete --command aws --no-files --arguments '(begin; set --local --export COMP_SHELL fish; set --local --export COMP_LINE (commandline); aws_completer | sed \'s/ $//\'; end)'

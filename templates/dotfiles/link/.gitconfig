@@ -1,6 +1,6 @@
 [user]
-	email = {{ work_email }}
-	name = {{ work_username }}
+	email = {{ email }}
+	name = {{ full_name }}
 
 [alias]
 	# View abbreviated SHA, description, and history graph of the latest 20 commits
