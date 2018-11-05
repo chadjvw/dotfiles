@@ -1,7 +1,9 @@
 apt_packages:
+  - ansible
   - curl
   - wget
   - git
+  - git-lfs
   - git-extras
   - htop
   - jq
@@ -54,6 +56,7 @@ apt_signing_keys:
   - https://api.patrickwu.ml/public.key
 
 ubuntu_keyserver_keys:
+  - 6125E2A8C77F2818FB7BD15B93C4A3FD7BB9C367 # ansible
   - E1DD270288B4E6030699E45FA1715D88E1DF1F24 # git core
   - 59FDA1CE1B84B3FAD89366C027557F056DC33CA5 # fish shell
   - 9DBB0BE9366964F134855E2255F96FCF8231B6DD # neovim
@@ -66,13 +69,13 @@ apt_repositories:
   - 'deb https://apt.patrickwu.ml/ stable main'
 
 ppa_repositories:
+  - 'ppa:ansible/ansible'
   - 'ppa:git-core/ppa'
   - 'ppa:fish-shell/release-2'
   - 'ppa:neovim-ppa/stable'
   - 'ppa:tista/adapta'
 
 user_pip2_packages:
-  # - pip
   - neovim
 
 user_pip3_packages:
@@ -81,9 +84,6 @@ user_pip3_packages:
   - neovim
   - pydf
   - pipenv
-  - pywinrm
-  - botocore
-  - boto3
 
 global_npm_packages:
   - neovim
@@ -111,9 +111,6 @@ non_standard_packages:
   - name: terraform
     url: 'https://releases.hashicorp.com/terraform/{{ terraform_version }}/terraform_{{ terraform_version }}_linux_amd64.zip'
     version: 0.11.7
-  - name: fzf
-    url: 'https://github.com/junegunn/fzf-bin/releases/download/0.17.5/fzf-0.17.5-linux_amd64.tgz'
-    version: 0.17.5
 
 straight_downloads:
   - name: 'plug.vim'
@@ -128,3 +125,5 @@ straight_downloads:
 #   - name: netrunner
 #     url: http://www.mysticbbs.com/downloads/nr20b186.rar
 #     version: 2.0b186
+
+# nvm_install_script: https://raw.githubusercontent.com/creationix/nvm/v0.33.11/install.sh
