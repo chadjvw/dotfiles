@@ -4,7 +4,6 @@ linked_dotfiles:
   - .bashrc
   - .gitconfig
   - .gitignore
-  - .vimrc
 linked_config_folders:
   - nvim
   - fish
