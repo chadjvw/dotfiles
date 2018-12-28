@@ -2,9 +2,7 @@ user_directories:
   - git
 omf_plugins:
   - z
-  - aws
-  - thefuck
-  - https://github.com/tanmng/omf-aws-asp.git
+  - git@github.com:mgoodness/plugin-asp.git
 fstab:
   - dir: /mnt/daily-builds
     src: '\\nas2\shared\daily builds'

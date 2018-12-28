@@ -11,6 +11,9 @@ set -Ux DISPLAY 127.0.0.1:0.0
 set -Ux GDK_THEME Adapta-Nokto-Eta
 set -Ux QT_STYLE_OVERRIDE Adapta-Nokto-Eta
 set -gx EDITOR nvim
+set -Ux AWS_EC2_METADATA_DISABLED 1
+
+test -x (which aws_completer); and complete --command aws --no-files --arguments '(begin; set --local --export COMP_SHELL fish; set --local --export COMP_LINE (commandline); aws_completer | sed \'s/ $//\'; end)'
 
 alias vi="nvim"
 alias vim="nvim"
@@ -26,6 +29,7 @@ alias grep="grep --color=auto"
 alias rg="rg -S"
 alias ..="cd .."
 alias ...="cd ../.."
+alias ....="cd ../../.."
 
 alias mkdir="mkdir -pv"
 alias mv="mv -v"
@@ -36,6 +40,7 @@ alias update="sudo apt update; sudo apt upgrade -y"
 alias df="df -H"
 alias du="du -ch"
 alias top="htop"
+alias df="pydf"
 
 alias netstat="sudo netstat -tulpn"
 
@@ -43,5 +48,3 @@ alias sudo="sudo "
 alias ping="ping -c 5"
 alias cloud="ssh cvanwyhe@cloud.powercosts.com"
 alias untar="tar -xvf"
-
-test -x (which aws_completer); and complete --command aws --no-files --arguments '(begin; set --local --export COMP_SHELL fish; set --local --export COMP_LINE (commandline); aws_completer | sed \'s/ $//\'; end)'
