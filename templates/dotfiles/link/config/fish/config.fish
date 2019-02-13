@@ -8,8 +8,6 @@ set fish_user_paths $fish_user_paths /home/{{ username }}/programs/pcicloud
 set -Ux DOCKER_HOST localhost:2375
 set -Ux JAVA_HOME /usr/lib/jvm/java-8-openjdk-amd64/jre
 set -Ux DISPLAY 127.0.0.1:0.0
-set -Ux GDK_THEME Adapta-Nokto-Eta
-set -Ux QT_STYLE_OVERRIDE Adapta-Nokto-Eta
 set -gx EDITOR nvim
 set -Ux AWS_EC2_METADATA_DISABLED 1
 
@@ -20,6 +18,10 @@ alias vim="nvim"
 alias svim="sudo nvim"
 alias svi="sudo nvim"
 alias edit="nvim"
+alias curl="http"
+
+alias ydt="yarn deploy --stage test --aws-profile tf --verbose"
+alias ydd="yarn deploy --stage dev --aws-profile ius-dev --verbose"
 
 alias clean-branches='git branch | grep -ve "master\$" | xargs git branch -D'
 
