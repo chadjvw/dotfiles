@@ -1,0 +1,54 @@
+#! /bin/sh
+
+export _JAVA_AWT_WM_NONREPARENTING=1
+
+# Kill all running applications before starting
+killall -9 sxhkd dunst polybar
+
+# Wait until the processes have been shut down
+while pgrep -u $UID -x polybar >/dev/null; do sleep 1; done
+
+bspc config remove_disabled_monitors  true
+bspc config remove_unplugged_monitors true
+
+sxhkd &
+polybar --reload left &
+polybar --reload center &
+polybar --reload right &
+dunst &
+xautolock -locker 'slock' -time 5 -notify 25 -corners ---- -cornerdelay 10 -cornersize 20 -notifier "notify-send 'Locking in 25 seconds.'" &
+
+feh --bg-fill /home/chad/Pictures/12yuoy7p8sr21.png
+
+# xrandr --output DisplayPort-1-2 --auto
+# xrandr --output DP-2 --auto
+# xrandr --output DVI-1-0 --auto
+# xrandr --output DVI-1-0 --right-of DP-2
+# xrandr --output DisplayPort-1-2 --left-of DP-2
+
+# left
+bspc monitor DisplayPort-1-2 -d 1 2 3
+# center
+bspc monitor DP-2 -d 4 5 6
+# right
+bspc monitor DVI-1-0 -d 7 8 9
+
+bspc config border_width         2
+bspc config window_gap          12
+
+bspc config split_ratio          0.50
+bspc config borderless_monocle   true
+bspc config gapless_monocle      true
+
+bspc config active_border_color '#82aaff'
+bspc config normal_border_color '#676e95'
+bspc config focused_border_color '#c3e88d'
+
+bspc rule -a jetbrains-toolbox state=floating
+bspc rule -a 'org.remmina.Remmina:remmina' state=floating
+bspc rule -a 'Yubico Authenticator' state=floating
+bpsc rule -a 'Firefox:Navigator' desktop=^1
+bspc rule -a HipChat desktop=^2
+bspc rule -a Slack desktop=^2
+bspc rule -a TelegramDesktop desktop=^3
+bspc rule -a Spotify desktop=^3

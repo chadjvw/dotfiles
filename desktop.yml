@@ -16,6 +16,9 @@
     - include: tasks/dotfiles.yml
       tags: dotfiles
 
+    - include: tasks/gui.yml
+      tags: gui
+
     - include: tasks/shell.yml
       tags: shell
 

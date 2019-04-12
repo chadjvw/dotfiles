@@ -94,6 +94,12 @@
       state: link
     with_items: '{{ linked_dotfiles }}'
 
+  - name: Update dotfile permissions
+    file:
+      path: '{{ dotfiles_home }}/link/{{ item }}'
+      mode: '+x'
+    with_items: '{{ executable_dotfiles }}'
+
   - name: Create config folder
     file:
       path: '/home/{{ username }}/.config'

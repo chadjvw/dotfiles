@@ -14,8 +14,8 @@ function fish_prompt
 
   set -l project
 
-  if echo (pwd) | grep -qEi "^/mnt/c/git"
-      set  project (echo (pwd) | sed "s#^/mnt/c/git/\\([^/]*\\).*#\\1#")
+  if echo (pwd) | grep -qEi "^/home/{{ username }}/git"
+      set  project (echo (pwd) | sed "s#^/home/{{ username }}/git/\\([^/]*\\).*#\\1#")
   else
       set  project "Terminal"
   end

@@ -4,6 +4,16 @@ linked_dotfiles:
   - .bashrc
   - .gitconfig
   - .gitignore
+  - .xinitrc
 linked_config_folders:
   - nvim
   - fish
+  - alacritty
+  - gtk-3.0
+  - bspwm
+  - sxhkd
+  - polybar
+  - dunst
+executable_dotfiles:
+  - bspwm/bspwmrc
+  - .xinitrc

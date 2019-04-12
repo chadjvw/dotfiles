@@ -7,3 +7,8 @@ fstab:
   - dir: /mnt/daily-builds
     src: '\\nas2\shared\daily builds'
     type: drvfs
+ibm_plex_fonts:
+  - IBM-Plex-Mono
+  - IBM-Plex-Sans-Condensed
+  - IBM-Plex-Sans
+  - IBM-Plex-Serif

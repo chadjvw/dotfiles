@@ -1,0 +1,53 @@
+---
+- name: Install GUI and WM apt packages
+  apt:
+    name: '{{ gui_apt_packages }}'
+
+# Avail in 2.8
+# - name: Install Snaps
+#   snap:
+#     name: '{{ snaps }}'
+
+- name: Install GUI debs
+  apt:
+    deb: '{{ item }}'
+  with_items: '{{ gui_debs }}'
+
+- block:
+  - name: Unarchive GUI things that just need unpacking
+    unarchive:
+      src: '{{ item }}'
+      dest: '/home/{{ username }}/programs/'
+      remote_src: true
+    with_items: '{{ archives_to_unpack }}'
+
+  - name: Clone repos for wm
+    git:
+      repo: '{{ item.git }}'
+      dest: '/home/{{ username }}/git/{{ item.name }}'
+      version: '{{ item.version }}'
+      refspec: 'refs/tags/{{ item.version }}:refs/tags/{{ item.version }}'
+      recursive: yes
+      update: yes
+      force: yes
+    with_items: '{{ gui_git_repos }}'
+
+  - name: Build Polybar
+    shell: 'cmake -DENABLE_PULSEAUDIO:BOOL=TRUE -DENABLE_NETWORK:BOOL=TRUE -DENABLE_CURL:BOOL=TRUE -DBUILD_IPC_MSG:BOOL=TRUE'
+    args:
+      chdir: '/home/{{ username }}/git/polybar'
+      executable: /bin/bash
+
+  - name: Make wm components
+    make:
+      chdir: '/home/{{ username }}/git/{{ item.name }}'
+    with_items: '{{ gui_git_repos }}'
+
+  become: yes
+  become_user: '{{ username }}'
+
+- name: Install wm components
+  make:
+    chdir: '/home/{{ username }}/git/{{ item.name }}'
+    target: install
+  with_items: '{{ gui_git_repos }}'
