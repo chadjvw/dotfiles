@@ -13,6 +13,14 @@
 #     state: mounted
 #   with_items: '{{ fstab }}'
 
+- name: Enable bitmap fonts
+  file:
+    path: '/etc/fonts/conf.d/70-no-bitmaps.conf'
+    state: absent
+
+- name: Update font cache
+  shell: 'fc-cache'
+
 - block:
     - name: Create misc user directories
       file:
@@ -20,26 +28,111 @@
         state: directory
       with_items: '{{ user_directories }}'
       
-    - name: Check Powerline Install
+    - name: Check Nerd Install
       stat:
         path: '/home/{{ username }}/.local/share/fonts/Hack-Bold.ttf'
-      register: font_install
+      register: nerd
 
-    - name: Clone Powerline fonts installer
+    - name: Check IBM Plex Install
+      stat:
+        path: '/home/{{ username }}/.local/share/fonts/IBMPlexMono-Medium.otf'
+      register: ibm_plex
+
+    - name: Check Siji Install
+      stat:
+        path: '/home/{{ username }}/.local/share/fonts/siji.pcf'
+      register: siji
+
+    - name: Check Termsyn Install
+      stat:
+        path: '/home/{{ username }}/.local/share/fonts/termsyn7x14b.psfu'
+      register: termsyn
+
+    - name: Clone Nerd fonts installer
       git:
-        repo: https://github.com/powerline/fonts.git
-        dest: '/home/{{ username }}/fonts'
-      when: font_install.stat.exists == False
+        repo: https://github.com/ryanoasis/nerd-fonts.git
+        dest: '/tmp/nerd-fonts'
+      when: nerd.stat.exists == False
 
-    - name: Run Powerline fonts installer
-      shell: '/home/{{ username }}/fonts/install.sh'
-      when: font_install.stat.exists == False
+    - name: Run Nerd fonts installer
+      shell: '/tmp/nerd-fonts/install.sh'
+      when: nerd.stat.exists == False
 
-    - name: Tidy up Powerline fonts installer
+    - name: Tidy up Nerd fonts installer
       file:
-        path: '/home/{{ username }}/fonts'
+        path: '/tmp/nerd-fonts'
         state: absent
-      when: font_install.stat.exists == False
+      when: nerd.stat.exists == False
+
+    - name: Clone Siji installer
+      git:
+        repo: https://github.com/stark/siji.git
+        dest: '/tmp/siji'
+      when: siji.stat.exists == False
+
+    - name: Run Siji installer
+      shell: './install.sh -d /home/{{ username }}/.local/share/fonts/'
+      args:
+        chdir: '/tmp/siji'
+      when: siji.stat.exists == False
+
+    - name: Tidy up Siji installer
+      file:
+        path: '/tmp/siji'
+        state: absent
+      when: siji.stat.exists == False
+
+    - name: Download Termsyn font
+      get_url:
+        url: http://downloads.sourceforge.net/project/termsyn/termsyn-1.8.7.tar.gz
+        dest: '/tmp/termsyn-1.8.7.tar.gz'
+      when: termsyn.stat.exists == False
+
+    - name: Unarchive Termsyn font
+      unarchive:
+        src: '/tmp/termsyn-1.8.7.tar.gz'
+        dest: '/tmp'
+      when: termsyn.stat.exists == False
+
+    - name: Install Termsyn font
+      copy:
+        src: '{{ item }}'
+        dest: '/home/{{ username }}/.local/share/fonts'
+      with_fileglob:
+        - '/tmp/termsyn-1.8.7/*.pcf'
+        - '/tmp/termsyn-1.8.7/*.psfu'
+      when: termsyn.stat.exists == False
+
+    - name: Tidy up Termsyn font
+      file:
+        path: '/tmp/termsyn-1.8.7'
+        state: absent
+      when: termsyn.stat.exists == False
+
+    - name: Tidy up Termsyn font tar
+      file:
+        path: '/tmp/termsyn-1.8.7.tar.gz'
+        state: absent
+      when: termsyn.stat.exists == False
+
+    - name: Clone IBM Plex fonts
+      git:
+        repo: https://github.com/IBM/plex.git
+        dest: '/tmp/ibm-plex-fonts'
+      when: ibm_plex.stat.exists == False
+
+    - name: Copy IBM Plex fonts
+      copy:
+        src: '/tmp/ibm-plex-fonts/{{ item }}/fonts/complete/otf/'
+        dest: '/home/{{ username }}/.local/share/fonts/'
+      when: ibm_plex.stat.exists == False
+      with_items: '{{ ibm_plex_fonts }}'
+
+    - name: Tidy up IBM Plex fonts
+      file:
+        path: '/tmp/ibm-plex-fonts'
+        state: absent
+      when: ibm_plex.stat.exists == False
 
     - name: Check OMF Installation
       stat:
