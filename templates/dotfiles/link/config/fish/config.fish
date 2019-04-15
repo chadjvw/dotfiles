@@ -28,6 +28,12 @@ set fish_pager_color_description yellow
 set fish_color_match --background=brmagenta
 set fish_color_history_current brgreen
 
+# Colored man pages
+set -g man_blink -o red
+set -g man_bold -o green
+set -g man_standout -b cyan
+set -g man_underline -u yellow
+
 set -Ux JAVA_HOME /usr/lib/jvm/java-8-openjdk-amd64
 set -Ux EDITOR nvim
 set -Ux AWS_EC2_METADATA_DISABLED 1

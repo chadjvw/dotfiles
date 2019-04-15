@@ -23,5 +23,5 @@ Sets up and configures all of the software I use for development on Ubuntu 18.10
 
 ### Run specific tasks
 
-Redeploy dotfiles only: `ansible-playbook -i inventory desktop.yml -b -K --tags "dotfiles"`
-Redeploy dotfiles and GUI: `ansible-playbook -i inventory desktop.yml -b -K --tags "dotfiles,gui"`
+- Redeploy dotfiles only: `ansible-playbook -i inventory desktop.yml -b -K --tags "dotfiles"`
+- Redeploy dotfiles and GUI: `ansible-playbook -i inventory desktop.yml -b -K --tags "dotfiles,gui"`

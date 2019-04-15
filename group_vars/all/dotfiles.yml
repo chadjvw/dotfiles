@@ -1,4 +1,3 @@
----
 linked_dotfiles:
   - .bash_profile
   - .bashrc
@@ -17,3 +16,5 @@ linked_config_folders:
 executable_dotfiles:
   - bspwm/bspwmrc
   - .xinitrc
+  - polybar/scripts/powermenu
+  - polybar/scripts/powermenu-alt
