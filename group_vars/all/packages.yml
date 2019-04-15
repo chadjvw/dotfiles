@@ -65,7 +65,6 @@ ubuntu_keyserver_keys:
   - 59FDA1CE1B84B3FAD89366C027557F056DC33CA5 # fish shell
   - 9DBB0BE9366964F134855E2255F96FCF8231B6DD # neovim
   - 3653E21064B19D134466702E43D5C49532CBA1A9 # yubikey
-  - 343FC7470ABA9C923C497A4E8938CE95D36FE61D # awesome
 
 apt_repositories:
   - 'deb https://deb.nodesource.com/node_8.x {{ ubuntu_distribution }} main'
@@ -93,6 +92,8 @@ user_pip3_packages:
   - pipenv
   - awslogs
   - httpie
+  - cfn-lint
+  - yamllint
 
 global_npm_packages:
   - neovim
@@ -116,11 +117,10 @@ awsvault_version: 4.5.1
 debs:
   - https://github.com/BurntSushi/ripgrep/releases/download/0.10.0/ripgrep_0.10.0_amd64.deb
   - https://github.com/cjbassi/gotop/releases/download/3.0.0/gotop_3.0.0_linux_amd64.deb
-  - https://downloads.slack-edge.com/linux_releases/slack-desktop-3.3.8-amd64.deb
 
 # stuff that just needs unpacking
 archives_to_unpack:
-  - https://download.jetbrains.com/toolbox/jetbrains-toolbox-1.14.5037.tar.gz
+#   - https://download.jetbrains.com/toolbox/jetbrains-toolbox-1.14.5037.tar.gz
 
 # random stuff in zips/tars/gz etc
 non_standard_packages:

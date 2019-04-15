@@ -3,16 +3,32 @@ call plug#begin('/home/{{ username }}/.local/share/nvim/plugged')
 Plug 'tpope/vim-sensible'
 Plug 'vim-syntastic/syntastic'
 Plug 'tpope/vim-fugitive'
-Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
+Plug 'itchyny/lightline.vim'
 Plug 'sheerun/vim-polyglot'
 Plug 'dracula/vim', { 'as': 'dracula' }
 Plug 'haishanh/night-owl.vim'
+Plug 'drewtempelmeyer/palenight.vim'
 call plug#end()
 " 
 " Colors 
-syntax enable           " enable syntax processing
-colorscheme night-owl
+if (has("nvim"))
+  "For Neovim 0.1.3 and 0.1.4 < https://github.com/neovim/neovim/pull/2198 >
+  let $NVIM_TUI_ENABLE_TRUE_COLOR=1
+endif
+
+" lightline 
+set laststatus=2
+set noshowmode
+let g:lightline = {'colorscheme': 'palenight' }
+
+syntax enable  " enable syntax processing  
+
+set background=dark
+colorscheme palenight
+
+" Italics for my favorite color scheme
+let g:palenight_terminal_italics=1
+
 if (has("termguicolors"))
  set termguicolors
 endif
@@ -73,9 +89,9 @@ augroup configgroup
     autocmd BufEnter *.cls setlocal filetype=java
     autocmd BufEnter *.zsh-theme setlocal filetype=zsh
     autocmd BufEnter Makefile setlocal noexpandtab
-    autocmd BufEnter *.sh,*.js,*.ts setlocal tabstop=2
-    autocmd BufEnter *.sh,*.js,*.ts setlocal shiftwidth=2
-    autocmd BufEnter *.sh,*.js,*.ts setlocal softtabstop=2
+    autocmd BufEnter *.sh,*.js,*.ts,*.yml,*.yaml setlocal tabstop=2
+    autocmd BufEnter *.sh,*.js,*.ts,*.yml,*.yaml setlocal shiftwidth=2
+    autocmd BufEnter *.sh,*.js,*.ts,*.yml,*.yaml setlocal softtabstop=2
     autocmd BufEnter *.py setlocal tabstop=4
     autocmd BufEnter *.md setlocal ft=markdown
     autocmd BufEnter *.go setlocal noexpandtab
@@ -89,10 +105,5 @@ set backupskip=/tmp/*,/private/tmp/*
 set directory=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
 set writebackup
 " 
-
-" airline 
-set laststatus=2
-let g:airline_powerline_fonts = 1
-" let g:airline_theme='light'
 " 
 " vim:foldmethod=marker:foldlevel=0

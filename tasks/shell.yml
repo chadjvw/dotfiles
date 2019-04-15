@@ -85,13 +85,13 @@
     - name: Download Termsyn font
       get_url:
         url: http://downloads.sourceforge.net/project/termsyn/termsyn-1.8.7.tar.gz
-        dest: '/tmp/termsyn-1.8.7.tar.gz'
+        dest: '/tmp/termsyn-1.8.7/termsyn-1.8.7.tar.gz'
       when: termsyn.stat.exists == False
 
     - name: Unarchive Termsyn font
       unarchive:
-        src: '/tmp/termsyn-1.8.7.tar.gz'
-        dest: '/tmp'
+        src: '/tmp/termsyn-1.8.7/termsyn-1.8.7.tar.gz'
+        dest: '/tmp/termsyn-1.8.7'
       when: termsyn.stat.exists == False
 
     - name: Install Termsyn font
@@ -106,12 +106,6 @@
     - name: Tidy up Termsyn font
       file:
         path: '/tmp/termsyn-1.8.7'
-        state: absent
-      when: termsyn.stat.exists == False
-
-    - name: Tidy up Termsyn font tar
-      file:
-        path: '/tmp/termsyn-1.8.7.tar.gz'
         state: absent
       when: termsyn.stat.exists == False
 
