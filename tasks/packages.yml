@@ -11,10 +11,6 @@
     id: '{{ item }}'
   with_items: '{{ ubuntu_keyserver_keys }}'
 
-# - name: Install signing keys from ubuntu keyserver via curl
-#   command: 'curl -sL https://keyserver.ubuntu.com/pks/lookup?op=get&search=0x{{ item }} | sudo apt-key add'
-#   with_items: '{{ ubuntu_keyserver_keys }}'
-
 - name: Add apt package sources
   apt_repository:
     repo: '{{ item }}'
@@ -83,12 +79,12 @@
       state: latest
       executable: pip3
 
-  - name: Unarchive things that just need unpacking
-    unarchive:
-      src: '{{ item }}'
-      dest: '/home/{{ username }}/programs/'
-      remote_src: true
-    with_items: '{{ archives_to_unpack }}'
+  # - name: Unarchive things that just need unpacking
+  #   unarchive:
+  #     src: '{{ item }}'
+  #     dest: '/home/{{ username }}/programs/'
+  #     remote_src: true
+  #   with_items: '{{ archives_to_unpack }}'
 
   - name: Create directories for archive packages
     file:
