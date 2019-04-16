@@ -1,12 +1,12 @@
 ---
+- name: Add GUI ppa repositories
+  apt_repository:
+    repo: '{{ item }}'
+  with_items: '{{ gui_ppa_repositories }}'
+
 - name: Install GUI and WM apt packages
   apt:
     name: '{{ gui_apt_packages }}'
-
-# Avail in 2.8
-# - name: Install Snaps
-#   snap:
-#     name: '{{ snaps }}'
 
 - name: Install GUI debs
   apt:
@@ -14,12 +14,16 @@
   with_items: '{{ gui_debs }}'
 
 - block:
+  - name: Install user Flatpack Apps
+    shell: 'flatpak install --noninteractive flathub {{ item }}'
+    with_items: '{{ flatpack_apps }}'
+
   - name: Unarchive GUI things that just need unpacking
     unarchive:
       src: '{{ item }}'
       dest: '/home/{{ username }}/programs/'
       remote_src: true
-    with_items: '{{ archives_to_unpack }}'
+    with_items: '{{ gui_archives_to_unpack }}'
 
   - name: Clone repos for wm
     git:

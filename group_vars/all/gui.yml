@@ -49,19 +49,23 @@ gui_apt_packages:
   - libpango1.0-dev
   - libgtk-3-dev
   - libxdg-basedir-dev
+  - paper-icon-theme
+  - materia-gtk-theme
 
-snaps:
-  - hiri
-  - bitwarden
-  - spotify
-  - telegram-desktop
-  - insomnia
+flatpack_apps:
+  - com.bitwarden.desktop
+  - com.spotify.Client
+  - org.telegram.desktop
+  - org.gtk.Gtk3theme.Materia
 
 gui_debs:
   - https://downloads.slack-edge.com/linux_releases/slack-desktop-3.3.8-amd64.deb
 
 gui_archives_to_unpack:
   - https://download.jetbrains.com/toolbox/jetbrains-toolbox-1.14.5037.tar.gz
+
+gui_ppa_repositories:
+  - 'ppa:snwh/ppa'
 
 gui_git_repos:
   - name: 'bspwm'

@@ -37,6 +37,7 @@ apt_packages:
   - tmux
   - figlet
   - net-tools
+  - flatpak
 
 apt_packages_to_remove:
   - docker.io
@@ -80,6 +81,7 @@ ppa_repositories:
   - 'ppa:fish-shell/release-3'
   - 'ppa:neovim-ppa/stable'
   - 'ppa:yubico/stable'
+  - 'ppa:alexlarsson/flatpak'
 
 user_pip2_packages:
   - neovim
@@ -115,11 +117,11 @@ terragrunt_version: 0.14.11
 awsvault_version: 4.5.1
 
 debs:
-  - https://github.com/BurntSushi/ripgrep/releases/download/0.10.0/ripgrep_0.10.0_amd64.deb
+  - https://github.com/BurntSushi/ripgrep/releases/download/11.0.1/ripgrep_11.0.1_amd64.deb
   - https://github.com/cjbassi/gotop/releases/download/3.0.0/gotop_3.0.0_linux_amd64.deb
 
 # stuff that just needs unpacking
-archives_to_unpack:
+# archives_to_unpack:
 #   - https://download.jetbrains.com/toolbox/jetbrains-toolbox-1.14.5037.tar.gz
 
 # random stuff in zips/tars/gz etc
