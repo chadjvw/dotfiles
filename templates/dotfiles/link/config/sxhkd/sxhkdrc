@@ -8,7 +8,7 @@ super + Return
 
 # program launcher
 super + @space
-	rofi -show run
+	rofi -combi-modi run,drun,window -show combi -modi combi
 
 # lock screen
 super + l

@@ -13,6 +13,7 @@ linked_config_folders:
   - sxhkd
   - polybar
   - dunst
+  - rofi
 executable_dotfiles:
   - bspwm/bspwmrc
   - .xinitrc
