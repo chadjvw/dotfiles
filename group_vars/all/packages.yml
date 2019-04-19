@@ -38,6 +38,7 @@ apt_packages:
   - figlet
   - net-tools
   - flatpak
+  - ranger
 
 apt_packages_to_remove:
   - docker.io
@@ -68,7 +69,7 @@ ubuntu_keyserver_keys:
   - 3653E21064B19D134466702E43D5C49532CBA1A9 # yubikey
 
 apt_repositories:
-  - 'deb https://deb.nodesource.com/node_8.x {{ ubuntu_distribution }} main'
+  - 'deb https://deb.nodesource.com/node_8.x cosmic main'
   - 'deb https://dl.yarnpkg.com/debian/ stable main'
   - 'deb [arch=amd64] https://download.docker.com/linux/ubuntu {{ ubuntu_distribution }} stable'
   - 'deb [arch=amd64] https://packages.microsoft.com/repos/vscode stable main'

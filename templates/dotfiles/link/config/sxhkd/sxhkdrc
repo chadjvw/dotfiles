@@ -8,10 +8,10 @@ super + Return
 
 # program launcher
 super + @space
-	rofi -combi-modi run,drun,window -show combi -modi combi
+	rofi -combi-modi drun,ssh,run,window -show combi -modi combi
 
 # lock screen
-super + l
+super + shift + l
 	slock
 
 # make sxhkd reload its configuration files:

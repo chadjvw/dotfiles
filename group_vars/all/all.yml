@@ -1,7 +1,7 @@
 full_name: Chad Van Wyhe
 username: chad
 email: chadjvw@gmail.com
-ubuntu_distribution: cosmic
+ubuntu_distribution: disco
 update_all_packages: false
 install_gui: true
 compile_alacritty: false

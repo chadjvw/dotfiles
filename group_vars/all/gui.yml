@@ -57,9 +57,10 @@ flatpack_apps:
   - com.spotify.Client
   - org.telegram.desktop
   - org.gtk.Gtk3theme.Materia
+  - com.slack.Slack
 
-gui_debs:
-  - https://downloads.slack-edge.com/linux_releases/slack-desktop-3.3.8-amd64.deb
+# gui_debs:
+#   - https://downloads.slack-edge.com/linux_releases/slack-desktop-3.3.8-amd64.deb
 
 gui_archives_to_unpack:
   - https://download.jetbrains.com/toolbox/jetbrains-toolbox-1.14.5037.tar.gz

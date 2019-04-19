@@ -8,10 +8,10 @@
   apt:
     name: '{{ gui_apt_packages }}'
 
-- name: Install GUI debs
-  apt:
-    deb: '{{ item }}'
-  with_items: '{{ gui_debs }}'
+# - name: Install GUI debs
+#   apt:
+#     deb: '{{ item }}'
+#   with_items: '{{ gui_debs }}'
 
 - block:
   - name: Install user Flatpack Apps

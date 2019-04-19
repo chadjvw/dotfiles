@@ -6,7 +6,7 @@ export _JAVA_AWT_WM_NONREPARENTING=1
 killall -9 sxhkd dunst polybar
 
 # Wait until the processes have been shut down
-while pgrep -u $UID -x polybar >/dev/null; do sleep 1; done
+while pgrep -u $UID -x polybar > /dev/null; do sleep 1; done
 
 bspc config remove_disabled_monitors  true
 bspc config remove_unplugged_monitors true
@@ -18,13 +18,7 @@ polybar --reload right &
 dunst &
 xautolock -locker 'slock' -time 5 -notify 25 -corners ---- -cornerdelay 10 -cornersize 20 -notifier "notify-send 'Locking in 25 seconds.'" &
 
-feh --bg-fill /home/chad/Pictures/12yuoy7p8sr21.png
-
-# xrandr --output DisplayPort-1-2 --auto
-# xrandr --output DP-2 --auto
-# xrandr --output DVI-1-0 --auto
-# xrandr --output DVI-1-0 --right-of DP-2
-# xrandr --output DisplayPort-1-2 --left-of DP-2
+feh --bg-fill /home/{{ username }}/Pictures/12yuoy7p8sr21.png
 
 # left
 bspc monitor DisplayPort-1-2 -d 1 2 3
@@ -45,10 +39,8 @@ bspc config normal_border_color '#676e95'
 bspc config focused_border_color '#c3e88d'
 
 bspc rule -a jetbrains-toolbox state=floating
-bspc rule -a 'org.remmina.Remmina:remmina' state=floating
 bspc rule -a 'Yubico Authenticator' state=floating
 bpsc rule -a 'Firefox:Navigator' desktop=^1
 bspc rule -a HipChat desktop=^2
 bspc rule -a Slack desktop=^2
-bspc rule -a TelegramDesktop desktop=^3
 bspc rule -a Spotify desktop=^3

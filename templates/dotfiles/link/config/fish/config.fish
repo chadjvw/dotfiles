@@ -4,7 +4,7 @@ set fish_user_paths $fish_user_paths {{ file.path }}
 set fish_user_paths $fish_user_paths /home/{{ username }}/.dotfiles/source
 set fish_user_paths $fish_user_paths /home/{{ username }}/.local/bin
 set fish_user_paths $fish_user_paths /home/{{ username }}/programs/pcicloud
-set fish_user_paths $fish_user_paths /home/{{ username }}/.cargo/env
+set fish_user_paths $fish_user_paths /home/{{ username }}/.cargo/bin
 
 # Override fish colors
 set fish_color_normal normal
