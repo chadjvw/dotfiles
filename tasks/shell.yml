@@ -1,18 +1,4 @@
 ---
-# - name: Create mount dirs
-#   file:
-#     path: '{{ item.dir }}'
-#     state: directory
-#   with_items: '{{ fstab }}'
-
-# - name: Mount directories
-#   mount:
-#     fstype: '{{ item.type }}'
-#     path: '{{ item.dir }}'
-#     src: '{{ item.src }}'
-#     state: mounted
-#   with_items: '{{ fstab }}'
-
 - name: Enable bitmap fonts
   file:
     path: '/etc/fonts/conf.d/70-no-bitmaps.conf'
@@ -127,6 +113,28 @@
         path: '/tmp/ibm-plex-fonts'
         state: absent
       when: ibm_plex.stat.exists == False
+
+    - name: Check Dein installation
+      stat:
+        path: /home/{{ username }}/.cache/dein/repos/github.com/Shougo/dein.vim
+      register: dein
+
+    - name: Get Dein installer
+      get_url:
+        url: https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh
+        dest: /tmp/dein-installer.sh
+        mode: 0770
+      when: dein.stat.exists == False
+
+    - name: Install Dein
+      shell: '/tmp/dein-installer.sh /home/{{ username }}/.cache/dein'
+      when: dein.stat.exists == False
+
+    - name: Cleanup Dein installer
+      file:
+        path: /tmp/dein-installer.sh
+        state: absent
+      when: dein.stat.exists == False
 
     - name: Check OMF Installation
       stat:

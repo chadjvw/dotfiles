@@ -61,6 +61,12 @@
     state: latest
   with_items: '{{ global_npm_packages }}'
 
+- name: Install ruby gems
+  gem:
+    name: '{{ item }}'
+    state: latest
+  with_items: '{{ ruby_gems }}'
+
 ## random stuff that requires custom hacking as the user
 - block:
   - name: Install pip2 packages for user
