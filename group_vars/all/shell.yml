@@ -4,10 +4,6 @@ omf_plugins:
   - z
   - git@github.com:mgoodness/plugin-asp.git
   - git@github.com:decors/fish-colored-man.git
-fstab:
-  - dir: /mnt/daily-builds
-    src: '\\nas2\shared\daily builds'
-    type: drvfs
 ibm_plex_fonts:
   - IBM-Plex-Mono
   - IBM-Plex-Sans-Condensed

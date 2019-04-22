@@ -1,14 +1,39 @@
-" Vim Plug 
-call plug#begin('/home/{{ username }}/.local/share/nvim/plugged')
-Plug 'tpope/vim-sensible'
-Plug 'vim-syntastic/syntastic'
-Plug 'tpope/vim-fugitive'
-Plug 'itchyny/lightline.vim'
-Plug 'sheerun/vim-polyglot'
-Plug 'dracula/vim', { 'as': 'dracula' }
-Plug 'haishanh/night-owl.vim'
-Plug 'drewtempelmeyer/palenight.vim'
-call plug#end()
+if &compatible
+  set nocompatible
+endif
+
+" Add the dein installation directory into runtimepath
+set runtimepath+=/home/{{ username }}/.cache/dein/repos/github.com/Shougo/dein.vim
+
+if dein#load_state('/home/{{ username }}/.cache/dein')
+  call dein#begin('/home/{{ username }}/.cache/dein')
+
+  call dein#add('/home/{{ username }}/.cache/dein/repos/github.com/Shougo/dein.vim')
+  call dein#add('Shougo/deoplete.nvim')
+  call dein#add('tpope/vim-sensible')
+  call dein#add('vim-syntastic/syntastic')
+  call dein#add('airblade/vim-gitgutter')
+  call dein#add('editorconfig/editorconfig-vim')
+  call dein#add('junegunn/fzf')
+  call dein#add('junegunn/fzf.vim')
+  call dein#add('scrooloose/nerdtree')
+  call dein#add('tpope/vim-surround')
+  call dein#add('w0rp/ale')
+  call dein#add('itchyny/lightline.vim')
+  call dein#add('sheerun/vim-polyglot')
+  call dein#add('dracula/vim')
+  call dein#add('haishanh/night-owl.vim')
+  call dein#add('drewtempelmeyer/palenight.vim')
+
+  if !has('nvim')
+    call dein#add('roxma/nvim-yarp')
+    call dein#add('roxma/vim-hug-neovim-rpc')
+  endif
+
+  call dein#end()
+  call dein#save_state()
+endif
+
 " 
 " Colors 
 if (has("nvim"))

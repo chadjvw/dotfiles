@@ -39,6 +39,7 @@ apt_packages:
   - net-tools
   - flatpak
   - ranger
+  - ruby
 
 apt_packages_to_remove:
   - docker.io
@@ -83,6 +84,9 @@ ppa_repositories:
   - 'ppa:neovim-ppa/stable'
   - 'ppa:yubico/stable'
   - 'ppa:alexlarsson/flatpak'
+
+ruby_gems:
+  - lolcat
 
 user_pip2_packages:
   - neovim
@@ -132,9 +136,6 @@ non_standard_packages:
     version: 0.11.7
 
 straight_downloads:
-  - name: 'plug.vim'
-    url: 'https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
-    dir: '/home/{{ username }}/.local/share/nvim/site/autoload'
   - name: terragrunt
     url: 'https://github.com/gruntwork-io/terragrunt/releases/download/v{{ terragrunt_version }}/terragrunt_linux_amd64'
     dir: '/home/{{ username }}/programs/terragrunt-{{ terragrunt_version }}'
