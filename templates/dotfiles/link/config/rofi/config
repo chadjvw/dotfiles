@@ -34,13 +34,14 @@ rofi.color-urgent:  #444267, #F07178, #444267, #444267, #F07178
 
 rofi.show-icons:            false
 rofi.modi:                  drun,run,window,ssh
-rofi.lines:                 7
+rofi.lines:                 15
 rofi.line-padding:          10
 rofi.matching:              fuzzy
 rofi.bw:                    0
 rofi.padding:               0
 rofi.separator-style:       none
 rofi.hide-scrollbar:        true
+rofi.sort                   true
 rofi.line-margin:           0
 rofi.font:                  IBM Plex Mono 10
 rofi.theme:                 ./base16-material-palenight.rasi

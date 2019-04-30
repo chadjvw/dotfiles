@@ -10,13 +10,13 @@ set fish_user_paths $fish_user_paths /home/{{ username }}/.cargo/bin
 set fish_color_normal normal
 set fish_color_quote bryellow
 set fish_color_autosuggestion brblack
-set fish_color_command cyan
+set fish_color_command brwhite
 set fish_color_comment yellow
 set fish_color_end brwhite
 set fish_color_error brred
 set fish_color_cancel brred
 set fish_color_operator green
-set fish_color_param brwhite
+set fish_color_param cyan
 set fish_color_escape red
 set fish_color_redirection magenta
 set fish_color_cwd magenta
@@ -66,6 +66,7 @@ alias mkdir="mkdir -pv"
 alias mv="mv -v"
 alias rm="rm -vi"
 alias cp="cp -v"
+alias rcp="rsync --progress --size-only --inplace --verbose"
 
 alias update="sudo apt update; sudo apt upgrade -y; flatpak update -y"
 alias df="df -H"

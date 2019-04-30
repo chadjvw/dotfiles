@@ -1,8 +1,11 @@
-# Ansible Playbook - Ubuntu Dev Setup
+# Dots, dots, more dots
 
-This is an [Ansible](https://www.ansible.com/) playbook to setup my [dotfiles](https://github.com/chadjvw/dotfiles) and development environment.
+An [Ansible](https://www.ansible.com/) playbook to setup my [dotfiles](https://github.com/chadjvw/dotfiles) and development environment.
 
-Sets up and configures all of the software I use for development on Ubuntu 18.10.
+## TODO
+
+* Make it smarter and work with multiple distros
+  * https://serverfault.com/questions/587727/how-to-unify-package-installation-tasks-in-ansible
 
 ## What It Does
 
@@ -11,7 +14,7 @@ Sets up and configures all of the software I use for development on Ubuntu 18.10
   - Super-custom git config
   - Sexy fish prompt
   - Lots of useful shortcuts
-- Sets up nvim, vim-plug and plugins
+- Sets up nvim, dein.vim and plugins
 - Installs proper fonts
 - Installs window mangers, terminal, bars, etc
 

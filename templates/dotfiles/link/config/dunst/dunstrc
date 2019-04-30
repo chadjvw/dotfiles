@@ -75,22 +75,22 @@
 
 [urgency_low]
     msg_urgency = low
-    background = "#444267"
-    foreground = "#676E95"
+    background = "#32374D"
+    foreground = "#c792ea"
     frame_color = "#82AAFF"
     timeout = 10
 
 [urgency_normal]
     msg_urgency = normal
     background = "#32374D"
-    foreground = "#959DCB"
+    foreground = "#89ddff"
     frame_color = "#c3e88d"
     timeout = 10
 
 [urgency_critical]
     msg_urgency = critical
     background = "#32374D"
-    foreground = "#959DCB"
+    foreground = "#f07178"
     frame_color = "#F07178"
     timeout = 0
 

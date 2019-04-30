@@ -51,6 +51,11 @@ gui_apt_packages:
   - libxdg-basedir-dev
   - paper-icon-theme
   - materia-gtk-theme
+  - ninja-build
+  - meson
+  - libev-dev
+  - libxcb-damage0-dev
+  - libconfig++-dev
 
 flatpack_apps:
   - com.bitwarden.desktop
@@ -72,15 +77,20 @@ gui_git_repos:
   - name: 'bspwm'
     git: https://github.com/baskerville/bspwm.git
     version: 0.9.7
+    make_install: true
   - name: 'sxhkd'
     git: https://github.com/baskerville/sxhkd.git
     version: 0.6.0
+    make_install: true
   - name: 'polybar'
     git: https://github.com/jaagr/polybar.git
     version: 3.3.1
+    make_install: true
   - name: 'dunst'
     git: https://github.com/dunst-project/dunst.git
     version: v1.4.0
-  # - name: 'rofi'
-  #   git: https://github.com/davatorium/rofi.git
-  #   version: 1.5.2
+    make_install: true
+  - name: 'compton'
+    git: https://github.com/yshui/compton.git
+    version: v6.2
+    make_install: false
