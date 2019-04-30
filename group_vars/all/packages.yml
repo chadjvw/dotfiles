@@ -40,6 +40,7 @@ apt_packages:
   - flatpak
   - ranger
   - ruby
+  - dos2unix
 
 apt_packages_to_remove:
   - docker.io

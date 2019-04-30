@@ -112,5 +112,8 @@
       state: link
     with_items: '{{ linked_config_folders }}'
 
+  - name: Install/update neovim packages
+    shell: 'nvim -N -u /home/{{ username }}/.config/nvim/init.vim -c "try | call dein#update() | finally | qall! | endtry" -V1 -es'
+
   become: yes
   become_user: '{{ username }}'

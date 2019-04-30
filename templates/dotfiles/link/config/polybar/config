@@ -151,7 +151,7 @@ font-2 = "xos4 Terminus:size=12;2"
 ;cpu_bar memory_bar filesystem_bar mpd_bar 
 ;volume brightness battery_bar 
 
-modules-left = bspwm
+modules-left = bspwm spotify
 modules-center = title
 modules-right = alsa memory cpu wired-network temperature date sysmenu
 

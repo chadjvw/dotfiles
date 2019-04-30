@@ -11,6 +11,8 @@ if dein#load_state('/home/{{ username }}/.cache/dein')
   call dein#add('/home/{{ username }}/.cache/dein/repos/github.com/Shougo/dein.vim')
   call dein#add('Shougo/deoplete.nvim')
   call dein#add('tpope/vim-sensible')
+  call dein#add('tpope/vim-surround')
+  call dein#add('tpope/vim-eunuch')
   call dein#add('vim-syntastic/syntastic')
   call dein#add('airblade/vim-gitgutter')
   call dein#add('editorconfig/editorconfig-vim')
@@ -122,6 +124,17 @@ augroup configgroup
     autocmd BufEnter *.go setlocal noexpandtab
     autocmd BufEnter *.avsc setlocal ft=json
 augroup END
+"
+" NerdTree
+" open a NERDTree automatically when vim starts up
+autocmd vimenter * NERDTree
+" open a NERDTree automatically when vim starts up if no files were specified
+autocmd StdinReadPre * let s:std_in=1
+autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
+" open NERDTree automatically when vim starts up on opening a directory
+autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in") | exe 'NERDTree' argv()[0] | wincmd p | ene | exe 'cd '.argv()[0] | endif
+" lose vim if the only window left open is a NERDTree
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 " 
 " Backups 
 set backup

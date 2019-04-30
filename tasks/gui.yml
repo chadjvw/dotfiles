@@ -3,9 +3,10 @@
   apt_repository:
     repo: '{{ item }}'
   with_items: '{{ gui_ppa_repositories }}'
+  when: '{{ ansible_distribution }} is Ubuntu'
 
-- name: Install GUI and WM apt packages
-  apt:
+- name: Install GUI and WM packages
+  package:
     name: '{{ gui_apt_packages }}'
 
 # - name: Install GUI debs
@@ -42,10 +43,17 @@
       chdir: '/home/{{ username }}/git/polybar'
       executable: /bin/bash
 
+  - name: Build Compton
+    shell: 'meson --buildtype=release . build'
+    args:
+      chdir: '/home/{{ username }}/git/compton'
+      executable: /bin/bash
+
   - name: Make wm components
     make:
       chdir: '/home/{{ username }}/git/{{ item.name }}'
     with_items: '{{ gui_git_repos }}'
+    when: item.make_install == true
 
   become: yes
   become_user: '{{ username }}'
@@ -55,3 +63,10 @@
     chdir: '/home/{{ username }}/git/{{ item.name }}'
     target: install
   with_items: '{{ gui_git_repos }}'
+  when: item.make_install == true
+
+- name: Install Compton
+  shell: 'ninja -C build install'
+  args:
+    chdir: '/home/{{ username }}/git/compton'
+    executable: /bin/bash

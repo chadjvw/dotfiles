@@ -4,32 +4,37 @@
     url: '{{ item }}'
     state: present
   with_items: '{{ apt_signing_keys }}'
+  when: '{{ ansible_distribution }} is Ubuntu'
 
 - name: Install signing keys from ubuntu keyserver
   apt_key:
     keyserver: keyserver.ubuntu.com
     id: '{{ item }}'
   with_items: '{{ ubuntu_keyserver_keys }}'
+  when: '{{ ansible_distribution }} is Ubuntu'
 
 - name: Add apt package sources
   apt_repository:
     repo: '{{ item }}'
     state: present
   with_items: '{{ apt_repositories }}'
+  when: '{{ ansible_distribution }} is Ubuntu'
 
 - name: Add ppa repositories
   apt_repository:
     repo: '{{ item }}'
   with_items: '{{ ppa_repositories }}'
+  when: '{{ ansible_distribution }} is Ubuntu'
 
 - name: Update apt cache
   apt:
     update_cache: yes
     cache_valid_time: 3600
   changed_when: false
+  when: '{{ ansible_distribution }} is Ubuntu'
 
 - name: Remove apt packages
-  apt:
+  package:
     name: '{{ apt_packages_to_remove }}'
     state: absent
 
@@ -39,10 +44,10 @@
     autoclean: yes
     autoremove: yes
     state: latest
-  when: update_all_packages == True
+  when: 'update_all_packages == True and {{ ansible_distribution }} is Ubuntu'
 
 - name: Install apt packages
-  apt:
+  package:
     name: '{{ apt_packages }}'
 
 - name: Add Flathub repository
@@ -52,6 +57,7 @@
   apt:
     deb: '{{ item }}'
   with_items: '{{ debs }}'
+  when: '{{ ansible_os_family }} is Debian'
 
 - name: Install global npm packages
   npm:

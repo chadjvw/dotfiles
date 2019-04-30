@@ -14,8 +14,10 @@ linked_config_folders:
   - polybar
   - dunst
   - rofi
+  - compton
 executable_dotfiles:
   - bspwm/bspwmrc
   - .xinitrc
   - polybar/scripts/powermenu
   - polybar/scripts/powermenu-alt
+  - polybar/scripts/spotify_status.py
