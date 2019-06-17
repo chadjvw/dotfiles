@@ -1,3 +1,15 @@
+#       ___                     ___           ___     
+#      /  /\      ___          /  /\         /__/\    
+#     /  /:/_    /  /\        /  /:/_        \  \:\   
+#    /  /:/ /\  /  /:/       /  /:/ /\        \__\:\  
+#   /  /:/ /:/ /__/::\      /  /:/ /::\   ___ /  /::\ 
+#  /__/:/ /:/  \__\/\:\__  /__/:/ /:/\:\ /__/\  /:/\:\
+#  \  \:\/:/      \  \:\/\ \  \:\/:/~/:/ \  \:\/:/__\/
+#   \  \::/        \__\::/  \  \::/ /:/   \  \::/     
+#    \  \:\        /__/:/    \__\/ /:/     \  \:\     
+#     \  \:\       \__\/       /__/:/       \  \:\    
+#      \__\/                   \__\/         \__\/    
+
 {% for file in manual_programs.files %}
 set fish_user_paths $fish_user_paths {{ file.path }}
 {% endfor %}
@@ -32,13 +44,13 @@ set -g man_bold -o green
 set -g man_standout red
 set -g man_underline -u yellow
 
-set -Ux JAVA_HOME /usr/lib/jvm/java-8-openjdk-amd64
+set -Ux JAVA_HOME /usr/lib/jvm/java-8-openjdk
 set -Ux EDITOR nvim
 set -Ux AWS_EC2_METADATA_DISABLED 1
-set -U SXHKD_SHELL /bin/bash
-set -U XDG_DATA_HOME "$HOME/.local/share"
-set -U XDG_CONFIG_HOME "$HOME/.config"
-set -U XDG_DATA_DIRS "$HOME/.local/share/flatpak/exports/share:/var/lib/flatpak/exports/share:/usr/local/share:/usr/share"
+set -Ux SXHKD_SHELL /bin/bash
+set -Ux XDG_DATA_HOME "$HOME/.local/share"
+set -Ux XDG_CONFIG_HOME "$HOME/.config"
+set -Ux XDG_DATA_DIRS "$HOME/.local/share/flatpak/exports/share:/var/lib/flatpak/exports/share:/usr/local/share:/usr/share"
 
 test -x (which aws_completer); and complete --command aws --no-files --arguments '(begin; set --local --export COMP_SHELL fish; set --local --export COMP_LINE (commandline); aws_completer | sed \'s/ $//\'; end)'
 
@@ -72,9 +84,12 @@ alias update="sudo apt update; sudo apt upgrade -y; flatpak update -y"
 alias df="df -H"
 alias du="du -ch"
 alias top="gotop"
-alias df="pydf"
+alias find="fd"
+alias figlet="figlet -f isometric3"
 
-alias netstat="sudo netstat -tulpn"
+alias netstat="ss -at"
+alias sysd="sudo systemctl"
+alias cloudssh="ssh -i ~/.ssh/PciCloudKeyPair.pem"
 
 alias sudo="sudo "
 alias ping="ping -c 5"
