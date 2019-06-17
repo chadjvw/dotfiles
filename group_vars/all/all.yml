@@ -8,3 +8,32 @@ compile_alacritty: false
 
 ## dotfiles
 dotfiles_home: '/home/{{ username }}/.dotfiles'
+
+## monitors
+center_monitor: DisplayPort-0
+left_monitor: DP3
+right_monitor: DVI-I-0
+
+## Colors
+black: 292d3e
+brblack: 676e95
+red: f07178
+brred: f07178
+green: c3e88d
+brgreen: c3e88d
+blue: 82aaff
+brblue: 82aaff
+yellow: ffcb6b
+bryellow: ffcb6b
+magenta: c792ea
+brmagenta: c792ea
+cyan: 89ddff
+brcyan: 89ddff
+white: 959dcb
+brwhite: ffffff
+color16: f78c6c
+color17: ff5370
+color18: '444267'
+color19: 32374d
+color20: 8796b0
+color21: 959dcb

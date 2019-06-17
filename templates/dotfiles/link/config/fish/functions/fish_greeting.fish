@@ -5,5 +5,5 @@ function dim; set_color brblack; end
 function off; set_color normal; end
 
 function fish_greeting
-  echo (dim)(uname -mnprs)(off)
+  echo (dim)(uname -mnrs)(off)
 end

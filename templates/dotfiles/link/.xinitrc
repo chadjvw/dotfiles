@@ -9,18 +9,30 @@ fi
 
 # set env vars
 export SXHKD_SHELL=/bin/bash
-export XDG_DATA_DIRS="$HOME/.local/share/flatpak/exports/share:/var/lib/flatpak/exports/share:/usr/local/share:/usr/share"
+# export VDPAU_DRIVER=radeonsi
+# export LIBVA_DRIVER_NAME=i965
 
 # fix monitors
-xrandr --output DisplayPort-1-2 --auto
-xrandr --output DP-2 --auto
-xrandr --output DVI-1-0 --auto
-xrandr --output DVI-1-0 --right-of DP-2
-xrandr --output DisplayPort-1-2 --left-of DP-2
+xrandr --dpi 100
+xrandr --output {{ center_monitor }} --auto
+xrandr --output {{ left_monitor }} --auto
+xrandr --output {{ right_monitor }} --auto
+xrandr --output {{ right_monitor }} --right-of {{ center_monitor }}
+xrandr --output {{ left_monitor }} --left-of {{ center_monitor }}
+
+# fix cursor
+xsetroot -cursor_name left_ptr
 
 # enable fonts
 xset +fp /home/{{ username }}/.local/share/fonts/
 xset fp rehash
+
+if [ -d /etc/X11/xinit/xinitrc.d ] ; then
+ for f in /etc/X11/xinit/xinitrc.d/?*.sh ; do
+  [ -x "$f" ] && . "$f"
+ done
+ unset f
+fi
 
 # exec
 shxkd &

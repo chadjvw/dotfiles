@@ -1,5 +1,3 @@
-file:///home/{{ username }}/Documents
-file:///home/{{ username }}/Music
-file:///home/{{ username }}/Pictures
-file:///home/{{ username }}/Videos
-file:///home/{{ username }}/Downloads
+file:///home/{{ username }}/downloads
+file:///home/{{ username }}/images
+file:///home/{{ username }}/git

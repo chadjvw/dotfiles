@@ -1,7 +1,7 @@
 [global]
     ### Display ###
 
-    monitor = DP-2
+    monitor = {{ center_monitor }}
     follow = none
     geometry = "330x50-22+44"
     indicate_hidden = yes
@@ -12,7 +12,7 @@
     padding = 15
     horizontal_padding = 15
     frame_width = 0
-    frame_color = "#c3e88d"
+    frame_color = "#{{ green }}"
     separator_color = frame
     sort = yes
     idle_threshold = 120
@@ -75,7 +75,7 @@
 
 [urgency_low]
     msg_urgency = low
-    background = "#32374D"
+    background = "#{{ black }}"
     foreground = "#c792ea"
     frame_color = "#82AAFF"
     timeout = 10
