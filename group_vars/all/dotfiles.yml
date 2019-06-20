@@ -5,6 +5,7 @@ linked_dotfiles:
   - .gitignore
   - .xinitrc
   - .gtkrc-2.0
+  - .zshrc
 linked_config_folders:
   - nvim
   - fish

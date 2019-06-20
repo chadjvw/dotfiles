@@ -1,5 +1,6 @@
 user_directories:
   - git
+  - scripts
 omf_plugins:
   - z
   - git@github.com:mgoodness/plugin-asp.git
