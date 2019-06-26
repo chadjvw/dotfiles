@@ -15,25 +15,50 @@ left_monitor: DP3
 right_monitor: DVI-I-0
 
 ## Colors
-black: 292d3e
-brblack: 676e95
-red: f07178
-brred: f07178
-green: c3e88d
-brgreen: c3e88d
-blue: 82aaff
-brblue: 82aaff
-yellow: ffcb6b
-bryellow: ffcb6b
-magenta: c792ea
-brmagenta: c792ea
-cyan: 89ddff
-brcyan: 89ddff
-white: 959dcb
-brwhite: ffffff
-color16: f78c6c
-color17: ff5370
-color18: '444267'
-color19: 32374d
-color20: 8796b0
-color21: 959dcb
+### material palenight
+# black: 292d3e
+# brblack: 676e95
+# red: f07178
+# brred: f07178
+# green: c3e88d
+# brgreen: c3e88d
+# blue: 82aaff
+# brblue: 82aaff
+# yellow: ffcb6b
+# bryellow: ffcb6b
+# magenta: c792ea
+# brmagenta: c792ea
+# cyan: 89ddff
+# brcyan: 89ddff
+# white: 959dcb
+# brwhite: ffffff
+# color16: f78c6c
+# color17: ff5370
+# color18: '444267'
+# color19: 32374d
+# color20: 8796b0
+# color21: 959dcb
+
+### Challenger Deep
+black: 100e23
+brblack: '565575'
+red: ff8080
+brred: ff5458
+green: 95ffa4
+brgreen: 62d196
+blue: 91ddff
+brblue: 65b2ff
+yellow: ffe9aa
+bryellow: ffb378
+magenta: c991e1
+brmagenta: 906cff
+cyan: aaffe4
+brcyan: 63f2f1
+white: cbe3e7
+brwhite: a6b3cc
+color16: ffffff
+color17: ffffff
+color18: ffffff
+color19: ffffff
+color20: ffffff
+color21: ffffff

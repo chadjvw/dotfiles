@@ -1,33 +1,13 @@
-! Base16 Material Palenight
-! Author: Nate Peterson
-
-! base00: #292D3E
-! base01: #444267
-! base02: #32374D
-! base03: #676E95
-! base04: #8796B0
-! base05: #959DCB
-! base06: #959DCB
-! base07: #FFFFFF
-! base08: #F07178
-! base09: #F78C6C
-! base0A: #FFCB6B
-! base0B: #C3E88D
-! base0C: #89DDFF
-! base0D: #82AAFF
-! base0E: #C792EA
-! base0F: #FF5370
-
 ! Enable the extended coloring options
 rofi.color-enabled: true
 
 ! Property Name     BG       Border   Separator
-rofi.color-window:  #444267, #444267, #292D3E
+rofi.color-window:  #{{ brblack }}, #{{ brblack }}, #{{ black }}
 
 ! Property Name     BG       FG       BG-alt   Head-BG  Head-FG
-rofi.color-normal:  #444267, #959DCB, #444267, #444267, #FFFFFF
-rofi.color-active:  #444267, #82AAFF, #444267, #444267, #82AAFF
-rofi.color-urgent:  #444267, #F07178, #444267, #444267, #F07178
+rofi.color-normal:  #{{ brblack }}, #{{ brblue }}, #{{ brblack }}, #{{ brblack }}, #{{ brwhite }}
+rofi.color-active:  #{{ brblack }}, #{{ brblue }}, #{{ brblack }}, #{{ brblack }}, #{{ brblue }}
+rofi.color-urgent:  #{{ brblack }}, #{{ brred }}, #{{ brblack }}, #{{ brblack }}, #{{ brred }}
 
 ! Set the desired separator style
 ! rofi.separator-style: solid
@@ -45,7 +25,7 @@ rofi.sort                   true
 rofi.levenshstein-sort      true
 rofi.line-margin:           0
 rofi.font:                  IBM Plex Mono 10
-rofi.theme:                 ./base16-material-palenight.rasi
+rofi.theme:                 ./theme.rasi
 rofi.terminal               alacraitty
-rofi.run-command:           fish -c '{cmd}'
+rofi.run-command:           fish -c {{ '{cmd}' }}
 rofi.run-list-command:      'fish -c functions'

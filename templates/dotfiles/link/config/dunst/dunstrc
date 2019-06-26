@@ -76,22 +76,22 @@
 [urgency_low]
     msg_urgency = low
     background = "#{{ black }}"
-    foreground = "#c792ea"
-    frame_color = "#82AAFF"
+    foreground = "#{{ brmagenta }}"
+    frame_color = "#{{ brblue }}"
     timeout = 10
 
 [urgency_normal]
     msg_urgency = normal
-    background = "#32374D"
-    foreground = "#89ddff"
-    frame_color = "#c3e88d"
+    background = "#{{ black }}"
+    foreground = "#{{ brblue }}"
+    frame_color = "#{{ brgreen }}"
     timeout = 10
 
 [urgency_critical]
     msg_urgency = critical
-    background = "#32374D"
-    foreground = "#f07178"
-    frame_color = "#F07178"
+    background = "#{{ black }}"
+    foreground = "#{{ brred }}"
+    frame_color = "#{{ red }}"
     timeout = 0
 
 # vim: ft=cfg

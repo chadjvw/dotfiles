@@ -6,14 +6,15 @@
  *  Template: Jordi Pakey-Rodriguez (https://github.com/0xdec), Andrea Scarpino (https://github.com/ilpianista)
  */
 
-* {
-    red:                         rgba ( 240, 113, 120, 100 % );
-    blue:                        rgba ( 130, 170, 255, 100 % );
-    lightfg:                     rgba ( 149, 157, 203, 100 % );
-    lightbg:                     rgba ( 68, 66, 103, 100 % );
-    foreground:                  rgba ( 149, 157, 203, 100 % );
-    background:                  rgba ( 41, 45, 62, 100 % );
-    background-color:            rgba ( 41, 45, 62, 0 % );
+* {{ '{' }}
+    red:                         #{{ red }};
+    blue:                        #{{ blue }};
+    lightfg:                     #{{ white }};
+    lightbg:                     #{{ brblack }};
+    foreground:                  #{{ white }};
+    background:                  #{{ black }};
+    background-color:            #{{ black }};
+{% raw %}
     separatorcolor:              @foreground;
     border-color:                @foreground;
     selected-normal-foreground:  @lightbg;
@@ -80,7 +81,9 @@ element normal.active {
     text-color:       @active-foreground;
 }
 element selected.normal {
-    background-color: #c792ea;
+{% endraw %}
+    background-color: #{{ brmagenta }};
+{% raw %}
     text-color:       @background;
 }
 element selected.urgent {
@@ -134,7 +137,9 @@ case-indicator {
 }
 entry {
     spacing:          0;
-    text-color:       #ffffff;
+{% endraw %}
+    text-color:       #{{ white }};
+{% raw %}
 }
 prompt {
     spacing:          0;
@@ -146,3 +151,4 @@ textbox-prompt-colon {
     margin:           0px 0.3000em 0.0000em 0.0000em ;
     text-color:       inherit;
 }
+{% endraw %}

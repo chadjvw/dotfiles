@@ -26,6 +26,7 @@ if dein#load_state('/home/{{ username }}/.cache/dein')
   call dein#add('dracula/vim')
   call dein#add('haishanh/night-owl.vim')
   call dein#add('drewtempelmeyer/palenight.vim')
+  call dein#add('challenger-deep-theme/vim')
 
   if !has('nvim')
     call dein#add('roxma/nvim-yarp')
@@ -46,12 +47,14 @@ endif
 " lightline 
 set laststatus=2
 set noshowmode
-let g:lightline = {'colorscheme': 'palenight' }
+" let g:lightline = {'colorscheme': 'palenight' }
+let g:lightline = {'colorscheme': 'challenger_deep' }
 
 syntax enable  " enable syntax processing  
 
 set background=dark
-colorscheme palenight
+" colorscheme palenight
+colorscheme challenger_deep
 
 " Italics for my favorite color scheme
 let g:palenight_terminal_italics=1
@@ -127,13 +130,13 @@ augroup END
 "
 " NerdTree
 " open a NERDTree automatically when vim starts up
-autocmd vimenter * NERDTree
+" autocmd vimenter * NERDTree
 " open a NERDTree automatically when vim starts up if no files were specified
 autocmd StdinReadPre * let s:std_in=1
 autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
 " open NERDTree automatically when vim starts up on opening a directory
 autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in") | exe 'NERDTree' argv()[0] | wincmd p | ene | exe 'cd '.argv()[0] | endif
-" lose vim if the only window left open is a NERDTree
+" close vim if the only window left open is a NERDTree
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 " 
 " Backups 

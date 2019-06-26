@@ -112,46 +112,7 @@ fi
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
-alias vi="nvim"
-alias vim="nvim"
-alias svim="sudo nvim"
-alias svi="sudo nvim"
-alias edit="nvim"
-
-alias ydt="yarn deploy --stage test --aws-profile tf --verbose"
-alias ydd="yarn deploy --stage dev --aws-profile ius-dev --verbose"
-
-alias clean-branches='git branch | grep -ve "master\$" | xargs git branch -D'
-
-alias ls="ls --color=auto"
-alias la="ls -alhF --color=auto"
-alias grep="grep --color=auto"
-alias rg="rg -S"
-alias ..="cd .."
-alias ...="cd ../.."
-alias ....="cd ../../.."
-alias .....="cd ../../../.."
-
-alias mkdir="mkdir -pv"
-alias mv="mv -v"
-alias rm="rm -vi"
-alias cp="cp -v"
-alias rcp="rsync --progress --size-only --inplace --verbose"
-
-alias update="sudo apt update; sudo apt upgrade -y; flatpak update -y"
-alias df="df -H"
-alias du="du -ch"
-alias top="gotop"
-alias find="fd"
-alias figlet="figlet -f isometric3"
-
-alias netstat="ss -at"
-alias sysd="sudo systemctl"
-alias cloudssh="ssh -i ~/.ssh/PciCloudKeyPair.pem"
-
-alias sudo="sudo "
-alias ping="ping -c 5"
-alias untar="tar -xvf"
+source ~/.alias
 
 ZSH_CACHE_DIR=$HOME/.cache/oh-my-zsh
 if [[ ! -d $ZSH_CACHE_DIR ]]; then

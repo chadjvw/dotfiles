@@ -6,6 +6,8 @@ for file in $DOTFILES/source/*; do
   source "$file"
 done
 
+source ~/.alias
+
 export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64
 export EDITOR=nvim
 export AWS_EC2_METADATA_DISABLED=1
