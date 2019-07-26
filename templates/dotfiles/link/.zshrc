@@ -114,6 +114,9 @@ fi
 
 source ~/.alias
 
+# Add GRC: https://github.com/garabik/grc
+[[ -s "/etc/grc.zsh" ]] && source /etc/grc.zsh
+
 ZSH_CACHE_DIR=$HOME/.cache/oh-my-zsh
 if [[ ! -d $ZSH_CACHE_DIR ]]; then
   mkdir $ZSH_CACHE_DIR
