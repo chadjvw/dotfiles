@@ -19,7 +19,7 @@ set fish_user_paths $fish_user_paths /home/{{ username }}/programs/pcicloud
 set fish_user_paths $fish_user_paths /home/{{ username }}/.cargo/bin
 
 # Override fish colors
-set fish_color_normal normal
+set fish_color_normal white
 set fish_color_quote bryellow
 set fish_color_autosuggestion brblack
 set fish_color_command brwhite
@@ -53,5 +53,8 @@ set -Ux XDG_CONFIG_HOME "$HOME/.config"
 set -Ux XDG_DATA_DIRS "$HOME/.local/share/flatpak/exports/share:/var/lib/flatpak/exports/share:/usr/local/share:/usr/share"
 
 test -x (which aws_completer); and complete --command aws --no-files --arguments '(begin; set --local --export COMP_SHELL fish; set --local --export COMP_LINE (commandline); aws_completer | sed \'s/ $//\'; end)'
+
+# Add GRC: https://github.com/garabik/grc
+source /etc/grc.fish
 
 source ~/.alias
