@@ -48,13 +48,14 @@ bspc config split_ratio          0.50
 bspc config borderless_monocle   true
 bspc config gapless_monocle      true
 
-bspc config active_border_color '#{{ blue }}'
+bspc config active_border_color '#{{ brblue }}'
 bspc config normal_border_color '#{{ brblack }}'
-bspc config focused_border_color '#{{ green }}'
+bspc config focused_border_color '#{{ brgreen }}'
 
 bspc rule -a jetbrains-toolbox state=floating
 bspc rule -a 'Yubico Authenticator' state=floating
 bpsc rule -a Firefox:* desktop='^1'
-bspc rule -a HipChat desktop='^2'
-bspc rule -a Slack desktop='^2'
-bspc rule -a "Spotify":'spotify' desktop='^3'
+bspc rule -a Slack:* desktop='^2'
+bspc rule -a Sginal:* desktop='^3'
+bspc rule -a Spotify:* desktop='^3'
+bspc rule -a TelegramDesktop:* desktop='^3'

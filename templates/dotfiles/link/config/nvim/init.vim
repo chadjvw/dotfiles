@@ -13,25 +13,27 @@ if dein#load_state('/home/{{ username }}/.cache/dein')
   call dein#add('tpope/vim-sensible')
   call dein#add('tpope/vim-surround')
   call dein#add('tpope/vim-eunuch')
-  call dein#add('vim-syntastic/syntastic')
+  " call dein#add('vim-syntastic/syntastic')
   call dein#add('airblade/vim-gitgutter')
   call dein#add('editorconfig/editorconfig-vim')
   call dein#add('junegunn/fzf')
   call dein#add('junegunn/fzf.vim')
   call dein#add('scrooloose/nerdtree')
   call dein#add('tpope/vim-surround')
-  call dein#add('w0rp/ale')
+  call dein#add('dense-analysis/ale')
   call dein#add('itchyny/lightline.vim')
-  call dein#add('sheerun/vim-polyglot')
+  call dein#add('maximbaz/lightline-ale')
+  " call dein#add('sheerun/vim-polyglot')
   call dein#add('dracula/vim')
   call dein#add('haishanh/night-owl.vim')
   call dein#add('drewtempelmeyer/palenight.vim')
   call dein#add('challenger-deep-theme/vim')
+  call dein#add('Rigellute/rigel')
 
-  if !has('nvim')
-    call dein#add('roxma/nvim-yarp')
-    call dein#add('roxma/vim-hug-neovim-rpc')
-  endif
+  " if !has('nvim')
+  "   call dein#add('roxma/nvim-yarp')
+  "   call dein#add('roxma/vim-hug-neovim-rpc')
+  " endif
 
   call dein#end()
   call dein#save_state()
@@ -48,13 +50,32 @@ endif
 set laststatus=2
 set noshowmode
 " let g:lightline = {'colorscheme': 'palenight' }
-let g:lightline = {'colorscheme': 'challenger_deep' }
+" let g:lightline = {'colorscheme': 'challenger_deep' }
+let g:rigel_lightline = 1
+let g:lightline = { 'colorscheme': 'rigel' }
+
+let g:lightline.component_expand = {
+      \  'linter_checking': 'lightline#ale#checking',
+      \  'linter_warnings': 'lightline#ale#warnings',
+      \  'linter_errors': 'lightline#ale#errors',
+      \  'linter_ok': 'lightline#ale#ok',
+      \ }
+
+let g:lightline.component_type = {
+      \     'linter_checking': 'left',
+      \     'linter_warnings': 'warning',
+      \     'linter_errors': 'error',
+      \     'linter_ok': 'left',
+      \ }
+
+let g:lightline.active = { 'right': [[ 'linter_checking', 'linter_errors', 'linter_warnings', 'linter_ok' ]] }
 
 syntax enable  " enable syntax processing  
 
 set background=dark
 " colorscheme palenight
-colorscheme challenger_deep
+" colorscheme challenger_deep
+colorscheme rigel
 
 " Italics for my favorite color scheme
 let g:palenight_terminal_italics=1
@@ -108,9 +129,33 @@ nnoremap gV `[v`]
 " 
 
 " Syntastic 
-let g:syntastic_python_flake8_args='--ignore=E501'
-let g:syntastic_ignore_files = ['.java$']
-let g:syntastic_python_python_exec = 'python3'
+" let g:syntastic_python_flake8_args='--ignore=E501'
+" let g:syntastic_ignore_files = ['.java$']
+" let g:syntastic_python_python_exec = 'python3'
+
+" ALE
+let g:ale_linter_aliases = {'vue': ['vue', 'javascript']}
+let g:ale_linters = {
+\   'javascript': ['eslint'],
+\   'vue': ['eslint'],
+\}
+
+let g:ale_fixers = {
+\   '*': ['remove_trailing_lines', 'trim_whitespace'],
+\   'javascript': ['prettier', 'eslint'],
+\}
+
+" Do not lint or fix minified files.
+let g:ale_pattern_options = {
+\ '\.min\.js$': {'ale_linters': [], 'ale_fixers': []},
+\ '\.min\.css$': {'ale_linters': [], 'ale_fixers': []},
+\}
+
+" Show 5 lines of errors (default: 10)
+let g:ale_list_window_size = 5
+" keep the sign gutter open
+let g:ale_sign_column_always = 1
+
 " 
 " AutoGroups 
 augroup configgroup
