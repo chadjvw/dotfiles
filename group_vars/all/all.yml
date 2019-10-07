@@ -40,25 +40,57 @@ right_monitor: DVI-I-0
 # color21: 959dcb
 
 ### Challenger Deep
-black: 100e23
-brblack: '565575'
-red: ff8080
-brred: ff5458
-green: 95ffa4
-brgreen: 62d196
-blue: 91ddff
-brblue: 65b2ff
-yellow: ffe9aa
-bryellow: ffb378
-magenta: c991e1
-brmagenta: 906cff
-cyan: aaffe4
-brcyan: 63f2f1
-white: cbe3e7
-brwhite: a6b3cc
+# black: 100e23
+# brblack: '565575'
+# red: ff8080
+# brred: ff5458
+# green: 95ffa4
+# brgreen: 62d196
+# blue: 91ddff
+# brblue: 65b2ff
+# yellow: ffe9aa
+# bryellow: ffb378
+# magenta: c991e1
+# brmagenta: 906cff
+# cyan: aaffe4
+# brcyan: 63f2f1
+# white: cbe3e7
+# brwhite: a6b3cc
+# color16: ffffff
+# color17: ffffff
+# color18: ffffff
+# color19: ffffff
+# color20: ffffff
+# color21: ffffff
+# background: {{ black }}
+# foreground: {{ white }}
+# text: {{ black }}
+# cursor: {{ white }}
+
+### https://github.com/Rigellute/rigel
+black: 00384d
+brblack: 517f8d
+red: c43061
+brred: ff5a67
+green: 7fc06e
+brgreen: 9cf087
+blue: 1c8db2
+brblue: 7eb2dd
+yellow: f08e48
+bryellow: ffcc1b
+magenta: c694ff
+brmagenta: fb94ff
+cyan: 00cccc
+brcyan: 00ffff
+white: 77929e
+brwhite: b7cff9
 color16: ffffff
 color17: ffffff
 color18: ffffff
 color19: ffffff
 color20: ffffff
 color21: ffffff
+background: '002635'
+foreground: e6e6dc
+text: '002635'
+cursor: ffcc1b
