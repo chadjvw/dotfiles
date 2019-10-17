@@ -1,0 +1,20 @@
+Host gerrit.powercosts.com 10.1.1.112
+    Hostname  gerrit.powercosts.com
+    IdentityFile ~/.ssh/id_rsa
+    IdentitiesOnly yes
+
+Host gitlab.powercosts.com 172.29.25.86
+    IdentityFile ~/.ssh/id_rsa
+
+Host github.com gitlab.com
+    IdentityFile ~/.ssh/id_rsa_github
+
+Host *.cloud.pci
+    User centos
+    Hostname %h
+
+Match Host *.cloud.pci
+    IdentityFile ~/.ssh/PciCloudKeyPair.pem
+
+Host 172.29.23.85
+    IdentityFile ~/.ssh/PciCloudKeyPair.pem

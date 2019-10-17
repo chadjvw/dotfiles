@@ -13,7 +13,7 @@
         path: '/home/{{ username }}/{{ item }}'
         state: directory
       with_items: '{{ user_directories }}'
-      
+
     - name: Check Nerd Install
       stat:
         path: '/home/{{ username }}/.local/share/fonts/Hack-Bold.ttf'
