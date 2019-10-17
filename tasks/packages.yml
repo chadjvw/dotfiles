@@ -75,64 +75,64 @@
 
 ## random stuff that requires custom hacking as the user
 - block:
-  - name: Install pip2 packages for user
-    pip:
-      name: '{{ user_pip2_packages }}'
-      extra_args: --user
-      state: latest
-      executable: pip2
+    - name: Install pip2 packages for user
+      pip:
+        name: '{{ user_pip2_packages }}'
+        extra_args: --user
+        state: latest
+        executable: pip2
 
-  - name: Install pip3 packages for user
-    pip:
-      name: '{{ user_pip3_packages }}'
-      extra_args: --user
-      state: latest
-      executable: pip3
+    - name: Install pip3 packages for user
+      pip:
+        name: '{{ user_pip3_packages }}'
+        extra_args: --user
+        state: latest
+        executable: pip3
 
-  # - name: Unarchive things that just need unpacking
-  #   unarchive:
-  #     src: '{{ item }}'
-  #     dest: '/home/{{ username }}/programs/'
-  #     remote_src: true
-  #   with_items: '{{ archives_to_unpack }}'
+    # - name: Unarchive things that just need unpacking
+    #   unarchive:
+    #     src: '{{ item }}'
+    #     dest: '/home/{{ username }}/programs/'
+    #     remote_src: true
+    #   with_items: '{{ archives_to_unpack }}'
 
-  - name: Create directories for archive packages
-    file:
-      path: '/home/{{ username }}/programs/{{ item.name }}-{{ item.version }}'
-      state: directory
-    with_items: '{{ non_standard_packages }}'
+    - name: Create directories for archive packages
+      file:
+        path: '/home/{{ username }}/programs/{{ item.name }}-{{ item.version }}'
+        state: directory
+      with_items: '{{ non_standard_packages }}'
 
-  - name: Unpack archived packages
-    unarchive:
-      src: '{{ item.url }}'
-      dest: '/home/{{ username }}/programs/{{ item.name }}-{{ item.version }}'
-      remote_src: true
-    with_items: '{{ non_standard_packages }}'
+    - name: Unpack archived packages
+      unarchive:
+        src: '{{ item.url }}'
+        dest: '/home/{{ username }}/programs/{{ item.name }}-{{ item.version }}'
+        remote_src: true
+      with_items: '{{ non_standard_packages }}'
 
-  - name: Create directories for binaries
-    file:
-      path: '{{ item.dir }}'
-      state: directory
-    with_items: '{{ straight_downloads }}'
+    - name: Create directories for binaries
+      file:
+        path: '{{ item.dir }}'
+        state: directory
+      with_items: '{{ straight_downloads }}'
 
-  - name: Downlaod Binaries
-    get_url:
-      url: '{{ item.url }}'
-      dest: '{{ item.dir }}/{{ item.name }}'
-      mode: 0770
-    with_items: '{{ straight_downloads }}'
+    - name: Downlaod Binaries
+      get_url:
+        url: '{{ item.url }}'
+        dest: '{{ item.dir }}/{{ item.name }}'
+        mode: 0770
+      with_items: '{{ straight_downloads }}'
 
-#   - name: Create directories for rar packages
-#     file:
-#       path: '/home/{{ username }}/programs/{{ item.name }}-{{ item.version }}'
-#       state: directory
-#     with_items: '{{ rar_packages }}'
+  #   - name: Create directories for rar packages
+  #     file:
+  #       path: '/home/{{ username }}/programs/{{ item.name }}-{{ item.version }}'
+  #       state: directory
+  #     with_items: '{{ rar_packages }}'
 
-#   - name: Unpack rar packages
-#     shell: 'curl -O {{ item.url }} -sSf && unrar x -y $(basename {{ item.url }}) {{ item.name }}-{{ item.version }} && rm $(basename {{ item.url }})'
-#     args:
-#       chdir: '/home/{{ username }}/programs/'
-#     with_items: '{{ rar_packages }}'
+  #   - name: Unpack rar packages
+  #     shell: 'curl -O {{ item.url }} -sSf && unrar x -y $(basename {{ item.url }}) {{ item.name }}-{{ item.version }} && rm $(basename {{ item.url }})'
+  #     args:
+  #       chdir: '/home/{{ username }}/programs/'
+  #     with_items: '{{ rar_packages }}'
 
   become: yes
   become_user: '{{ username }}'
