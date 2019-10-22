@@ -11,12 +11,12 @@
 #      \__\/                   \__\/         \__\/    
 
 {% for file in manual_programs.files %}
-set fish_user_paths $fish_user_paths {{ file.path }}
+set PATH $PATH {{ file.path }}
 {% endfor %}
-set fish_user_paths $fish_user_paths /home/{{ username }}/.dotfiles/source
-set fish_user_paths $fish_user_paths /home/{{ username }}/.local/bin
-set fish_user_paths $fish_user_paths /home/{{ username }}/programs/pcicloud
-set fish_user_paths $fish_user_paths /home/{{ username }}/.cargo/bin
+set PATH $PATH /home/{{ username }}/.dotfiles/source
+set PATH $PATH /home/{{ username }}/.local/bin
+set PATH $PATH /home/{{ username }}/programs/pcicloud
+set PATH $PATH /home/{{ username }}/.cargo/bin
 
 # Override fish colors
 set fish_color_normal white
@@ -51,10 +51,16 @@ set -Ux SXHKD_SHELL /bin/bash
 set -Ux XDG_DATA_HOME "$HOME/.local/share"
 set -Ux XDG_CONFIG_HOME "$HOME/.config"
 set -Ux XDG_DATA_DIRS "$HOME/.local/share/flatpak/exports/share:/var/lib/flatpak/exports/share:/usr/local/share:/usr/share"
-set -Ux FZF_DEFAULT_COMMAND 'fd --type file'
+set -Ux FZF_DEFAULT_COMMAND 'rg --files --no-ignore --hidden --follow -g "!{.git,node_modules,*.swp,dist}/*" 2> /dev/null'
 set -Ux FZF_CTRL_T_COMMAND "$FZF_DEFAULT_COMMAND"
 
 test -x (which aws_completer); and complete --command aws --no-files --arguments '(begin; set --local --export COMP_SHELL fish; set --local --export COMP_LINE (commandline); aws_completer | sed \'s/ $//\'; end)'
+
+if not functions -q fisher
+    set -q XDG_CONFIG_HOME; or set XDG_CONFIG_HOME ~/.config
+    curl https://git.io/fisher --create-dirs -sLo $XDG_CONFIG_HOME/fish/functions/fisher.fish
+    fish -c fisher
+end
 
 # Add GRC: https://github.com/garabik/grc
 source /etc/grc.fish

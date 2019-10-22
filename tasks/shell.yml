@@ -136,42 +136,14 @@
         state: absent
       when: dein.stat.exists == False
 
-    - name: Check OMF Installation
-      stat:
-        path: /home/{{ username }}/.local/share/omf
-      register: omf_installed
-
-    - name: Copy Oh My Fish installer
-      get_url:
-        url: https://get.oh-my.fish
-        dest: /tmp/fish-installer
-        mode: 0770
-      when: omf_installed.stat.exists == False
-
     - name: Locate Fish Shell
       shell: which fish
       register: fish_shell
 
-    - name: Install OMF
-      shell: 'fish /tmp/fish-installer --path=/home/{{ username }}/.local/share/omf --config=/home/{{ username }}/.config/omf --noninteractive'
-      when: omf_installed.stat.exists == False
-
-    - name: Install OMF Plugins
-      shell: 'omf install {{ item }}'
+    - name: Update Fisher packages
+      shell: 'fisher'
       args:
         executable: '{{ fish_shell.stdout }}'
-      with_items: '{{ omf_plugins }}'
-
-    - name: Update OMF Plugins
-      shell: 'omf update'
-      args:
-        executable: '{{ fish_shell.stdout }}'
-
-    - name: Remove OMF Installer
-      file:
-        path: /tmp/fish-installer
-        state: absent
-      when: omf_installed.stat.exists == False
 
   become: yes
   become_user: '{{ username }}'
