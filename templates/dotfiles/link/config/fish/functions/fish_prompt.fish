@@ -1,4 +1,4 @@
-function fish_prompt
+function old_fish_prompt
   test $status -ne 0;
     and set -l colors red
     or set -l colors brblack

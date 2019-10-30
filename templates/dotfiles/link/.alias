@@ -9,7 +9,7 @@ alias ydd="yarn deploy --stage dev --aws-profile ius-dev --verbose"
 
 alias clean-branches='git branch | grep -ve "master\$" | xargs git branch -D'
 
-alias cat="bat --theme ansi-dark"
+alias bat="bat --theme ansi-dark"
 
 alias ls="exa --icons"
 alias la="exa --all --all --icons"
