@@ -66,3 +66,5 @@ end
 source /etc/grc.fish
 
 source ~/.alias
+
+starship init fish | source

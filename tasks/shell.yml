@@ -136,14 +136,5 @@
         state: absent
       when: dein.stat.exists == False
 
-    - name: Locate Fish Shell
-      shell: which fish
-      register: fish_shell
-
-    - name: Update Fisher packages
-      shell: 'fisher'
-      args:
-        executable: '{{ fish_shell.stdout }}'
-
   become: yes
   become_user: '{{ username }}'

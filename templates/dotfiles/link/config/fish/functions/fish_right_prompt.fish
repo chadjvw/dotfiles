@@ -2,7 +2,7 @@ function git::branch_name
   command git symbolic-ref --short HEAD
 end
 
-function fish_right_prompt
+function old_fish_right_prompt
   set -l code $status
   test $code -ne 0; and echo (dim)"("(trd)"$code"(dim)") "(off)
 

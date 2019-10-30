@@ -28,7 +28,7 @@ polybar --reload left &
 polybar --reload center &
 polybar --reload right &
 dunst &
-compton &
+compton --experimental-backends &
 betterlockscreen -u /home/{{ username }}/images/background.png &
 xautolock -locker 'betterlockscreen --lock blur' -time 5 -notify 25 -corners ---- -cornerdelay 10 -cornersize 20 -notifier "notify-send 'Locking in 25 seconds.'" &
 

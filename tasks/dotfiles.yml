@@ -150,5 +150,14 @@
     - name: Install/update neovim packages
       shell: 'nvim -N -u /home/{{ username }}/.config/nvim/init.vim -c "try | call dein#update() | finally | qall! | endtry" -V1 -es'
 
+    - name: Locate Fish Shell
+      shell: which fish
+      register: fish_shell
+
+    - name: Update Fisher packages
+      shell: 'fisher'
+      args:
+        executable: '{{ fish_shell.stdout }}'
+
   become: yes
   become_user: '{{ username }}'

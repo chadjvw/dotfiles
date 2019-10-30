@@ -1,10 +1,7 @@
 user_directories:
   - git
-  - scripts
-omf_plugins:
-  - z
-  - git@github.com:mgoodness/plugin-asp.git
-  - git@github.com:decors/fish-colored-man.git
+  - downloads
+  - images
 ibm_plex_fonts:
   - IBM-Plex-Mono
   - IBM-Plex-Sans-Condensed
