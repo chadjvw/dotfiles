@@ -35,15 +35,15 @@ tabspaces: 4
 
 font:
   normal:
-    family: IBM Plex Mono Medium
+    family: {{ mono_font }}
     style: Regular
   bold:
-    family: IBM Plex Mono
+    family: {{ font }}
     style: Bold
   italic:
-    family: IBM Plex Mono Medium
+    family: {{ mono_font }}
     style: Italic
-  size: 10.0
+  size: {{ font_size }}
   offset:
     x: 0
     y: 0

@@ -105,12 +105,14 @@
         path: '/home/{{ username }}/.config'
         state: directory
 
-    - name: Link config folders
+    - name: Link config folders and files
       file:
         src: '{{ dotfiles_home }}/link/{{ item }}'
         dest: '/home/{{ username }}/.config/{{ item }}'
         state: link
-      with_items: '{{ linked_config_folders }}'
+      with_items:
+        - '{{ linked_config_folders }}'
+        - '{{ linked_config_files }}'
 
     - name: Create and set SSH folder permissions
       file:

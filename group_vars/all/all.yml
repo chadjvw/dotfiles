@@ -14,6 +14,22 @@ center_monitor: DisplayPort-0
 left_monitor: DP3
 right_monitor: DVI-I-0
 
+## Fonts
+mono_font: Input Mono Narrow
+mono_font_bold: Input Mono Narrow
+font: Input Mono Narrow
+font_size: 9.5
+
+# mono_font: InconsolataGo Nerd Font Mono
+# mono_font_bold: InconsolataGo Nerd Font
+# font: InconsolataGo Nerd Font
+# font_size: 11
+
+# mono_font: IBM Plex Mono Medium
+# mono_font_bold: IBM Plex Mono Bold
+# font: IBM Plex Mono
+# font_size: 10
+
 ## Colors
 ### material palenight
 # black: 292d3e

@@ -7,6 +7,7 @@ linked_dotfiles:
   - .gtkrc-2.0
   - .zshrc
   - .alias
+  - .ideavimrc
 linked_config_folders:
   - nvim
   - fish
@@ -18,6 +19,10 @@ linked_config_folders:
   - dunst
   - rofi
   - compton
+linked_config_files:
+  - betterlockscreenrc
+  - starship.toml
+  - user-dirs.dirs
 executable_dotfiles:
   - bspwm/bspwmrc
   - .xinitrc

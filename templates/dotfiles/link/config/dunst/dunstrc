@@ -19,7 +19,7 @@
 
     ### Text ###
 
-    font = IBM Plex Mono 9
+    font = {{ font }} {{ font_size - 1 }}
     line_height = 0
     markup = full
     format = "<b>%s</b>\n%b"
