@@ -1,2 +1,11 @@
+[character]
+symbol = ">"
+
+[java]
+style = "red"
+
 [aws]
+disabled = true
+
+[package]
 disabled = true

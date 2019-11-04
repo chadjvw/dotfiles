@@ -15,7 +15,7 @@ alias ls="exa --icons"
 alias la="exa --all --all --icons"
 alias lla='exa --all -all --long --header --group --icons'
 alias lt='exa --tree --level=4 --icons'
-alias llt='exa --tree --all --all --long --level=4 --icons'
+alias llt='exa --tree --all --long --level=4 --icons'
 
 alias grep="grep --color=auto"
 alias rg="rg -S"
@@ -38,6 +38,7 @@ alias find="fd"
 alias figlet="figlet -f isometric3"
 
 alias netstat="ss -tulpn"
+alias ss="ss -tulpn"
 alias sysd="sudo systemctl"
 alias cloudssh="ssh -i ~/.ssh/PciCloudKeyPair.pem"
 

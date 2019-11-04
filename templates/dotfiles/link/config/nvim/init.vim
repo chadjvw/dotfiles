@@ -123,10 +123,19 @@ nnoremap <space> za
 set foldlevelstart=10   " start with fold level of 1
 " 
 " Line Shortcuts 
-nnoremap j gj
-nnoremap k gk
-nnoremap gV `[v`]
+" nnoremap j gj
+" nnoremap k gk
+" nnoremap gV `[v`]
 " 
+
+" Bad, no arrow keys
+noremap <Up> <Nop>
+noremap <Down> <Nop>
+noremap <Left> <Nop>
+noremap <Right> <Nop>
+
+" Set the + register (system clipboard) as the default
+set clipboard=unnamedplus
 
 " Syntastic 
 " let g:syntastic_python_flake8_args='--ignore=E501'
