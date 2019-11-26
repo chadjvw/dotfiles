@@ -40,6 +40,7 @@ alias figlet="figlet -f isometric3"
 alias netstat="ss -tulpn"
 alias ss="ss -tulpn"
 alias sysd="sudo systemctl"
+alias usysd="systemctl --user"
 alias cloudssh="ssh -i ~/.ssh/PciCloudKeyPair.pem"
 
 alias sudo="sudo "
