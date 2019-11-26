@@ -27,11 +27,9 @@ window:
 scrolling:
   history: 10000
   multiplier: 3
-  faux_multiplier: 3
   auto_scroll: false
 
 tabspaces: 4
-
 
 font:
   normal:
@@ -43,6 +41,9 @@ font:
   italic:
     family: {{ mono_font }}
     style: Italic
+  bold_italic:
+    family: {{ mono_font }}
+    style: Bold Italic
   size: {{ font_size }}
   offset:
     x: 0
