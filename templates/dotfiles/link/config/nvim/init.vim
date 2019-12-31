@@ -29,6 +29,7 @@ if dein#load_state('/home/{{ username }}/.cache/dein')
   call dein#add('drewtempelmeyer/palenight.vim')
   call dein#add('challenger-deep-theme/vim')
   call dein#add('Rigellute/rigel')
+  call dein#add('morhetz/gruvbox')
 
   " if !has('nvim')
   "   call dein#add('roxma/nvim-yarp')
@@ -51,8 +52,9 @@ set laststatus=2
 set noshowmode
 " let g:lightline = {'colorscheme': 'palenight' }
 " let g:lightline = {'colorscheme': 'challenger_deep' }
-let g:rigel_lightline = 1
-let g:lightline = { 'colorscheme': 'rigel' }
+" let g:rigel_lightline = 1
+" let g:lightline = { 'colorscheme': 'rigel' }
+let g:lightline = { 'colorscheme': 'gruvbox' }
 
 let g:lightline.component_expand = {
       \  'linter_checking': 'lightline#ale#checking',
@@ -75,8 +77,11 @@ syntax enable  " enable syntax processing
 set background=dark
 " colorscheme palenight
 " colorscheme challenger_deep
-colorscheme rigel
+" colorscheme rigel
+colorscheme gruvbox
 
+let g:gruvbox_italic=1
+let g:gruvbox_contrast_dark='hard'
 " Italics for my favorite color scheme
 let g:palenight_terminal_italics=1
 

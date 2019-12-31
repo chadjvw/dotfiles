@@ -84,29 +84,57 @@ font_size: 9.5
 # cursor: {{ white }}
 
 ### https://github.com/Rigellute/rigel
-black: 00384d
-brblack: 517f8d
-red: c43061
-brred: ff5a67
-green: 7fc06e
-brgreen: 9cf087
-blue: 1c8db2
-brblue: 7eb2dd
-yellow: f08e48
-bryellow: ffcc1b
-magenta: c694ff
-brmagenta: fb94ff
-cyan: 00cccc
-brcyan: 00ffff
-white: 77929e
-brwhite: b7cff9
+# black: 00384d
+# brblack: 517f8d
+# red: c43061
+# brred: ff5a67
+# green: 7fc06e
+# brgreen: 9cf087
+# blue: 1c8db2
+# brblue: 7eb2dd
+# yellow: f08e48
+# bryellow: ffcc1b
+# magenta: c694ff
+# brmagenta: fb94ff
+# cyan: 00cccc
+# brcyan: 00ffff
+# white: 77929e
+# brwhite: b7cff9
+# color16: ffffff
+# color17: ffffff
+# color18: ffffff
+# color19: ffffff
+# color20: ffffff
+# color21: ffffff
+# background: '002635'
+# foreground: e6e6dc
+# text: '002635'
+# cursor: ffcc1b
+
+## Firewatch: https://www.reddit.com/r/unixporn/comments/df25w0/bspwm_first_rice_firewatch/
+black: '202228'
+brblack: 525A67
+red: e26b73
+brred: C9525A
+green: 6ac38a
+brgreen: 51AA71
+blue: 5e9ccf
+brblue: 4583B6
+yellow: e6c176
+bryellow: CDA85D
+magenta: df671f
+brmagenta: C64E06
+cyan: 51b6c3
+brcyan: 389DAA
+white: ebebff
+brwhite: D2D2E6
 color16: ffffff
 color17: ffffff
 color18: ffffff
 color19: ffffff
 color20: ffffff
 color21: ffffff
-background: '002635'
-foreground: e6e6dc
-text: '002635'
-cursor: ffcc1b
+background: 282c34
+foreground: ebebff
+text: 282c34
+cursor: ebebff
