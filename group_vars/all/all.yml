@@ -15,10 +15,10 @@ left_monitor: DP3
 right_monitor: DVI-I-0
 
 ## Fonts
-mono_font: Input Mono Narrow
-mono_font_bold: Input Mono Narrow
-font: Input Mono Narrow
-font_size: 9.5
+mono_font: Iosevka
+mono_font_bold: Iosevka
+font: Iosevka
+font_size: 10
 
 # mono_font: InconsolataGo Nerd Font Mono
 # mono_font_bold: InconsolataGo Nerd Font
