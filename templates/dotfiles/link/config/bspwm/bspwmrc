@@ -29,10 +29,10 @@ polybar --reload center &
 polybar --reload right &
 dunst &
 compton --experimental-backends &
-betterlockscreen -u /home/{{ username }}/images/background.png &
+betterlockscreen -u {{ user_home }}/images/background.png &
 xautolock -locker 'betterlockscreen --lock blur' -time 5 -notify 25 -corners ---- -cornerdelay 10 -cornersize 20 -notifier "notify-send 'Locking in 25 seconds.'" &
 
-feh --bg-fill /home/{{ username }}/images/background.png
+feh --bg-fill {{ user_home }}/images/background.png
 
 # left
 bspc monitor {{ left_monitor }} -d 1 2 3
