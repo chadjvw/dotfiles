@@ -92,20 +92,20 @@
     # - name: Unarchive things that just need unpacking
     #   unarchive:
     #     src: '{{ item }}'
-    #     dest: '/home/{{ username }}/programs/'
+    #     dest: '{{ user_home }}/programs/'
     #     remote_src: true
     #   with_items: '{{ archives_to_unpack }}'
 
     - name: Create directories for archive packages
       file:
-        path: '/home/{{ username }}/programs/{{ item.name }}-{{ item.version }}'
+        path: '{{ user_home }}/programs/{{ item.name }}-{{ item.version }}'
         state: directory
       with_items: '{{ non_standard_packages }}'
 
     - name: Unpack archived packages
       unarchive:
         src: '{{ item.url }}'
-        dest: '/home/{{ username }}/programs/{{ item.name }}-{{ item.version }}'
+        dest: '{{ user_home }}/programs/{{ item.name }}-{{ item.version }}'
         remote_src: true
       with_items: '{{ non_standard_packages }}'
 
@@ -124,14 +124,14 @@
 
   #   - name: Create directories for rar packages
   #     file:
-  #       path: '/home/{{ username }}/programs/{{ item.name }}-{{ item.version }}'
+  #       path: '{{ user_home }}/programs/{{ item.name }}-{{ item.version }}'
   #       state: directory
   #     with_items: '{{ rar_packages }}'
 
   #   - name: Unpack rar packages
   #     shell: 'curl -O {{ item.url }} -sSf && unrar x -y $(basename {{ item.url }}) {{ item.name }}-{{ item.version }} && rm $(basename {{ item.url }})'
   #     args:
-  #       chdir: '/home/{{ username }}/programs/'
+  #       chdir: '{{ user_home }}/programs/'
   #     with_items: '{{ rar_packages }}'
 
   become: yes

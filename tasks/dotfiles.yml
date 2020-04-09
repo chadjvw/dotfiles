@@ -18,9 +18,9 @@
         state: directory
       with_items: '{{ linked_config_folders }}'
 
-    - name: Find manually installed progreams
+    - name: Find manually installed programs
       find:
-        paths: /home/{{ username }}/programs
+        paths: '{{ user_home }}/programs'
         recurse: yes
         file_type: directory
       register: manual_programs
@@ -60,7 +60,7 @@
 
     - name: Check existing dotfiles
       stat:
-        path: '/home/{{ username }}/{{ item }}'
+        path: '{{ user_home }}/{{ item }}'
       with_items: '{{ linked_dotfiles }}'
       register: dotfiles_stat
 
@@ -69,7 +69,7 @@
 
     - name: Backup existing dotfiles if they aren't links to our dotfiles
       copy:
-        src: '/home/{{ username }}/{{ item.item }}'
+        src: '{{ user_home }}/{{ item.item }}'
         dest: '{{ dotfiles_home }}/backups'
       with_items: '{{ dotfiles_stat.results }}'
       when:
@@ -79,7 +79,7 @@
 
     - name: Remove existing dotfiles if they aren't links to our dotfiles
       file:
-        path: '/home/{{ username }}/{{ item.item }}'
+        path: '{{ user_home }}/{{ item.item }}'
         state: absent
       with_items: '{{ dotfiles_stat.results }}'
       when:
@@ -90,7 +90,7 @@
     - name: Link dotfiles
       file:
         src: '{{ dotfiles_home }}/link/{{ item }}'
-        dest: '/home/{{ username }}/{{ item }}'
+        dest: '{{ user_home }}/{{ item }}'
         state: link
       with_items: '{{ linked_dotfiles }}'
 
@@ -102,13 +102,13 @@
 
     - name: Create config folder
       file:
-        path: '/home/{{ username }}/.config'
+        path: '{{ user_home }}/.config'
         state: directory
 
     - name: Link config folders and files
       file:
         src: '{{ dotfiles_home }}/link/{{ item }}'
-        dest: '/home/{{ username }}/.config/{{ item }}'
+        dest: '{{ user_home }}/.config/{{ item }}'
         state: link
       with_items:
         - '{{ linked_config_folders }}'
@@ -116,20 +116,20 @@
 
     - name: Create and set SSH folder permissions
       file:
-        path: '/home/{{ username }}/.ssh'
+        path: '{{ user_home }}/.ssh'
         mode: 0700
         state: directory
 
     - name: Copy SSH Files
       copy:
         src: '{{ playbook_dir }}/templates/dotfiles/ssh/'
-        dest: '/home/{{ username }}/.ssh'
+        dest: '{{ user_home }}/.ssh'
 
     - name: Set SSH file permissions
       file:
         path: '{{ item.src }}'
         mode: 0600
-      with_filetree: '/home/{{ username }}/.ssh'
+      with_filetree: '{{ user_home }}/.ssh'
       when: item.state == 'file'
 
     - name: Add GitHub keys to authorized_keys
@@ -144,13 +144,13 @@
         path: '{{ item }}'
         mode: 0644
       with_fileglob:
-        - '/home/{{ username }}/.ssh/*.pub'
-        - '/home/{{ username }}/.ssh/authorized_keys'
-        - '/home/{{ username }}/.ssh/known_hosts'
-        - '/home/{{ username }}/.ssh/config'
+        - '{{ user_home }}/.ssh/*.pub'
+        - '{{ user_home }}/.ssh/authorized_keys'
+        - '{{ user_home }}/.ssh/known_hosts'
+        - '{{ user_home }}/.ssh/config'
 
     - name: Install/update neovim packages
-      shell: 'nvim -N -u /home/{{ username }}/.config/nvim/init.vim -c "try | call dein#update() | finally | qall! | endtry" -V1 -es'
+      shell: 'nvim -N -u {{ user_home }}/.config/nvim/init.vim -c "try | call dein#update() | finally | qall! | endtry" -V1 -es'
 
     - name: Locate Fish Shell
       shell: which fish

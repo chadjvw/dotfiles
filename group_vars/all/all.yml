@@ -1,5 +1,5 @@
 full_name: Chad Van Wyhe
-username: chad
+username: chadvanw
 email: chadjvw@gmail.com
 ubuntu_distribution: disco
 update_all_packages: false
@@ -7,7 +7,8 @@ install_gui: true
 compile_alacritty: false
 
 ## dotfiles
-dotfiles_home: '/home/{{ username }}/.dotfiles'
+user_home: '/Users/{{ username }}'
+dotfiles_home: '{{ user_home }}/.dotfiles'
 
 ## monitors
 center_monitor: DisplayPort-0
@@ -18,7 +19,7 @@ right_monitor: DVI-I-0
 mono_font: Iosevka
 mono_font_bold: Iosevka
 font: Iosevka
-font_size: 10
+font_size: 13
 
 # mono_font: InconsolataGo Nerd Font Mono
 # mono_font_bold: InconsolataGo Nerd Font

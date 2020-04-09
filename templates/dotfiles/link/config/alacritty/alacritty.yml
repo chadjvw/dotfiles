@@ -15,21 +15,20 @@ env:
 
 window:
   dimensions:
-    columns: 0
-    lines: 0
+    columns: 200
+    lines: 50
   padding:
     x: 4
     y: 4
   dynamic_padding: false
-  decorations: none
-  startup_mode: Maximized
+  # decorations: none
+  decorations: full
+  # startup_mode: Maximized
+  startup_mode: Windowed
 
 scrolling:
   history: 10000
   multiplier: 3
-  auto_scroll: false
-
-tabspaces: 4
 
 font:
   normal:
@@ -103,7 +102,8 @@ mouse:
   triple_click: { threshold: 300 }
   hide_when_typing: false
   url:
-    launcher: xdg-open
+    # launcher: xdg-open
+    launcher: open
     modifiers: Control
 
 selection:

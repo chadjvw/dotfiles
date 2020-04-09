@@ -10,28 +10,28 @@
 - block:
     - name: Create misc user directories
       file:
-        path: '/home/{{ username }}/{{ item }}'
+        path: '{{ user_home }}/{{ item }}'
         state: directory
       with_items: '{{ user_directories }}'
 
     - name: Check Nerd Install
       stat:
-        path: '/home/{{ username }}/.local/share/fonts/Hack-Bold.ttf'
+        path: '{{ user_home }}/.local/share/fonts/Hack-Bold.ttf'
       register: nerd
 
     - name: Check IBM Plex Install
       stat:
-        path: '/home/{{ username }}/.local/share/fonts/IBMPlexMono-Medium.otf'
+        path: '{{ user_home }}/.local/share/fonts/IBMPlexMono-Medium.otf'
       register: ibm_plex
 
     - name: Check Siji Install
       stat:
-        path: '/home/{{ username }}/.local/share/fonts/siji.pcf'
+        path: '{{ user_home }}/.local/share/fonts/siji.pcf'
       register: siji
 
     - name: Check Termsyn Install
       stat:
-        path: '/home/{{ username }}/.local/share/fonts/termsyn7x14b.psfu'
+        path: '{{ user_home }}/.local/share/fonts/termsyn7x14b.psfu'
       register: termsyn
 
     # - name: Clone Nerd fonts installer
@@ -57,7 +57,7 @@
     #   when: siji.stat.exists == False
 
     # - name: Run Siji installer
-    #   shell: './install.sh -d /home/{{ username }}/.local/share/fonts/'
+    #   shell: './install.sh -d {{ user_home }}/.local/share/fonts/'
     #   args:
     #     chdir: '/tmp/siji'
     #   when: siji.stat.exists == False
@@ -83,7 +83,7 @@
     # - name: Install Termsyn font
     #   copy:
     #     src: '{{ item }}'
-    #     dest: '/home/{{ username }}/.local/share/fonts'
+    #     dest: '{{ user_home }}/.local/share/fonts'
     #   with_fileglob:
     #     - '/tmp/termsyn-1.8.7/*.pcf'
     #     - '/tmp/termsyn-1.8.7/*.psfu'
@@ -104,7 +104,7 @@
     # - name: Copy IBM Plex fonts
     #   copy:
     #     src: '/tmp/ibm-plex-fonts/{{ item }}/fonts/complete/otf/'
-    #     dest: '/home/{{ username }}/.local/share/fonts/'
+    #     dest: '{{ user_home }}/.local/share/fonts/'
     #   when: ibm_plex.stat.exists == False
     #   with_items: '{{ ibm_plex_fonts }}'
 
@@ -116,7 +116,7 @@
 
     - name: Check Dein installation
       stat:
-        path: /home/{{ username }}/.cache/dein/repos/github.com/Shougo/dein.vim
+        path: '{{ user_home }}/.cache/dein/repos/github.com/Shougo/dein.vim'
       register: dein
 
     - name: Get Dein installer
@@ -127,7 +127,7 @@
       when: dein.stat.exists == False
 
     - name: Install Dein
-      shell: '/tmp/dein-installer.sh /home/{{ username }}/.cache/dein'
+      shell: '/tmp/dein-installer.sh {{ user_home }}/.cache/dein'
       when: dein.stat.exists == False
 
     - name: Cleanup Dein installer

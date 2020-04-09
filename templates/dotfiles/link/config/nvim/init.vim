@@ -3,12 +3,12 @@ if &compatible
 endif
 
 " Add the dein installation directory into runtimepath
-set runtimepath+=/home/{{ username }}/.cache/dein/repos/github.com/Shougo/dein.vim
+set runtimepath+={{ user_home }}/.cache/dein/repos/github.com/Shougo/dein.vim
 
-if dein#load_state('/home/{{ username }}/.cache/dein')
-  call dein#begin('/home/{{ username }}/.cache/dein')
+if dein#load_state('{{ user_home }}/.cache/dein')
+  call dein#begin('{{ user_home }}/.cache/dein')
 
-  call dein#add('/home/{{ username }}/.cache/dein/repos/github.com/Shougo/dein.vim')
+  call dein#add('{{ user_home }}/.cache/dein/repos/github.com/Shougo/dein.vim')
   call dein#add('Shougo/deoplete.nvim')
   call dein#add('tpope/vim-sensible')
   call dein#add('tpope/vim-surround')

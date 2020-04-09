@@ -13,10 +13,9 @@
 {% for file in manual_programs.files %}
 set PATH $PATH {{ file.path }}
 {% endfor %}
-set PATH $PATH /home/{{ username }}/.dotfiles/source
-set PATH $PATH /home/{{ username }}/.local/bin
-set PATH $PATH /home/{{ username }}/programs/pcicloud
-set PATH $PATH /home/{{ username }}/.cargo/bin
+set PATH $PATH {{ user_home }}/.dotfiles/source
+set PATH $PATH {{ user_home }}/.local/bin
+set PATH $PATH {{ user_home }}/.cargo/bin
 
 # Override fish colors
 set fish_color_normal white
@@ -63,7 +62,7 @@ if not functions -q fisher
 end
 
 # Add GRC: https://github.com/garabik/grc
-source /etc/grc.fish
+# source /etc/grc.fish
 
 source ~/.alias
 
