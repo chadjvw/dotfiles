@@ -13,6 +13,7 @@
 {% for file in manual_programs.files %}
 set PATH $PATH {{ file.path }}
 {% endfor %}
+set PATH $PATH {{ user_home }}/.toolbox/bin
 set PATH $PATH {{ user_home }}/.dotfiles/source
 set PATH $PATH {{ user_home }}/.local/bin
 set PATH $PATH {{ user_home }}/.cargo/bin
@@ -65,6 +66,10 @@ end
 # source /etc/grc.fish
 
 source ~/.alias
+
+if test -e ~/.internal-alias
+    source ~/.internal-alias
+end
 
 starship init fish | source
 zoxide init fish | source
