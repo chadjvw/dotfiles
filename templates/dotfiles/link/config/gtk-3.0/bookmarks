@@ -1,3 +1,3 @@
-file:///home/{{ username }}/downloads
-file:///home/{{ username }}/images
-file:///home/{{ username }}/git
+file://{{ user_home }}/downloads
+file://{{ user_home }}/images
+file://{{ user_home }}/git
