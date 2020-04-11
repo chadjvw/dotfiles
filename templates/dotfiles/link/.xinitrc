@@ -24,7 +24,7 @@ xrandr --output {{ left_monitor }} --left-of {{ center_monitor }}
 xsetroot -cursor_name left_ptr
 
 # enable fonts
-xset +fp /home/{{ username }}/.local/share/fonts/
+xset +fp {{ user_home }}/.local/share/fonts/
 xset fp rehash
 
 if [ -d /etc/X11/xinit/xinitrc.d ] ; then

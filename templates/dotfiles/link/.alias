@@ -4,9 +4,6 @@ alias svim="sudo nvim"
 alias svi="sudo nvim"
 alias edit="nvim"
 
-alias ydt="yarn deploy --stage test --aws-profile tf --verbose"
-alias ydd="yarn deploy --stage dev --aws-profile ius-dev --verbose"
-
 alias clean-branches='git branch | grep -ve "master\$" | xargs git branch -D'
 
 alias bat="bat --theme ansi-dark"
@@ -42,13 +39,9 @@ alias netstat="ss -tulpn"
 alias ss="ss -tulpn"
 alias sysd="sudo systemctl"
 alias usysd="systemctl --user"
-alias cloudssh="ssh -i ~/.ssh/PciCloudKeyPair.pem"
 
 alias sudo="sudo "
 alias ping="ping -c 5"
 alias untar="tar -xvf"
 
 alias diff="colordiff"
-
-alias mvn-test='mvn surefire:test -DsurefireJvmXms=256m -DsurefireJvmXmx=1g -DsurefireJvmMaxMetaspaceSize=512m -DavailableProcessors=1 -DskipTests=false -amd -Dsun.timezone.ids.oldmapping="true" -DtestFailureIgnore=true -Dmaven.javadoc.skip=true -T 1 -DfailIfGeneratingTestData=true -DexcludedTestCategories=com.pci.test.util.categories.Flaky,com.pci.test.util.categories.Utf8,com.pci.test.util.categories.Learning'
-alias gmi='mvn clean install -pl !:Database -Dsun.timezone.ids.oldmapping="true" -T 4 -DskipTests=true -Drun.yui=false -Dgwt.draftCompile=true -Dgwt.localWorkers=1 "-Dgwt.extraJvmArgs=-Xms1g -Xmx1g -Dgwt.jjs.permutationWorkerFactory=com.google.gwt.dev.ThreadedPermutationWorkerFactory" -Drun.appc=false -Djavadoc.run=false -Dgwt_5_and_6=false -Dmaven.javadoc.skip=true'
