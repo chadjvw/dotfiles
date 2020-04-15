@@ -71,5 +71,6 @@ if test -e ~/.internal-alias
     source ~/.internal-alias
 end
 
+kitty + complete setup fish | source
 starship init fish | source
 zoxide init fish | source
