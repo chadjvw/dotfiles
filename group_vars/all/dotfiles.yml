@@ -19,6 +19,7 @@ linked_config_folders:
   - dunst
   - rofi
   - compton
+  - kitty
 linked_config_files:
   - betterlockscreenrc
   - starship.toml
