@@ -20,12 +20,15 @@ linked_config_folders:
   - rofi
   - compton
   - kitty
+  - yabai
+  - skhd
 linked_config_files:
   - betterlockscreenrc
   - starship.toml
   - user-dirs.dirs
 executable_dotfiles:
   - bspwm/bspwmrc
+  - yabai/yabairc
   - .xinitrc
   - polybar/scripts/powermenu
   - polybar/scripts/powermenu-alt

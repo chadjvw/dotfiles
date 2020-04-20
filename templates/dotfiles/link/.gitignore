@@ -50,3 +50,4 @@ Desktop.ini
 ########
 .idea
 .gradle
+*.iml
