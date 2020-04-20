@@ -44,15 +44,53 @@ set -g man_bold -o green
 set -g man_standout red
 set -g man_underline -u yellow
 
-set -Ux JAVA_HOME /usr/lib/jvm/java-8-openjdk
 set -Ux EDITOR nvim
 set -Ux AWS_EC2_METADATA_DISABLED 1
-set -Ux SXHKD_SHELL /bin/bash
+set -Ux XDG_DATA_DIRS "/usr/local/share:/usr/share"
 set -Ux XDG_DATA_HOME "$HOME/.local/share"
 set -Ux XDG_CONFIG_HOME "$HOME/.config"
-set -Ux XDG_DATA_DIRS "$HOME/.local/share/flatpak/exports/share:/var/lib/flatpak/exports/share:/usr/local/share:/usr/share"
 set -Ux FZF_DEFAULT_COMMAND 'rg --files --no-ignore --hidden --follow -g "!{.git,node_modules,*.swp,dist}/*" 2> /dev/null'
 set -Ux FZF_CTRL_T_COMMAND "$FZF_DEFAULT_COMMAND"
+
+{% if ansible_distribution == 'MacOSX'%}
+# Make ruby use homebrews SSL
+set -Ux RUBY_CONFIGURE_OPTS "--with-openssl-dir=(brew --prefix openssl@1.1)"
+
+# jhome -v 1.8    #switches to java 1.8
+# jhome -v 11    #switches to java 11
+function jhome
+    set JAVA_HOME (/usr/libexec/java_home $argv)
+    echo "JAVA_HOME:" $JAVA_HOME
+    echo "java -version:"
+    java -version
+end
+
+# Add GRC: https://github.com/garabik/grc
+set -U grc_plugin_execs cat cvs df diff dig gcc g++ ls ifconfig \
+       make mount mtr netstat ping ps tail traceroute \
+       wdiff blkid du dnf docker docker-machine env id ip iostat \
+       last lsattr lsblk lspci lsmod lsof getfacl getsebool ulimit uptime nmap \
+       fdisk findmnt free semanage sar ss sysctl systemctl stat showmount \
+       tcpdump tune2fs vmstat w who
+
+for executable in $grc_plugin_execs
+    if type -q $executable
+        function $executable --inherit-variable executable --wraps=$executable
+            if isatty 1
+                grc $executable $argv
+            else
+                eval command $executable $argv
+            end
+        end
+    end
+end
+{% else %}
+set -Ux SXHKD_SHELL /bin/bash
+set -Ux JAVA_HOME /usr/lib/jvm/java-8-openjdk
+
+# Add GRC: https://github.com/garabik/grc
+source /etc/grc.fish
+{% endif %}
 
 test -x (which aws_completer); and complete --command aws --no-files --arguments '(begin; set --local --export COMP_SHELL fish; set --local --export COMP_LINE (commandline); aws_completer | sed \'s/ $//\'; end)'
 
@@ -61,9 +99,6 @@ if not functions -q fisher
     curl https://git.io/fisher --create-dirs -sLo $XDG_CONFIG_HOME/fish/functions/fisher.fish
     fish -c fisher
 end
-
-# Add GRC: https://github.com/garabik/grc
-# source /etc/grc.fish
 
 source ~/.alias
 
