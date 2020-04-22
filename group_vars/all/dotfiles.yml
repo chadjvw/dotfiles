@@ -8,6 +8,7 @@ linked_dotfiles:
   - .zshrc
   - .alias
   - .ideavimrc
+  - .tmux.conf
 linked_config_folders:
   - nvim
   - fish
