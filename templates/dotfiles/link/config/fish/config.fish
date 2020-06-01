@@ -13,6 +13,9 @@
 {% for file in manual_programs.files %}
 set PATH $PATH {{ file.path }}
 {% endfor %}
+# TODO: check if path exists
+# TODO: install dein if it doesnt exist and call installer
+# install cargo and crates?
 set PATH $PATH {{ user_home }}/.toolbox/bin
 set PATH $PATH {{ user_home }}/.dotfiles/source
 set PATH $PATH {{ user_home }}/.local/bin
@@ -53,9 +56,6 @@ set -Ux FZF_DEFAULT_COMMAND 'rg --files --no-ignore --hidden --follow -g "!{.git
 set -Ux FZF_CTRL_T_COMMAND "$FZF_DEFAULT_COMMAND"
 
 {% if ansible_distribution == 'MacOSX'%}
-# Make ruby use homebrews SSL
-set -Ux RUBY_CONFIGURE_OPTS "--with-openssl-dir=(brew --prefix openssl@1.1)"
-
 # jhome -v 1.8    #switches to java 1.8
 # jhome -v 11    #switches to java 11
 function jhome

@@ -23,6 +23,7 @@ linked_config_folders:
   - kitty
   - yabai
   - skhd
+  - bat
 linked_config_files:
   - betterlockscreenrc
   - starship.toml

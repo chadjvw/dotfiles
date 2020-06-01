@@ -10,6 +10,8 @@ if dein#load_state('{{ user_home }}/.cache/dein')
 
   call dein#add('{{ user_home }}/.cache/dein/repos/github.com/Shougo/dein.vim')
   call dein#add('Shougo/deoplete.nvim')
+  call dein#add('Shougo/neosnippet.vim')
+  call dein#add('Shougo/neosnippet-snippets')
   call dein#add('tpope/vim-sensible')
   call dein#add('tpope/vim-surround')
   call dein#add('tpope/vim-eunuch')
@@ -18,7 +20,6 @@ if dein#load_state('{{ user_home }}/.cache/dein')
   call dein#add('editorconfig/editorconfig-vim')
   call dein#add('junegunn/fzf')
   call dein#add('junegunn/fzf.vim')
-  call dein#add('scrooloose/nerdtree')
   call dein#add('tpope/vim-surround')
   call dein#add('dense-analysis/ale')
   call dein#add('itchyny/lightline.vim')
@@ -30,11 +31,15 @@ if dein#load_state('{{ user_home }}/.cache/dein')
   call dein#add('challenger-deep-theme/vim')
   call dein#add('Rigellute/rigel')
   call dein#add('morhetz/gruvbox')
+  call dein#add('Yggdroot/indentLine')
+  call dein#add('stephpy/vim-yaml')
+  call dein#add('preservim/nerdtree')
+  call dein#add('preservim/nerdcommenter')
 
-  " if !has('nvim')
-  "   call dein#add('roxma/nvim-yarp')
-  "   call dein#add('roxma/vim-hug-neovim-rpc')
-  " endif
+  if !has('nvim')
+    call dein#add('roxma/nvim-yarp')
+    call dein#add('roxma/vim-hug-neovim-rpc')
+  endif
 
   call dein#end()
   call dein#save_state()
@@ -46,6 +51,8 @@ if (has("nvim"))
   "For Neovim 0.1.3 and 0.1.4 < https://github.com/neovim/neovim/pull/2198 >
   let $NVIM_TUI_ENABLE_TRUE_COLOR=1
 endif
+
+let g:deoplete#enable_at_startup = 1
 
 " lightline 
 set laststatus=2
@@ -170,6 +177,15 @@ let g:ale_list_window_size = 5
 " keep the sign gutter open
 let g:ale_sign_column_always = 1
 
+" yamllinting
+let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
+let g:ale_sign_error = '✘'
+let g:ale_sign_warning = '⚠'
+let g:ale_lint_on_text_changed = 'never'
+
+" indent character override
+let g:indentLine_char = '⦙'
+
 " 
 " AutoGroups 
 augroup configgroup
@@ -177,10 +193,13 @@ augroup configgroup
     autocmd VimEnter * highlight clear SignColumn
     autocmd BufEnter *.cls setlocal filetype=java
     autocmd BufEnter *.zsh-theme setlocal filetype=zsh
+    " autocmd BufEnter *.json setlocal filetype=javascript
     autocmd BufEnter Makefile setlocal noexpandtab
-    autocmd BufEnter *.sh,*.js,*.ts,*.yml,*.yaml setlocal tabstop=2
-    autocmd BufEnter *.sh,*.js,*.ts,*.yml,*.yaml setlocal shiftwidth=2
-    autocmd BufEnter *.sh,*.js,*.ts,*.yml,*.yaml setlocal softtabstop=2
+    " autocmd BufEnter *.sh,*.js,*.ts,*.yml,*.yaml setlocal tabstop=2
+    " autocmd BufEnter *.sh,*.js,*.ts,*.yml,*.yaml setlocal shiftwidth=2
+    " autocmd BufEnter *.sh,*.js,*.ts,*.yml,*.yaml setlocal softtabstop=2
+    au! BufNewFile,BufReadPost *.{yaml,yml} set filetype=yaml foldmethod=indent
+    autocmd FileType yaml,javascript,typescript,sh setlocal ts=2 sts=2 sw=2 expandtab
     autocmd BufEnter *.py setlocal tabstop=4
     autocmd BufEnter *.md setlocal ft=markdown
     autocmd BufEnter *.go setlocal noexpandtab
@@ -188,8 +207,10 @@ augroup configgroup
 augroup END
 "
 " NerdTree
-" open a NERDTree automatically when vim starts up
-" autocmd vimenter * NERDTree
+let NERDTreeMinimalUI = 1
+nnoremap :nt :NERDTreeFocus<CR>
+" open a NERDTree automatically when vim starts up and select the code window
+autocmd VimEnter * NERDTree | wincmd p
 " open a NERDTree automatically when vim starts up if no files were specified
 autocmd StdinReadPre * let s:std_in=1
 autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
@@ -197,6 +218,25 @@ autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
 autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in") | exe 'NERDTree' argv()[0] | wincmd p | ene | exe 'cd '.argv()[0] | endif
 " close vim if the only window left open is a NERDTree
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+
+" Add spaces after comment delimiters by default
+let g:NERDSpaceDelims = 1
+
+" Use compact syntax for prettified multi-line comments
+let g:NERDCompactSexyComs = 1
+
+" Align line-wise comment delimiters flush left instead of following code indentation
+let g:NERDDefaultAlign = 'left'
+
+" Allow commenting and inverting empty lines (useful when commenting a region)
+let g:NERDCommentEmptyLines = 1
+
+" Enable trimming of trailing whitespace when uncommenting
+let g:NERDTrimTrailingWhitespace = 1
+
+" Enable NERDCommenterToggle to check all selected lines is commented or not 
+let g:NERDToggleCheckAllLines = 1
+
 " 
 " Backups 
 set backup
@@ -206,4 +246,19 @@ set directory=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
 set writebackup
 " 
 " 
+com! Formatjson %!python -c "import json, sys, collections; print(json.dumps(json.load(sys.stdin, object_pairs_hook=collections.OrderedDict), indent=2))"
+com! Formatyaml %!python -c "import yaml, sys, collections; print(yaml.safe_dumps(yaml.safe_load(sys.stdin), indent=2, default_flow_style=False, allow_unicode=True))"
+
+function! Json2yaml()
+  %!python -c "import yaml, json, sys; print(yaml.safe_dump(json.load(sys.stdin), indent=2, default_flow_style=False, allow_unicode=True))"
+  :set syntax=yaml
+endfunction
+
+function! Yaml2json()
+  %!python -c "import yaml, json, sys; print(json.dump(yaml.safe_load(sys.stdin), indent=2))"
+  :set syntax=json
+endfunction
+
+com! Yaml2json call Yaml2json()
+com! Json2yaml call Json2yaml()
 " vim:foldmethod=marker:foldlevel=0
