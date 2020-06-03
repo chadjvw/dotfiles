@@ -1,7 +1,7 @@
 alias vi="nvim"
 alias vim="nvim"
-alias svim="sudo nvim"
-alias svi="sudo nvim"
+alias svi="sudo nvim -u {{ user_home }}/.config/nvim/init.vim"
+alias svi="sudo nvim -u {{ user_home }}/.config/nvim/init.vim"
 alias edit="nvim"
 
 alias clean-branches='git branch | grep -ve "master\$" | xargs git branch -D'
@@ -28,7 +28,7 @@ alias mkdir="mkdir -pv"
 # jhome -v 1.8    #switches to java 1.8
 # jhome -v 11    #switches to java 11
 function jhome
-    set JAVA_HOME (/usr/libexec/java_home $argv)
+    set -lx JAVA_HOME (/usr/libexec/java_home $argv)
     echo "JAVA_HOME:" $JAVA_HOME
     echo "java -version:"
     java -version
