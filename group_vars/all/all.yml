@@ -16,9 +16,9 @@ left_monitor: DP3
 right_monitor: DVI-I-0
 
 ## Fonts
-mono_font: Iosevka
-mono_font_bold: Iosevka
-font: Iosevka
+mono_font: Iosevka Nerd Font
+mono_font_bold: Iosevka Nerd Font
+font: Iosevka Nerd Font
 font_size: 13
 
 # mono_font: InconsolataGo Nerd Font Mono

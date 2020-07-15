@@ -89,5 +89,11 @@ if test -e ~/.internal-alias
     source ~/.internal-alias
 end
 
+# macos doesnt like sourcing this alias
+alias ls="exa --icons"
+
+# init for pyenv
+status --is-interactive; and source (pyenv init -|psub)
+
 starship init fish | source
 zoxide init fish | source

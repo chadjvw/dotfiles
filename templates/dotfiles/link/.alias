@@ -17,6 +17,7 @@ alias llt='exa --tree --all --long --level=4 --icons'
 
 alias grep="grep -i --color=auto"
 alias rg="rg -S"
+alias j="just"
 
 alias ..="cd .."
 alias ...="cd ../.."
