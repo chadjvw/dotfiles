@@ -63,21 +63,39 @@ set noshowmode
 " let g:lightline = { 'colorscheme': 'rigel' }
 let g:lightline = { 'colorscheme': 'gruvbox' }
 
-let g:lightline.component_expand = {
-      \  'linter_checking': 'lightline#ale#checking',
-      \  'linter_warnings': 'lightline#ale#warnings',
-      \  'linter_errors': 'lightline#ale#errors',
-      \  'linter_ok': 'lightline#ale#ok',
-      \ }
+" let g:lightline.component_expand = {
+"       \  'linter_checking': 'lightline#ale#checking',
+"       \  'linter_warnings': 'lightline#ale#warnings',
+"       \  'linter_errors': 'lightline#ale#errors',
+"       \  'linter_ok': 'lightline#ale#ok',
+"       \ }
 
-let g:lightline.component_type = {
-      \     'linter_checking': 'left',
-      \     'linter_warnings': 'warning',
-      \     'linter_errors': 'error',
-      \     'linter_ok': 'left',
-      \ }
+" let g:lightline.component_type = {
+"       \     'linter_checking': 'left',
+"       \     'linter_warnings': 'warning',
+"       \     'linter_errors': 'error',
+"       \     'linter_ok': 'left',
+"       \ }
 
-let g:lightline.active = { 'right': [[ 'linter_checking', 'linter_errors', 'linter_warnings', 'linter_ok' ]] }
+" let g:lightline.active = { 'right': [[ 'linter_checking', 'linter_errors', 'linter_warnings', 'linter_ok' ]] }
+
+" Make lightline work with buffers so it plays nice with NerdTree
+" let g:lightline = {
+"       \ 'active': {
+"       \   'right': [ [ 'lineinfo' ], [ 'bufferline' ], [ 'fileformat', 'fileencoding', 'filetype' ] ]
+"       \ },
+"       \ 'component_function': {
+"       \   'bufferline': 'LightlineBufferLine'
+"       \ }
+"       \ }
+
+" function! LightlineBufferLine()
+"   let info = get(g:, 'bufferline_status_info', {})
+"   if empty(info)
+"     return ''
+"   endif
+"   return info.before . info.current . info.after
+" endfunction
 
 syntax enable  " enable syntax processing  
 
@@ -193,6 +211,8 @@ augroup configgroup
     autocmd VimEnter * highlight clear SignColumn
     autocmd BufEnter *.cls setlocal filetype=java
     autocmd BufEnter *.zsh-theme setlocal filetype=zsh
+    autocmd BufEnter Config setlocal filetype=perl
+    autocmd BufEnter packageInfo* setlocal filetype=perl
     " autocmd BufEnter *.json setlocal filetype=javascript
     autocmd BufEnter Makefile setlocal noexpandtab
     " autocmd BufEnter *.sh,*.js,*.ts,*.yml,*.yaml setlocal tabstop=2
@@ -209,15 +229,15 @@ augroup END
 " NerdTree
 let NERDTreeMinimalUI = 1
 nnoremap :nt :NERDTreeFocus<CR>
-" open a NERDTree automatically when vim starts up and select the code window
-autocmd VimEnter * NERDTree | wincmd p
-" open a NERDTree automatically when vim starts up if no files were specified
-autocmd StdinReadPre * let s:std_in=1
-autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
-" open NERDTree automatically when vim starts up on opening a directory
-autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in") | exe 'NERDTree' argv()[0] | wincmd p | ene | exe 'cd '.argv()[0] | endif
-" close vim if the only window left open is a NERDTree
-autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+" " open a NERDTree automatically when vim starts up and select the code window
+" autocmd VimEnter * NERDTree | wincmd p
+" " open a NERDTree automatically when vim starts up if no files were specified
+" autocmd StdinReadPre * let s:std_in=1
+" autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
+" " open NERDTree automatically when vim starts up on opening a directory
+" autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in") | exe 'NERDTree' argv()[0] | wincmd p | ene | exe 'cd '.argv()[0] | endif
+" " close vim if the only window left open is a NERDTree
+" autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 
 " Add spaces after comment delimiters by default
 let g:NERDSpaceDelims = 1
@@ -261,4 +281,5 @@ endfunction
 
 com! Yaml2json call Yaml2json()
 com! Json2yaml call Json2yaml()
+
 " vim:foldmethod=marker:foldlevel=0
