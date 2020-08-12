@@ -9,6 +9,7 @@ linked_dotfiles:
   - .alias
   - .ideavimrc
   - .tmux.conf
+  - .finicky.js
 linked_config_folders:
   - nvim
   - fish

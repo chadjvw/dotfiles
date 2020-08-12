@@ -11,15 +11,15 @@
 #      \__\/                   \__\/         \__\/    
 
 {% for file in manual_programs.files %}
-set PATH $PATH {{ file.path }}
+set PATH {{ file.path }} $PATH
 {% endfor %}
 # TODO: check if path exists
 # TODO: install dein if it doesnt exist and call installer
 # install cargo and crates?
-set PATH $PATH {{ user_home }}/.toolbox/bin
-set PATH $PATH {{ user_home }}/.dotfiles/source
-set PATH $PATH {{ user_home }}/.local/bin
-set PATH $PATH {{ user_home }}/.cargo/bin
+set PATH {{ user_home }}/.dotfiles/source $PATH
+set PATH {{ user_home }}/.local/bin $PATH
+set PATH {{ user_home }}/.cargo/bin $PATH
+set PATH {{ user_home }}/.toolbox/bin $PATH
 
 # Override fish colors
 set fish_color_normal white
