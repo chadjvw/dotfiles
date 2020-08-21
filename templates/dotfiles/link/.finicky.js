@@ -41,12 +41,6 @@ module.exports = {
       },
     },
     {
-      match: ({ url }) => url.protocol === 'http',
-      url: {
-        protocol: 'https',
-      },
-    },
-    {
       match: ({ url }) => url.search.includes('utm_'),
       url({ url }) {
         const search = url.search
@@ -71,7 +65,7 @@ module.exports = {
       browser: '/Applications/Quip.app',
     },
     {
-      match: '[open|play].spotify.com*',
+      match: ['open.spotify.com*', 'play.spotify.com*'],
       browser: 'Spotify',
     },
     {
