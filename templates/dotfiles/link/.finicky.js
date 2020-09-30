@@ -1,8 +1,5 @@
 module.exports = {
-  defaultBrowser: () =>
-    finicky.getBattery().chargePercentage < 50
-      ? 'Safari'
-      : 'Firefox Developer Edition',
+  defaultBrowser: 'Firefox Developer Edition',
   rewrite: [
     {
       // Redirect all urls to use https
@@ -22,7 +19,7 @@ module.exports = {
     },
     {
       // rewrite http[s]://quip.com/<documentID>/* to quip://<documentID>
-      match: finicky.matchHostnames(['quip-?.*\.com']),
+      match: finicky.matchHostnames([/quip-?.*\.com/]),
       url: ({ url }) => ({
         ...url,
         host: '',
