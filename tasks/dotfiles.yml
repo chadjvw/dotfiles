@@ -152,6 +152,22 @@
     - name: Install/update neovim packages
       shell: 'nvim -N -u {{ user_home }}/.config/nvim/init.vim -c "try | call dein#update() | finally | qall! | endtry" -V1 -es'
 
+    - name: Download NVM Installer
+      get_url:
+        url: 'https://raw.githubusercontent.com/nvm-sh/nvm/v0.36.0/install.sh'
+        dest: /tmp/nvm-installer.sh
+        mode: '0755'
+
+    - name: Install NVM
+      shell: /tmp/nvm-installer.sh
+      args:
+        creates: "{{ ansible_env.HOME }}/.nvm/nvm.sh"        
+
+    - name: Remove NVM Installer
+      file:
+        path: /tmp/nvm-installer.sh
+        state: absent
+
     - name: Locate Fish Shell
       shell: which fish
       register: fish_shell

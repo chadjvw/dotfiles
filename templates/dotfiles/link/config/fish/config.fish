@@ -92,6 +92,8 @@ end
 # macos doesnt like sourcing this alias
 alias ls="exa --icons"
 
+nvm_alias_function gulp webpack grunt prettier
+
 # init for pyenv
 status --is-interactive; and source (pyenv init -|psub)
 
