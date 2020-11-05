@@ -54,6 +54,7 @@ set -Ux XDG_DATA_HOME "$HOME/.local/share"
 set -Ux XDG_CONFIG_HOME "$HOME/.config"
 set -Ux FZF_DEFAULT_COMMAND 'rg --files --no-ignore --hidden --follow -g "!{.git,node_modules,*.swp,dist}/*" 2> /dev/null'
 set -Ux FZF_CTRL_T_COMMAND "$FZF_DEFAULT_COMMAND"
+set -Ux BYOBU_PREFIX /usr/local
 
 {% if ansible_distribution == 'MacOSX'%}
 # jhome -v 1.8    #switches to java 1.8
@@ -91,8 +92,6 @@ end
 
 # macos doesnt like sourcing this alias
 alias ls="exa --icons"
-
-nvm_alias_function gulp webpack grunt prettier
 
 # init for pyenv
 status --is-interactive; and source (pyenv init -|psub)

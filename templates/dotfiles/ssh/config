@@ -1,2 +1,4 @@
+Include internal
+
 Host github.com
     IdentityFile ~/.ssh/id_rsa_github
