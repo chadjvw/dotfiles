@@ -18,6 +18,7 @@ alias llt='exa --tree --all --long --level=4 --icons'
 alias grep="grep -i --color=auto"
 alias rg="rg -S"
 alias j="just"
+alias by="byobu"
 
 alias ..="cd .."
 alias ...="cd ../.."
@@ -25,26 +26,6 @@ alias ....="cd ../../.."
 alias .....="cd ../../../.."
 
 alias mkdir="mkdir -pv"
-{% if ansible_distribution == 'MacOSX'%}
-# jhome -v 1.8    #switches to java 1.8
-# jhome -v 11    #switches to java 11
-function jhome
-    set -lx JAVA_HOME (/usr/libexec/java_home $argv)
-    echo "JAVA_HOME:" $JAVA_HOME
-    echo "java -version:"
-    java -version
-end
-
-# Add GRC: https://github.com/garabik/grc
-source /usr/local/etc/grc.fish
-{% else %}
-set -Ux SXHKD_SHELL /bin/bash
-set -Ux JAVA_HOME /usr/lib/jvm/java-8-openjdk
-
-# Add GRC: https://github.com/garabik/grc
-source /etc/grc.fish
-{% endif %}
-
 alias mv="mv -v"
 alias rm="rm -vi"
 alias cp="cp -v"
