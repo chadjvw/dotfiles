@@ -52,6 +52,8 @@ set -Ux AWS_EC2_METADATA_DISABLED 1
 set -Ux XDG_DATA_DIRS "/usr/local/share:/usr/share"
 set -Ux XDG_DATA_HOME "$HOME/.local/share"
 set -Ux XDG_CONFIG_HOME "$HOME/.config"
+set -Ux JUST_CHOOSER 'sk'
+set -Ux SKIM_DEFAULT_COMMAND 'fd --type f || git ls-tree -r --name-only HEAD || rg --files || find .'
 set -Ux FZF_DEFAULT_COMMAND 'rg --files --no-ignore --hidden --follow -g "!{.git,node_modules,*.swp,dist}/*" 2> /dev/null'
 set -Ux FZF_CTRL_T_COMMAND "$FZF_DEFAULT_COMMAND"
 set -Ux BYOBU_PREFIX /usr/local

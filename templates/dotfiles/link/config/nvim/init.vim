@@ -35,6 +35,7 @@ if dein#load_state('{{ user_home }}/.cache/dein')
   call dein#add('stephpy/vim-yaml')
   call dein#add('preservim/nerdtree')
   call dein#add('preservim/nerdcommenter')
+  call dein#add('lotabout/skim')
 
   if !has('nvim')
     call dein#add('roxma/nvim-yarp')
@@ -194,6 +195,9 @@ let g:ale_pattern_options = {
 let g:ale_list_window_size = 5
 " keep the sign gutter open
 let g:ale_sign_column_always = 1
+
+" Skim
+let $SKIM_DEFAULT_COMMAND = "fd --type f || git ls-tree -r --name-only HEAD || rg --files || find ."
 
 " yamllinting
 let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'

@@ -15,9 +15,10 @@ alias lla='exa --all -all --long --header --group --icons --sort=modified'
 alias lt='exa --tree --level=4 --icons'
 alias llt='exa --tree --all --long --level=4 --icons'
 
-alias grep="grep -i --color=auto"
-alias rg="rg -S"
+alias grep="grep --ignore-case --color=auto"
+alias rg="rg --smart-case"
 alias j="just"
+alias .j="just --justfile ~/.justfile --working-directory ~"
 alias by="byobu"
 
 alias ..="cd .."
@@ -29,21 +30,22 @@ alias mkdir="mkdir -pv"
 alias mv="mv -v"
 alias rm="rm -vi"
 alias cp="cp -v"
-alias rcp="rsync --progress --size-only --inplace --verbose"
-
+# scp is deprecated
+alias scp="rsync --progress --archive --verbose --compress --human-readable"
+alias rcp="rsync --progress --size-only --inplace --verbose --human-readable"
 alias df="df -H"
 alias du="dua"
 alias top="gotop"
 alias find="fd"
 alias figlet="figlet -f isometric3"
 
-alias netstat="ss -tulpn"
-alias ss="ss -tulpn"
+alias netstat="ss --tcp --udp --listening --processes --numeric" # -tulpn
+alias ss="ss --tcp --udp --listening --processes --numeric"
 alias sysd="sudo systemctl"
 alias usysd="systemctl --user"
 
 alias sudo="sudo "
 alias ping="ping -c 5"
-alias untar="tar -xvf"
+alias untar="tar --extract --verbose --file"
 
 alias diff="colordiff"
