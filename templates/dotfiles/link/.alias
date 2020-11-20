@@ -15,6 +15,10 @@ alias lla='exa --all -all --long --header --group --icons --sort=modified'
 alias lt='exa --tree --level=4 --icons'
 alias llt='exa --tree --all --long --level=4 --icons'
 
+alias g="git"
+alias gl="git l"
+alias glg="git lg"
+
 alias grep="grep --ignore-case --color=auto"
 alias rg="rg --smart-case"
 alias j="just"

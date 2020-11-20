@@ -1,5 +1,6 @@
 full_name: Chad Van Wyhe
-username: chadvanw
+mac_username: chadvanw
+nix_username: chad
 email: chadjvw@gmail.com
 ubuntu_distribution: disco
 update_all_packages: false
@@ -7,8 +8,8 @@ install_gui: true
 compile_alacritty: false
 
 ## dotfiles
-user_home: '/Users/{{ username }}'
-dotfiles_home: '{{ user_home }}/.dotfiles'
+mac_user_home: '/Users/{{ mac_username }}'
+nix_user_home: '/home/{{ nix_username }}'
 
 ## monitors
 center_monitor: DisplayPort-0
