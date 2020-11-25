@@ -57,41 +57,59 @@ draw_bold_text_with_bright_colors: true
 
 colors:
   primary:
-    background: '0x{{ background }}'
-    foreground: '0x{{ foreground }}'
+    background: '#{{ background }}'
+    foreground: '#{{ foreground }}'
   cursor:
-    text: '0x{{ text }}'
-    cursor: '0x{{ cursor }}'
+    text: '#{{ text }}'
+    cursor: '#{{ cursor }}'
   normal:
-    black:   '0x{{ black }}'
-    red:     '0x{{ red }}'
-    green:   '0x{{ green }}'
-    yellow:  '0x{{ yellow }}'
-    blue:    '0x{{ blue }}'
-    magenta: '0x{{ magenta }}'
-    cyan:    '0x{{ cyan }}'
-    white:   '0x{{ white }}'
+    black:   '#{{ black }}'
+    red:     '#{{ red }}'
+    green:   '#{{ green }}'
+    yellow:  '#{{ yellow }}'
+    blue:    '#{{ blue }}'
+    magenta: '#{{ magenta }}'
+    cyan:    '#{{ cyan }}'
+    white:   '#{{ white }}'
   bright:
-    black:   '0x{{ brblack }}'
-    red:     '0x{{ brred }}'
-    green:   '0x{{ brgreen }}'
-    yellow:  '0x{{ bryellow }}'
-    blue:    '0x{{ brblue }}'
-    magenta: '0x{{ brmagenta }}'
-    cyan:    '0x{{ brcyan }}'
-    white:   '0x{{ brwhite }}'
+    black:   '#{{ brblack }}'
+    red:     '#{{ brred }}'
+    green:   '#{{ brgreen }}'
+    yellow:  '#{{ bryellow }}'
+    blue:    '#{{ brblue }}'
+    magenta: '#{{ brmagenta }}'
+    cyan:    '#{{ brcyan }}'
+    white:   '#{{ brwhite }}'
   indexed_colors:
-    - { index: 16, color: '0x{{ color16 }}' }
-    - { index: 17, color: '0x{{ color17 }}' }
-    - { index: 18, color: '0x{{ color18 }}' }
-    - { index: 19, color: '0x{{ color19 }}' }
-    - { index: 20, color: '0x{{ color20 }}' }
-    - { index: 21, color: '0x{{ color21 }}' }
+    - { index: 16, color: '#{{ color16 }}' }
+    - { index: 17, color: '#{{ color17 }}' }
+    - { index: 18, color: '#{{ color18 }}' }
+    - { index: 19, color: '#{{ color19 }}' }
+    - { index: 20, color: '#{{ color20 }}' }
+    - { index: 21, color: '#{{ color21 }}' }
+
+  vi_mode_cursor:
+    text: '#{{ text }}'
+    cursor: '#{{ cursor }}'
+  selection:
+   text: '#{{ text }}'
+   background: '#{{ background }}'
+  search:
+    matches:
+     foreground: '#{{ brwhite }}'
+     background: '#{{ brmagenta }}'
+    focused_match:
+     foreground: '#{{ brwhite }}'
+     background: '#{{ blue }}'
+    bar:
+     background: '#{{ brblack }}'
+     foreground: '#{{ bryellow }}'
+
 
 bell:
   animation: EaseOutExpo
   duration: 0
-  color: '0x{{ brwhite }}'
+  color: '#{{ brwhite }}'
 
 background_opacity: 1.0
 
@@ -139,6 +157,7 @@ key_bindings:
   - { key: Escape,                      mode: Vi, action: ClearSelection          }
   - { key: I,                           mode: Vi, action: ScrollToBottom          }
   - { key: I,                           mode: Vi, action: ToggleViMode            }
+  - { key: C,      mods: Control,       mode: Vi, action: ToggleViMode            }
   - { key: Y,      mods: Control,       mode: Vi, action: ScrollLineUp            }
   - { key: E,      mods: Control,       mode: Vi, action: ScrollLineDown          }
   - { key: G,                           mode: Vi, action: ScrollToTop             }
@@ -182,36 +201,39 @@ key_bindings:
   - { key: N,      mods: Shift,         mode: Vi, action: SearchPrevious          }
 
   # (Windows, Linux, and BSD only)
-  - { key: V,        mods: Control|Shift,           action: Paste            }
-  - { key: C,        mods: Control|Shift,           action: Copy             }
-  - { key: F,        mods: Control|Shift,           action: SearchForward    }
-  - { key: B,        mods: Control|Shift,           action: SearchBackward   }
-  - { key: C,        mods: Control|Shift, mode: Vi, action: ClearSelection   }
-  - { key: Insert,   mods: Shift,                   action: PasteSelection   }
-  - { key: Key0,     mods: Control,                 action: ResetFontSize    }
-  - { key: Equals,   mods: Control,                 action: IncreaseFontSize }
-  - { key: Add,      mods: Control,                 action: IncreaseFontSize }
-  - { key: Subtract, mods: Control,                 action: DecreaseFontSize }
-  - { key: Minus,    mods: Control,                 action: DecreaseFontSize }
+  - { key: V,              mods: Control|Shift,           action: Paste            }
+  - { key: C,              mods: Control|Shift,           action: Copy             }
+  - { key: F,              mods: Control|Shift,           action: SearchForward    }
+  - { key: B,              mods: Control|Shift,           action: SearchBackward   }
+  - { key: C,              mods: Control|Shift, mode: Vi, action: ClearSelection   }
+  - { key: Insert,         mods: Shift,                   action: PasteSelection   }
+  - { key: Key0,           mods: Control,                 action: ResetFontSize    }
+  - { key: Equals,         mods: Control,                 action: IncreaseFontSize }
+  - { key: Plus,           mods: Control,                 action: IncreaseFontSize }
+  - { key: NumpadAdd,      mods: Control,                 action: IncreaseFontSize }
+  - { key: Minus,          mods: Control,                 action: DecreaseFontSize }
+  - { key: NumpadSubtract, mods: Control,                 action: DecreaseFontSize }
 
   # (Windows only)
   - { key: Return,   mods: Alt,           action: ToggleFullscreen }
 
   # (macOS only)
-  - { key: K,      mods: Command, mode: ~Vi, chars: "\x0c"            }
-  - { key: Key0,   mods: Command,            action: ResetFontSize    }
-  - { key: Equals, mods: Command,            action: IncreaseFontSize }
-  - { key: Add,    mods: Command,            action: IncreaseFontSize }
-  - { key: Minus,  mods: Command,            action: DecreaseFontSize }
-  - { key: K,      mods: Command,            action: ClearHistory     }
-  - { key: V,      mods: Command,            action: Paste            }
-  - { key: C,      mods: Command,            action: Copy             }
-  - { key: C,      mods: Command, mode: Vi,  action: ClearSelection   }
-  - { key: H,      mods: Command,            action: Hide             }
-  - { key: M,      mods: Command,            action: Minimize         }
-  - { key: Q,      mods: Command,            action: Quit             }
-  - { key: W,      mods: Command,            action: Quit             }
-  - { key: N,      mods: Command,            action: SpawnNewInstance }
-  - { key: F,      mods: Command|Control,    action: ToggleFullscreen }
-  - { key: F,      mods: Command,            action: SearchForward    }
-  - { key: B,      mods: Command,            action: SearchBackward   }
+  - { key: K,              mods: Command, mode: ~Vi, chars: "\x0c"                  }
+  - { key: Key0,           mods: Command,            action: ResetFontSize          }
+  - { key: Equals,         mods: Command,            action: IncreaseFontSize       }
+  - { key: Plus,           mods: Command,            action: IncreaseFontSize       }
+  - { key: NumpadAdd,      mods: Command,            action: IncreaseFontSize       }
+  - { key: Minus,          mods: Command,            action: DecreaseFontSize       }
+  - { key: NumpadSubtract, mods: Command,            action: DecreaseFontSize       }
+  - { key: K,              mods: Command,            action: ClearHistory           }
+  - { key: V,              mods: Command,            action: Paste                  }
+  - { key: C,              mods: Command,            action: Copy                   }
+  - { key: C,              mods: Command, mode: Vi,  action: ClearSelection         }
+  - { key: H,              mods: Command,            action: Hide                   }
+  - { key: M,              mods: Command,            action: Minimize               }
+  - { key: Q,              mods: Command,            action: Quit                   }
+  - { key: W,              mods: Command,            action: Quit                   }
+  - { key: N,              mods: Command,            action: SpawnNewInstance       }
+  - { key: F,              mods: Command|Control,    action: ToggleSimpleFullscreen }
+  - { key: F,              mods: Command,            action: SearchForward          }
+  - { key: B,              mods: Command,            action: SearchBackward         }

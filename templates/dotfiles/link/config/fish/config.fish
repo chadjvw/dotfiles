@@ -81,7 +81,6 @@ source /etc/grc.fish
 test -x (which aws_completer); and complete --command aws --no-files --arguments '(begin; set --local --export COMP_SHELL fish; set --local --export COMP_LINE (commandline); aws_completer | sed \'s/ $//\'; end)'
 
 if not functions -q fisher
-    set -q XDG_CONFIG_HOME; or set XDG_CONFIG_HOME ~/.config
     curl https://git.io/fisher --create-dirs -sLo $XDG_CONFIG_HOME/fish/functions/fisher.fish
     fish -c fisher
 end
@@ -96,7 +95,11 @@ end
 alias ls="exa --icons"
 
 # init for pyenv
-status --is-interactive; and source (pyenv init -|psub)
+if status is-interactive
+    and test -x (which pyenv)
+    pyenv init - | source
+    pyenv virtualenv-init - | source
+end
 
-starship init fish | source
-zoxide init fish | source
+test -x (which starship); and starship init fish | source
+test -x (which zoxide); and zoxide init fish | source
