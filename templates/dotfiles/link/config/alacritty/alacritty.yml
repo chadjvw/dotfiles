@@ -92,8 +92,8 @@ colors:
     text: '#{{ text }}'
     cursor: '#{{ cursor }}'
   selection:
-   text: '#{{ text }}'
-   background: '#{{ background }}'
+   text: '#{{ background }}'
+   background: '#{{ text }}'
   search:
     matches:
      foreground: '#{{ brwhite }}'
