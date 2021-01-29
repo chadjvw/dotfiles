@@ -29,7 +29,7 @@
       template:
         src: 'dotfiles/link/{{ item }}'
         dest: '{{ dotfiles_home }}/link/{{ item }}'
-      with_items: '{{ linked_dotfiles }}'
+      with_items: '{{ linked_config_dotfiles }}'
 
     - name: Copy static sourced dotfiles
       template:
@@ -61,11 +61,8 @@
     - name: Check existing dotfiles
       stat:
         path: '{{ user_home }}/{{ item }}'
-      with_items: '{{ linked_dotfiles }}'
       register: dotfiles_stat
-
-    # - debug:
-    #     var: dotfiles_stat
+      with_items: '{{ linked_config_dotfiles }}'
 
     - name: Backup existing dotfiles if they aren't links to our dotfiles
       copy:
@@ -92,7 +89,7 @@
         src: '{{ dotfiles_home }}/link/{{ item }}'
         dest: '{{ user_home }}/{{ item }}'
         state: link
-      with_items: '{{ linked_dotfiles }}'
+      with_items: '{{ linked_config_dotfiles }}'
 
     - name: Update dotfile permissions
       file:
@@ -148,6 +145,31 @@
         - '{{ user_home }}/.ssh/authorized_keys'
         - '{{ user_home }}/.ssh/known_hosts'
         - '{{ user_home }}/.ssh/config'
+
+    - name: Download SpaceVim Installer
+      get_url:
+        url: 'https://spacevim.org/install.sh'
+        dest: /tmp/spacevim-installer.sh
+        mode: '0755'
+
+    - name: Install SpaceVim
+      shell: /tmp/spacevim-installer.sh    
+
+    - name: Remove SpaceVim Installer
+      file:
+        path: /tmp/spacevim-installer.sh
+        state: absent
+
+    - name: Create SpaceVim folder
+      file:
+        path: '{{ user_home }}/.SpaceVim.d/'
+        mode: 0700
+        state: directory
+
+    - name: Copy SpaceVim config
+      template:
+        src: '{{ playbook_dir }}/templates/dotfiles/link/spacevim/init.toml'
+        dest: '{{ user_home }}/.SpaceVim.d/'
 
     - name: Install/update neovim packages
       shell: 'nvim -N -u {{ user_home }}/.config/nvim/init.vim -c "try | call dein#update() | finally | qall! | endtry" -V1 -es'

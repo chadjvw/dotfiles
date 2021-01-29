@@ -1,4 +1,4 @@
-linked_dotfiles:
+linked_config_dotfiles:
   - .bash_profile
   - .bashrc
   - .gitconfig
@@ -10,8 +10,9 @@ linked_dotfiles:
   - .ideavimrc
   - .tmux.conf
   - .finicky.js
-linked_config_folders:
-  - nvim
+linked_config_folders: 
+  # trying out SpaceVim: https://spacevim.org/
+  # - nvim
   - fish
   - alacritty
   - gtk-3.0
@@ -29,6 +30,10 @@ linked_config_files:
   - betterlockscreenrc
   - starship.toml
   - user-dirs.dirs
+linked_dotfiles:
+  - cargo/config
+linked_dot_folders:
+  - SpaceVim.d
 executable_dotfiles:
   - bspwm/bspwmrc
   - yabai/yabairc
