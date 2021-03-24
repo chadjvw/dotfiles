@@ -1,3 +1,0 @@
-file://{{ user_home }}/downloads
-file://{{ user_home }}/images
-file://{{ user_home }}/git

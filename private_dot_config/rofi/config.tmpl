@@ -1,0 +1,31 @@
+! Enable the extended coloring options
+rofi.color-enabled: true
+
+! Property Name     BG       Border   Separator
+rofi.color-window:  #{{ .colors.bright.black }}, #{{ .colors.bright.black }}, #{{ .colors.normal.black }}
+
+! Property Name     BG       FG       BG-alt   Head-BG  Head-FG
+rofi.color-normal:  #{{ .colors.bright.black }}, #{{ .colors.bright.blue }}, #{{ .colors.bright.black }}, #{{ .colors.bright.black }}, #{{ .colors.bright.white }}
+rofi.color-active:  #{{ .colors.bright.black }}, #{{ .colors.bright.blue }}, #{{ .colors.bright.black }}, #{{ .colors.bright.black }}, #{{ .colors.bright.blue }}
+rofi.color-urgent:  #{{ .colors.bright.black }}, #fb4934, #{{ .colors.bright.black }}, #{{ .colors.bright.black }}, #fb4934
+
+! Set the desired separator style
+! rofi.separator-style: solid
+
+rofi.show-icons:            false
+rofi.modi:                  drun,run,window,ssh
+rofi.lines:                 15
+rofi.line-padding:          10
+rofi.matching:              normal
+rofi.bw:                    0
+rofi.padding:               0
+rofi.separator-style:       none
+rofi.hide-scrollbar:        true
+rofi.sort                   true
+rofi.levenshstein-sort      true
+rofi.line-margin:           0
+rofi.font:                  {{ .font.mono.name }} {{ .font.mono.size }}
+rofi.theme:                 ./theme.rasi
+rofi.terminal               alacraitty
+rofi.run-command:           fish -c {cmd}
+rofi.run-list-command:      'fish -c functions'

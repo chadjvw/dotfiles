@@ -1,0 +1,38 @@
+#!/usr/bin/env sh
+
+# global settings
+yabai -m config mouse_follows_focus on
+yabai -m config window_topmost on
+
+# general space settings
+yabai -m config layout                       bsp
+yabai -m config top_padding                  10
+yabai -m config bottom_padding               10
+yabai -m config left_padding                 10
+yabai -m config right_padding                10
+yabai -m config window_gap                   10
+
+# rules
+yabai -m rule --add app="^System Preferences$" manage=off
+yabai -m rule --add app="^Cisco AnyConnect.*" manage=off
+yabai -m rule --add app="^Stats.*" manage=off
+
+# Work Items
+yabai -m rule --add app="^Firefox Developer Edition$" space=1
+yabai -m rule --add app="^Toolbox$" manage=off
+yabai -m rule --add app="^IntelliJ IDEA$" space=2
+yabai -m rule --add app="^PyCharm$" space=2
+yabai -m rule --add app="^(Busy)?Cal.*$" space=5
+yabai -m rule --add app="^Mail(Mate)?$" space=5
+yabai -m rule --add app="^Outlook$" space=5
+yabai -m rule --add app="^Slack$" space=4
+yabai -m rule --add app="^Amazon Chime$" space=8
+
+# Personal Items
+yabai -m rule --add app="^Discord$" space=6
+yabai -m rule --add app="^Signal(\sBeta)?$" space=7
+yabai -m rule --add app="^Messages$" space=7
+yabai -m rule --add app="^Plexamp$" space=9
+yabai -m rule --add app="^Spotify$" space=10
+
+echo "yabai configuration loaded.."

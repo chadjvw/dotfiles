@@ -1,0 +1,86 @@
+# vim:fileencoding=utf-8:ft=conf:foldmethod=marker
+#:       ___                                                     
+#:      /__/|        ___           ___         ___         ___   
+#:     |  |:|       /  /\         /  /\       /  /\       /__/|  
+#:     |  |:|      /  /:/        /  /:/      /  /:/      |  |:|  
+#:   __|  |:|     /__/::\       /  /:/      /  /:/       |  |:|  
+#:  /__/\_|:|____ \__\/\:\__   /  /::\     /  /::\     __|__|:|  
+#:  \  \:\/:::::/    \  \:\/\ /__/:/\:\   /__/:/\:\   /__/::::\  
+#:   \  \::/~~~~      \__\::/ \__\/  \:\  \__\/  \:\     ~\~~\:\ 
+#:    \  \:\          /__/:/       \  \:\      \  \:\      \  \:\
+#:     \  \:\         \__\/         \__\/       \__\/       \__\/
+#:      \__\/                                                    
+
+font_family      {{ .font.mono.name }} Regular
+bold_font        {{ .font.mono.name }} Bold
+italic_font      {{ .font.mono.name }} Italic
+bold_italic_font {{ .font.mono.name }} Bold Italic
+
+font_size {{ .font.mono.size }}
+
+force_ltr no
+
+adjust_line_height  0
+adjust_column_width 0
+
+disable_ligatures always
+
+font_features none
+
+box_drawing_scale 0.001, 1, 1.5, 2
+
+cursor #{{ .colors.cursor }}
+
+cursor_text_color #{{ .colors.text }}
+
+cursor_shape block
+
+cursor_blink_interval -1
+
+#: Color scheme
+
+foreground #{{ .colors.foreground }}
+background #{{ .colors.background }}
+
+background_opacity 1.0
+
+selection_foreground #{{ .colors.background}}
+
+#: The foreground for text selected with the mouse. A value of none
+#: means to leave the color unchanged.
+
+selection_background #{{ .colors.foreground}}
+
+#: The background for text selected with the mouse.
+#: black
+color0 #{{ .colors.normal.black }}
+color8 #{{ .colors.bright.black }}
+
+#: red
+color1 #{{ .colors.normal.red }}
+color9 #{{ .colors.bright.red }}
+
+#: green
+color2  #{{ .colors.normal.green }}
+color10 #{{ .colors.bright.green }}
+
+#: yellow
+color3  #{{ .colors.normal.yellow }}
+color11 #{{ .colors.bright.yellow }}
+
+#: blue
+color4  #{{ .colors.normal.blue }}
+color12 #{{ .colors.bright.blue }}
+
+#: magenta
+color5  #{{ .colors.normal.magenta }}
+color13 #{{ .colors.bright.magenta }}
+
+#: cyan
+color6  #{{ .colors.normal.cyan }}
+color14 #{{ .colors.bright.cyan }}
+
+#: white
+color7  #{{ .colors.normal.white }}
+color15 #{{ .colors.bright.white }}
+

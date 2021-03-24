@@ -1,0 +1,56 @@
+{{- $email := get . "email" -}}
+{{- if not $email -}}
+{{-   $email = promptString "email" -}}
+{{- end -}}
+[git]
+autoCommit = true
+
+[merge]
+args = "-d"
+command = "nvim"
+pager = "delta"
+
+[data]
+email = {{ $email | quote }}
+
+[data.font]
+name = "Iosevka Nerd Font"
+name_bold = "Iosevka Nerd Font"
+size = 13
+
+[data.font.mono]
+name = "Iosevka Nerd Font"
+name_bold = "Iosevka Nerd Font"
+size = 13
+
+# Gruvbox Medium Dark
+[data.colors]
+background = "282828"
+cursor = "ebdbb2"
+foreground = "ebdbb2"
+text = "a89984"
+
+[data.colors.normal]
+black = "282828"
+blue = "458588"
+cyan = "689d6a"
+green = "98971a"
+magenta = "b16286"
+red = "cc241d"
+white = "a89984"
+yellow = "d79921"
+
+[data.colors.bright]
+black = "928374"
+blue = "83a598"
+cyan = "8ec07c"
+green = "b8bb26"
+magenta = "d3869b"
+red = "fb4934"
+white = "ebdbb2"
+yellow = "fabd2f"
+
+[data.monitors]
+center = "DisplayPort-0"
+left = "DP3"
+right = "DVI-I-0"

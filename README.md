@@ -1,30 +1,35 @@
 # Dots, dots, more dots
 
-An [Ansible](https://www.ansible.com/) playbook to setup my [dotfiles](https://github.com/chadjvw/dotfiles) and development environment.
+Managed with [chezmoi](https://www.chezmoi.io)
 
-## TODO
+## Setup dotfiles on a new machine
 
-* Make it smarter and work with multiple distros
-  * https://serverfault.com/questions/587727/how-to-unify-package-installation-tasks-in-ansible
+1. Install chezmoi.
 
-## What It Does
+   ```shell
+   curl -sfL https://git.io/chezmoi | sh
+   ```
 
-- Installs cli packages
-- Set up dotfiles
-  - Super-custom git config
-  - Sexy fish prompt
-  - Lots of useful shortcuts
-- Sets up nvim, dein.vim and plugins
-- Installs proper fonts
-- Installs window mangers, terminal, bars, etc
+2. Initialize chezmoi. Use `https` since we don't have creds yet.
 
-## Quick Installation
+   ```shell
+   chezmoi init https://github.com/chadjvw/dotfiles.git
+   ```
 
-1. Install Ansible and git: `sudo apt-get install ansible git`
-2. Clone the playbook: `git clone https://github.com/chadjvw/dotfiles.git && cd dotfiles`
-3. Run it: `ansible-playbook -i inventory desktop.yml -b -K`
+3. (Optional) Check the diff.
 
-### Run specific tasks
+   ```shell
+   chezmoi apply -nv
+   ```
 
-- Redeploy dotfiles only: `ansible-playbook -i inventory desktop.yml -b -K --tags "dotfiles"`
-- Redeploy dotfiles and GUI: `ansible-playbook -i inventory desktop.yml -b -K --tags "dotfiles,gui"`
+4. Install the dotfiles.
+
+   ```shell
+   chezmoi apply
+   ```
+
+Done! To keep up to date in the future:
+
+```shell
+chezmoi update
+```
