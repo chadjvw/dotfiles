@@ -1,0 +1,79 @@
+#!/bin/sh
+
+{{ if eq .chezmoi.os "linux" -}}
+{{   if (.chezmoi.kernel.osrelease.name | contains "Arch Linux") }}
+pacman -S base-devel
+pacman -S git
+
+cd /tmp
+git clone https://aur.archlinux.org/yay.git
+cd yay
+makepkg -si
+
+yay vim \
+  sudo \
+  unrar \
+  unzip \
+  restic \
+  reflector \
+  snapraid \
+  tmux \
+  tar \
+  rsync \
+  reflector \
+  mergerfs \
+  fzf \
+  htop \
+  grc \
+  fish \
+  docker \
+  docker-compose \
+  curl \
+  cloudflared-bin \
+  aws-cli-v2-bin
+{{   end }}
+{{ else if eq .chezmoi.os "darwin" -}}
+brew bundle --no-lock --file=/dev/stdin <<EOF
+brew "fish"
+brew "awscli"
+brew "byobu"
+brew "colordiff"
+brew "figlet"
+brew "fzf"
+brew "git"
+brew "grc"
+brew "htop"
+brew "httpie"
+brew "jq"
+brew "neofetch"
+brew "neovim"
+brew "restic"
+brew "rsync"
+brew "skhd"
+brew "tmux"
+brew "unison"
+brew "yabai"
+cask "alacritty"
+cask "finicky"
+cask "flux"
+cask "busycal"
+cask "font-iosevka"
+cask "font-iosevka-nerd-font"
+cask "font-iosevka-slab"
+cask "hiddenbar"
+cask "plexamp"
+cask "stats"
+cask "visual-studio-code"
+EOF
+{{ end -}}
+
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y --default-toolchain none
+
+for var in exa bat cargo-update fd-find git-delta just ripgrep skim starship tealdeer topgrade zoxide
+do
+  cargo install $var
+done
+
+curl -o- --tlsv1.2 https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh | sh -s -- {{ .chezmoi.homeDir }}/.cache/dein
+
+curl -o- --tlsv1.2 https://raw.githubusercontent.com/nvm-sh/nvm/v0.38.0/install.sh | bash

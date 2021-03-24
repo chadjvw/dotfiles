@@ -1,0 +1,110 @@
+#!/bin/bash
+
+PID_FILE={{ .chezmoi.homeDir }}/.restic/backup.pid
+TIMESTAMP_FILE={{ .chezmoi.homeDir }}/.restic/backup_timestamp
+BACKUP_PATHS='--files-from {{ .chezmoi.homeDir }}/.restic/includes --files-from {{ .chezmoi.homeDir }}/.restic/includes_internal'
+BACKUP_EXCLUDES='--exclude-file {{ .chezmoi.homeDir }}/.restic/excludes --exclude-file {{ .chezmoi.homeDir }}/.restic/excludes_internal --exclude-if-present .exclude_from_backup'
+RETENTION_HOURS=12
+RETENTION_DAYS=14
+RETENTION_WEEKS=12
+RETENTION_MONTHS=12
+RETENTION_YEARS=5
+
+CheckForNetwork()
+{
+	local test
+
+	if [ -z "${NETWORK_STATUS:=}" ]; then
+    curl https://console.aws.amazon.com
+    
+		test=$?
+
+		if [ "${test}" -eq 0 ]; then
+			NETWORK_STATUS="-UP-"
+		else
+			NETWORK_STATUS="-DOWN-"
+		fi
+	fi
+}
+
+if [ -f "$PID_FILE" ]; then
+  if ps -p "$(cat $PID_FILE)" > /dev/null; then
+    echo "$(date +"%Y-%m-%d %T")" "File $PID_FILE exist. Probably backup is already in progress."
+    exit 1
+  else
+    echo "$(date +"%Y-%m-%d %T")" "File $PID_FILE exist but process " "$(cat $PID_FILE)" " not found. Removing PID file."
+    rm $PID_FILE
+  fi
+fi
+
+if [ -f "$TIMESTAMP_FILE" ]; then
+  time_run=$(cat "$TIMESTAMP_FILE")
+  current_time=$(date +"%s")
+
+  time_left=$((time_run - current_time))
+  
+  if [ "$current_time" -lt "$time_run" ]; then
+    echo "$(date +"%Y-%m-%d %T")" "Its not time yet. Need to wait" "$((time_left / 60))" minutes.
+    exit 2
+  fi
+fi
+
+if [[ $(networksetup -getairportnetwork en0 | grep -E "Goat Haunt|Work-Network") == "" ]]; then
+  echo "$(date +"%Y-%m-%d %T")" "Unsupported network."
+  exit 3
+fi
+
+if [[ $(pmset -g ps | head -1) =~ "Battery" ]]; then
+  echo "$(date +"%Y-%m-%d %T")" "Computer is not connected to the power source."
+  exit 4
+fi
+
+CheckForNetwork
+
+echo $$ > $PID_FILE
+echo "$(date +"%Y-%m-%d %T")" "Backup start"
+
+export AWS_DEFAULT_REGION=us-west-2
+
+AWS_ACCESS_KEY_ID=$(security find-generic-password -s backup-restic-aws-access-key -w)
+export AWS_ACCESS_KEY_ID
+
+AWS_SECRET_ACCESS_KEY=$(security find-generic-password -s backup-restic-aws-secret-key -w)
+export AWS_SECRET_ACCESS_KEY
+
+RESTIC_REPOSITORY=$(security find-generic-password -s backup-restic-local-repository -w)
+export RESTIC_REPOSITORY
+
+export RESTIC_PASSWORD_COMMAND='security find-generic-password -s backup-restic-password-local-repository -w'
+
+/usr/local/bin/restic backup --verbose --tag launchctl $BACKUP_PATHS $BACKUP_EXCLUDES
+
+echo "$(date +"%Y-%m-%d %T")" "Run forget and prune on local."
+/usr/local/bin/restic forget --verbose --tag launchctl --group-by "paths,tags" --keep-hourly $RETENTION_HOURS --keep-daily $RETENTION_DAYS --keep-weekly $RETENTION_WEEKS --keep-monthly $RETENTION_MONTHS --keep-yearly $RETENTION_YEARS --prune
+
+if [[ "${NETWORK_STATUS}" == "-UP-" ]]; then
+  RESTIC_REPOSITORY2=$(security find-generic-password -s backup-restic-remote-repository -w)
+  export RESTIC_REPOSITORY2
+
+  export RESTIC_PASSWORD_COMMAND2='security find-generic-password -s backup-restic-password-remote-repository -w'
+
+  echo "$(date +"%Y-%m-%d %T")" "Copy local snapshots to remote."
+  /usr/local/bin/restic copy --verbose
+
+  RESTIC_REPOSITORY=$(security find-generic-password -s backup-restic-remote-repository -w)
+  export RESTIC_REPOSITORY
+
+  export RESTIC_PASSWORD_COMMAND='security find-generic-password -s backup-restic-password-remote-repository -w'
+
+  echo "$(date +"%Y-%m-%d %T")" "Run forget and prune on remote."
+
+  /usr/local/bin/restic forget --verbose --tag launchctl --group-by "paths,tags" --keep-hourly $RETENTION_HOURS --keep-daily $RETENTION_DAYS --keep-weekly $RETENTION_WEEKS --keep-monthly $RETENTION_MONTHS --keep-yearly $RETENTION_YEARS --prune
+  echo "$(date -v +4H +"%s")" > $TIMESTAMP_FILE
+else
+  echo "$(date +"%Y-%m-%d %T")" "Network is $NETWORK_STATUS, skipping copy to remote." 
+  echo "$(date -v +2H +"%s")" > $TIMESTAMP_FILE
+fi
+
+echo "$(date +"%Y-%m-%d %T")" "Backup finished"
+
+rm $PID_FILE

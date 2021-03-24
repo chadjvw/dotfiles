@@ -1,9 +1,0 @@
-user_directories:
-  - git
-  - downloads
-  - images
-ibm_plex_fonts:
-  - IBM-Plex-Mono
-  - IBM-Plex-Sans-Condensed
-  - IBM-Plex-Sans
-  - IBM-Plex-Serif
