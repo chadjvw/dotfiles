@@ -21,10 +21,10 @@ window:
     x: 4
     y: 4
   dynamic_padding: true
-{{ if eq .chezmoi.os "darwin" -}}
+{{ if eq .chezmoi.os "darwin" }}
   decorations: full
   startup_mode: Windowed
-{{ else if eq .chezmoi.os "linux" -}}
+{{ else if eq .chezmoi.os "linux" }}
   decorations: none
   startup_mode: Maximized
 {{ end -}}
@@ -140,9 +140,9 @@ hints:
     - regex: "(mailto:|gemini:|gopher:|https:|http:|news:|file:|git:|ssh:|ftp:)\
               [^\u0000-\u001F\u007F-\u009F<>\"\\s{-}\\^⟨⟩`]+"
       command: open
-{{ if eq .chezmoi.os "darwin" -}}
+{{ if eq .chezmoi.os "darwin" }}
       command: open
-{{ else if eq .chezmoi.os "linux" -}}
+{{ else if eq .chezmoi.os "linux" }}
       command: xdg-open
 {{ end -}}
       post_processing: true
