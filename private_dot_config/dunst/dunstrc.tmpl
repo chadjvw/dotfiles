@@ -19,7 +19,7 @@
 
     ### Text ###
 
-    font = {{ .font.mono.name }} {{ .font.mono.size }}
+    font = {{ .font.mono.name }} {{ .font.mono.size | add -1 }}
     line_height = 0
     markup = full
     format = "<b>%s</b>\n%b"
