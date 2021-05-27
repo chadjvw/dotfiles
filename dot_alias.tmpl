@@ -1,56 +1,58 @@
+## NEW UTILS
+alias find="fd"
+alias tmux="zellij"
+alias sed="sd"
+alias htop="btm"
+alias top="btm"
+alias diff="delta"
+alias colordiff="delta"
+alias ls="exa --icons"
 alias vi="nvim"
 alias vim="nvim"
-alias svi="sudo nvim -u {{ .chezmoi.homeDir }}/.config/nvim/init.vim"
-alias svi="sudo nvim -u {{ .chezmoi.homeDir }}/.config/nvim/init.vim"
-alias edit="nvim"
+alias ps="procs"
 
-alias clean-branches='git branch | grep -ve "master\$" | xargs git branch -D'
+## ALTER EXISTING
+alias rg="rg --smart-case"
+alias grep="grep --ignore-case --color=auto"
+alias mkdir="mkdir -pv"
+alias mv="mv -v"
+alias rm="rm -vi"
+alias cp="cp -v"
+alias df="df -H"
+alias figlet="figlet -f isometric3"
+# scp is deprecated
+alias scp="rsync --progress --archive --verbose --compress --human-readable"
+alias sudo="sudo "
+alias ping="ping -c 5"
+alias sk="sk --color dark,fg:#{{ .colors.foreground }},bg:#{{ .colors.background }},matched:#{{ .colors.foreground }},matched_bg:#{{ .colors.normal.blue }},current:#{{ .colors.foreground }},current_bg:#{{ .colors.normal.green }},current_match:#{{ .colors.background }},current_match_bg:#{{ .colors.normal.yellow }},border:#{{ .colors.normal.green }},prompt:#fb4934,cursor:#{{ .colors.background }},selected:#{{ .colors.bright.yellow }},spinner:#{{ .colors.bright.yellow }},header:#{{ .colors.normal.blue }}"
+alias netstat="ss --tcp --udp --listening --processes --numeric" # -tulpn
+alias ss="ss --tcp --udp --listening --processes --numeric"
+alias bat="bat --theme ansi-dark"
 
-alias bat="bat --theme ansi-dark" # cargo install bat
+## SHORTEN EXISTING
+alias j="just"
+alias zj="zellij"
+alias sysd="sudo systemctl"
+alias usysd="systemctl --user"
+alias g="git"
+alias gl="git l"
+alias glg="git lg"
+alias ht="hunter"
 
-alias ls="exa --icons" # cargo install exa
+## CUSTOM COMMANDS
+alias .j="just --justfile {{ .chezmoi.homeDir }}/.justfile --working-directory {{ .chezmoi.homeDir }}"
+alias ..="cd .."
+alias ...="cd ../.."
+alias ....="cd ../../.."
+alias .....="cd ../../../.."
+alias rcp="rsync --progress --size-only --inplace --verbose --human-readable"
+alias untar="tar --extract --verbose --file"
 alias la="exa --all --all --icons --sort=modified"
 alias ll='exa --all --long --header --icons --sort=modified'
 alias lla='exa --all -all --long --header --group --icons --sort=modified'
 alias lt='exa --tree --level=15 --icons'
 alias llt='exa --tree --all --long --level=15 --icons'
-
-alias g="git"
-alias gl="git l"
-alias glg="git lg"
-
-alias grep="grep --ignore-case --color=auto"
-alias rg="rg --smart-case" # cargo install ripgrep
-alias j="just" # cargo install just
-alias .j="just --justfile {{ .chezmoi.homeDir }}/.justfile --working-directory {{ .chezmoi.homeDir }}"
-alias by="byobu"
-
-alias ..="cd .."
-alias ...="cd ../.."
-alias ....="cd ../../.."
-alias .....="cd ../../../.."
-
-alias mkdir="mkdir -pv"
-alias mv="mv -v"
-alias rm="rm -vi"
-alias cp="cp -v"
-# scp is deprecated
-alias scp="rsync --progress --archive --verbose --compress --human-readable"
-alias rcp="rsync --progress --size-only --inplace --verbose --human-readable"
-alias df="df -H"
-alias find="fd" # cargo install fd-find
-alias figlet="figlet -f isometric3"
-
-alias netstat="ss --tcp --udp --listening --processes --numeric" # -tulpn
-alias ss="ss --tcp --udp --listening --processes --numeric"
-alias sysd="sudo systemctl"
-alias usysd="systemctl --user"
-
-alias sudo="sudo "
-alias ping="ping -c 5"
-alias untar="tar --extract --verbose --file"
-
-alias diff="delta" # cargo install git-delta
-alias colordiff="delta"
-
-alias sk="sk --color dark,fg:#{{ .colors.foreground }},bg:#{{ .colors.background }},matched:#{{ .colors.foreground }},matched_bg:#{{ .colors.normal.blue }},current:#{{ .colors.foreground }},current_bg:#{{ .colors.normal.green }},current_match:#{{ .colors.background }},current_match_bg:#{{ .colors.normal.yellow }},border:#{{ .colors.normal.green }},prompt:#fb4934,cursor:#{{ .colors.background }},selected:#{{ .colors.bright.yellow }},spinner:#{{ .colors.bright.yellow }},header:#{{ .colors.normal.blue }}"
+alias edit="nvim"
+alias clean-branches='git branch | grep -ve "master\$" | xargs git branch -D'
+alias svi="sudo nvim -u {{ .chezmoi.homeDir }}/.config/nvim/init.vim"
+alias svim="sudo nvim -u {{ .chezmoi.homeDir }}/.config/nvim/init.vim"

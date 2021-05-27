@@ -2,6 +2,8 @@
 {{- if not $email -}}
 {{-   $email = promptString "email" -}}
 {{- end -}}
+umask = 0o022
+
 [git]
 autoCommit = true
 
