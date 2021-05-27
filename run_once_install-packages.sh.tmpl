@@ -69,7 +69,26 @@ EOF
 
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y --default-toolchain none
 
-for var in exa bat cargo-update fd-find git-delta just ripgrep skim starship tealdeer topgrade zoxide
+declare -a rust_utils=(
+"exa"
+"bat"
+"cargo-update"
+"fd-find"
+"git-delta"
+"just"
+"ripgrep"
+"skim"
+"starship"
+"tealdeer"
+"topgrade"
+"zoxide"
+"sd"
+"bottom"
+"zellij"
+"procs"
+)
+
+for var in ${rust_utils[@]}
 do
   cargo install $var
 done
