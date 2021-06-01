@@ -1,14 +1,14 @@
 #!/bin/sh
 
 {{ if eq .chezmoi.os "linux" -}}
-{{   if (.chezmoi.kernel.osrelease.name | contains "Arch Linux") }}
-pacman -S base-devel
-pacman -S git
+{{   if (.chezmoi.osRelease.name | contains "Arch Linux") }}
+sudo pacman -S base-devel
+sudo pacman -S git
 
 cd /tmp
 git clone https://aur.archlinux.org/yay.git
 cd yay
-makepkg -si
+sudo makepkg -si
 
 yay vim \
   sudo \
@@ -84,7 +84,6 @@ declare -a rust_utils=(
 "zoxide"
 "sd"
 "bottom"
-"zellij"
 "procs"
 )
 
