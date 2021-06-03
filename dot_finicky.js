@@ -18,20 +18,6 @@ module.exports = {
       }),
     },
     {
-      // rewrite http[s]://quip.com/<documentID>/* to quip://<documentID>
-      match: finicky.matchHostnames([/quip-?.*\.com/]),
-      url: ({ url }) => ({
-        ...url,
-        host: '',
-        search: '',
-        pathname:
-          url.pathname.split('/')[1] == 'email'
-            ? decodeURIComponent(url.search).split('/')[2].split('&')[0]
-            : url.pathname.split('/')[1],
-        protocol: 'quip',
-      }),
-    },
-    {
       match: 'www.amazon.com*',
       url: {
         host: 'smile.amazon.com',
