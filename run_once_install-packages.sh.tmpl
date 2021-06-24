@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 {{ if eq .chezmoi.os "linux" -}}
 {{   if (.chezmoi.osRelease.name | contains "Arch Linux") }}
@@ -30,7 +30,28 @@ yay vim \
   docker-compose \
   curl \
   cloudflared-bin \
+  neovim \
   aws-cli-v2-bin
+{{  else if (.chezmoi.osRelease.name | contains "Debian") }}
+sudo apt update
+sudo apt -y upgrade
+sudo apt -y install \
+  curl \
+  build-essential \
+  pkg-config \
+  libssl-dev \
+  neovim \
+  vim \
+  git \
+  htop \
+  grc \
+  fish \
+  tar \
+  rsync \
+  fzf \
+  python3-pip \
+  awscli
+pip3 install pynvim
 {{   end }}
 {{ else if eq .chezmoi.os "darwin" -}}
 brew bundle --no-lock --file=/dev/stdin <<EOF
