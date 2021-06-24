@@ -154,6 +154,13 @@
 	# Make `git push` push relevant annotated tags when pushing branches out.
 	followTags = true
 
+# push to github and gitlab via ssh
+[url "ssh://github.com/"]
+        pushInsteadOf = https://github.com/
+
+[url "ssh://gitlab.com/"]
+        pushInsteadOf = https://gitlab.com/
+
 [pull]
 	# always do a rebase when pulling
 	# helps keep git history more linear and reduce uncessary merges

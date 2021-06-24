@@ -91,8 +91,11 @@ source /etc/grc.fish
 set -Ux PYENV_ROOT {{ .chezmoi.homeDir }}/.pyenv
 set -U fish_user_paths $PYENV_ROOT/bin $fish_user_paths
 
-status is-login; and pyenv init --path | source
-pyenv init - | source
+if test -x (which pyenv) -a (status --is-interactive)
+    pyenv init --path | source
+    pyenv init - | source
+    pyenv virtualenv-init - | source
+end
 
 test -x (which aws_completer); and complete --command aws --no-files --arguments '(begin; set --local --export COMP_SHELL fish; set --local --export COMP_LINE (commandline); aws_completer | sed \'s/ $//\'; end)'
 
