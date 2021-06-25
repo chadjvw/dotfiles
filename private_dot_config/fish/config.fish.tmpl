@@ -91,7 +91,7 @@ source /etc/grc.fish
 set -Ux PYENV_ROOT {{ .chezmoi.homeDir }}/.pyenv
 set -U fish_user_paths $PYENV_ROOT/bin $fish_user_paths
 
-if test -x (which pyenv) -a (status --is-interactive)
+if test -x (which pyenv)
     pyenv init --path | source
     pyenv init - | source
     pyenv virtualenv-init - | source
