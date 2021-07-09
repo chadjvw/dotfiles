@@ -43,11 +43,6 @@ module.exports = {
       browser: '/Applications/Amazon Chime.app',
     },
     {
-      // open quip: url in Quip.app
-      match: ({ url }) => url.protocol === 'quip',
-      browser: '/Applications/Quip.app',
-    },
-    {
       match: ['open.spotify.com*', 'play.spotify.com*'],
       browser: 'Spotify',
     },
