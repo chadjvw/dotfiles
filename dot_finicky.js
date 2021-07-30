@@ -7,17 +7,6 @@ module.exports = {
       url: { protocol: 'https' },
     },
     {
-      // rewrite http[s]://chime.aws/<meetingID> to chime://meeting?pin=meetingId>
-      match: finicky.matchHostnames(['chime.aws']),
-      url: ({ url }) => ({
-        ...url,
-        host: '',
-        search: 'pin=' + url.pathname.substr(1),
-        pathname: 'meeting',
-        protocol: 'chime',
-      }),
-    },
-    {
       match: 'www.amazon.com*',
       url: {
         host: 'smile.amazon.com',
