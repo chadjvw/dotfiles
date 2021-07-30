@@ -2,7 +2,7 @@
 {{- if not $email -}}
 {{-   $email = promptString "email" -}}
 {{- end -}}
-umask = 0o022
+umask = 0o133
 
 [merge]
 args = "-d"
