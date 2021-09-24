@@ -1,6 +1,5 @@
 ## NEW UTILS
 alias find="fd"
-alias tmux="zellij"
 alias sed="sd"
 alias htop="btm"
 alias top="btm"
@@ -11,6 +10,8 @@ alias vi="nvim"
 alias vim="nvim"
 alias ps="procs"
 alias less="bat --decorations=never"
+alias df="duf"
+alias http="xh"
 
 ## ALTER EXISTING
 alias rg="rg --smart-case"
@@ -19,7 +20,6 @@ alias mkdir="mkdir -pv"
 alias mv="mv -v"
 alias rm="rm -vi"
 alias cp="cp -v"
-alias df="df -H"
 alias figlet="figlet -f isometric3"
 # scp is deprecated
 alias scp="rsync --progress --archive --verbose --compress --human-readable"
@@ -28,16 +28,11 @@ alias ping="ping -c 5"
 alias sk="sk --color dark,fg:#{{ .colors.foreground }},bg:#{{ .colors.background }},matched:#{{ .colors.foreground }},matched_bg:#{{ .colors.normal.blue }},current:#{{ .colors.foreground }},current_bg:#{{ .colors.normal.green }},current_match:#{{ .colors.background }},current_match_bg:#{{ .colors.normal.yellow }},border:#{{ .colors.normal.green }},prompt:#fb4934,cursor:#{{ .colors.background }},selected:#{{ .colors.bright.yellow }},spinner:#{{ .colors.bright.yellow }},header:#{{ .colors.normal.blue }}"
 alias netstat="ss --tcp --udp --listening --processes --numeric" # -tulpn
 alias ss="ss --tcp --udp --listening --processes --numeric"
-alias bat="bat --theme ansi"
 
 ## SHORTEN EXISTING
 alias j="just"
-alias zj="zellij"
 alias sysd="sudo systemctl"
 alias usysd="systemctl --user"
-alias g="git"
-alias gl="git l"
-alias glg="git lg"
 alias ht="hunter"
 
 ## CUSTOM COMMANDS

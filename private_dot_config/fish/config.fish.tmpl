@@ -10,9 +10,6 @@
 #     \  \:\       \__\/       /__/:/       \  \:\    
 #      \__\/                   \__\/         \__\/    
 
-# TODO: check if path exists
-# TODO: install dein if it doesnt exist and call installer
-# install cargo and crates?
 set PATH {{ .chezmoi.homeDir }}/.dotfiles/source $PATH
 set PATH {{ .chezmoi.homeDir }}/.local/bin $PATH
 set PATH {{ .chezmoi.homeDir }}/.cargo/bin $PATH
@@ -53,19 +50,12 @@ set -Ux JUST_CHOOSER 'sk'
 set -Ux SKIM_DEFAULT_COMMAND 'fd --type f || git ls-tree -r --name-only HEAD || rg --files || find .'
 set -Ux FZF_DEFAULT_COMMAND 'rg --files --no-ignore --hidden --follow -g "!{.git,node_modules,*.swp,dist}/*" 2> /dev/null'
 set -Ux FZF_CTRL_T_COMMAND "$FZF_DEFAULT_COMMAND"
-set -Ux BYOBU_PREFIX /usr/local
 set -Ux HOMEBREW_NO_ANALYTICS 1
+set -Ux EXA_ICON_SPACING 2
+set -Ux MCFLY_KEY_SCHEME vim
+set -Ux MCFLY_FUZZY true
 
 {{ if eq .chezmoi.os "darwin" -}}
-# jhome -v 1.8    #switches to java 1.8
-# jhome -v 11    #switches to java 11
-function jhome
-    set JAVA_HOME (/usr/libexec/java_home $argv)
-    echo "JAVA_HOME:" $JAVA_HOME
-    echo "java -version:"
-    java -version
-end
-
 # Add GRC: https://github.com/garabik/grc
 source /usr/local/etc/grc.fish
 
@@ -89,15 +79,6 @@ set -Ux JAVA_HOME /usr/lib/jvm/java-8-openjdk
 source /etc/grc.fish
 {{ end -}}
 
-set -Ux PYENV_ROOT {{ .chezmoi.homeDir }}/.pyenv
-set -U fish_user_paths $PYENV_ROOT/bin $fish_user_paths
-
-if test -x (which pyenv)
-    pyenv init --path | source
-    pyenv init - | source
-    pyenv virtualenv-init - | source
-end
-
 test -x (which aws_completer); and complete --command aws --no-files --arguments '(begin; set --local --export COMP_SHELL fish; set --local --export COMP_LINE (commandline); aws_completer | sed \'s/ $//\'; end)'
 
 if not functions -q fisher
@@ -113,3 +94,4 @@ end
 
 test -x (which starship); and starship init fish | source
 test -x (which zoxide); and zoxide init fish | source
+test -x (which mcfly); and mcfly init fish | source
