@@ -1,0 +1,120 @@
+[[plugins]]
+repo = 'Shougo/ddc.vim'
+depends = ['context_filetype.vim', 'denops.vim']
+on_event = 'InsertEnter'
+hook_source = '''
+  inoremap <silent><expr> <C-l> ddc#complete_common_string()
+  inoremap <silent><expr> <TAB>
+        \ pumvisible() ? '<C-n>' :
+        \ (col('.') <= 1 <Bar><Bar> getline('.')[col('.') - 2] =~# '\s') ?
+        \ '<TAB>' : ddc#manual_complete()
+  call ddc#custom#patch_global(
+      \ 'sources', has('nvim') ?
+      \ ['around', 'deoppet', 'file'] :
+      \ ['around', 'file'],
+      \ )
+  call ddc#custom#patch_global('sourceOptions', {
+      \ '_': {
+      \   'ignoreCase': v:true,
+      \   'matchers': ['matcher_head'],
+      \   'sorters': ['sorter_rank'],
+      \   'converters': ['converter_remove_overlap'],
+      \ },
+      \ 'around': {
+      \   'mark': 'A',
+      \   'matchers': ['matcher_head', 'matcher_length'],
+      \ },
+      \ 'eskk': {'mark': 'eskk', 'matchers': [], 'sorters': []},
+      \ 'necovim': {'mark': 'vim'},
+      \ 'deoppet': {'mark': 'dp', 'dup': v:true},
+      \ 'nextword': {
+      \   'mark': 'nextword',
+      \   'minAutoCompleteLength': 3,
+      \   'isVolatile': v:true,
+      \ },
+      \ 'nvim-lsp': {
+      \   'mark': 'lsp',
+      \   'forceCompletionPattern': '\.\w*|:\w*|->\w*'
+      \ },
+      \ 'rtags': {
+      \   'mark': 'R',
+      \   'forceCompletionPattern': '\.\w*|:\w*|->\w*'
+      \ },
+      \ 'file': {
+      \   'mark': 'F',
+      \   'isVolatile': v:true,
+      \   'minAutoCompleteLength': 1000,
+      \   'forceCompletionPattern': '\S/\S*'
+      \ },
+      \ })
+  call ddc#custom#patch_global('sourceOptions', {
+      \ 'skkeleton': {
+      \   'mark': 'skk',
+      \   'matchers': ['skkeleton'],
+      \   'sorters': [],
+      \   'minAutoCompleteLength': 2,
+      \ }})
+  call ddc#custom#patch_filetype(
+      \ ['help', 'markdown', 'gitcommit'], 'sources', has('nvim') ?
+      \ ['deoppet', 'nextword', 'around'] :
+      \ ['nextword', 'around']
+      \ )
+  call ddc#custom#patch_filetype(
+      \ ['typescript', 'go'], 'sources', has('nvim') ?
+      \ ['nvim-lsp', 'deoppet', 'around'] :
+      \ ['nvim-lsp', 'around']
+      \ )
+  call ddc#enable()
+'''
+
+[[plugins]]
+repo = 'Shougo/ddc-around'
+on_source = 'ddc.vim'
+
+[[plugins]]
+repo = 'Shougo/ddc-nextword'
+on_source = 'ddc.vim'
+
+[[plugins]]
+repo = 'Shougo/ddc-zsh'
+on_ft = 'zsh'
+depends = 'ddc.vim'
+
+[[plugins]]
+repo = 'Shougo/neco-vim'
+on_ft = ['vim', 'toml', 'help']
+depends = 'ddc.vim'
+hook_source = '''
+  call ddc#custom#patch_filetype(
+          \ ['vim'], 'sources', has('nvim') ?
+          \ ['necovim', 'around', 'deoppet', 'file'] :
+          \ ['necovim', 'around', 'file']
+          \ )
+'''
+
+[[plugins]]
+repo = 'Shougo/ddc-nvim-lsp'
+on_source = 'nvim-lspconfig'
+
+[[plugins]]
+repo = 'Shougo/ddc-matcher_head'
+on_source = 'ddc.vim'
+
+[[plugins]]
+repo = 'Shougo/ddc-matcher_length'
+on_source = 'ddc.vim'
+
+[[plugins]]
+repo = 'Shougo/ddc-sorter_rank'
+on_source = 'ddc.vim'
+
+[[plugins]]
+repo = 'Shougo/ddc-converter_remove_overlap'
+on_source = 'ddc.vim'
+
+[[plugins]]
+repo = 'Shougo/ddc-omni'
+
+[[plugins]]
+repo = 'Shougo/ddc-rtags'
+on_ft = ['c', 'cpp']
