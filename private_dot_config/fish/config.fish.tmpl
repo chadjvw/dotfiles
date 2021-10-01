@@ -10,10 +10,10 @@
 #     \  \:\       \__\/       /__/:/       \  \:\    
 #      \__\/                   \__\/         \__\/    
 
-set PATH {{ .chezmoi.homeDir }}/.dotfiles/source $PATH
-set PATH {{ .chezmoi.homeDir }}/.local/bin $PATH
-set PATH {{ .chezmoi.homeDir }}/.cargo/bin $PATH
-set PATH {{ .chezmoi.homeDir }}/.toolbox/bin $PATH
+fish_add_path -aP {{ .chezmoi.homeDir }}/.dotfiles/source
+fish_add_path -aP {{ .chezmoi.homeDir }}/.local/bin
+fish_add_path -aP {{ .chezmoi.homeDir }}/.cargo/bin
+fish_add_path -aP {{ .chezmoi.homeDir }}/.toolbox/bin
 
 # Override fish colors
 set fish_color_normal white
@@ -73,7 +73,6 @@ set -Ux LC_ALL en_US.UTF-8
 alias ls="exa --icons"
 {{ else if eq .chezmoi.os "linux" -}}
 set -Ux SXHKD_SHELL /bin/bash
-set -Ux JAVA_HOME /usr/lib/jvm/java-8-openjdk
 
 # Add GRC: https://github.com/garabik/grc
 source /etc/grc.fish
