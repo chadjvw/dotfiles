@@ -34,7 +34,7 @@ g['dein#install_progress_type'] = 'title'
 g['dein#enable_notification'] = 1
 g['dein#install_log_filename'] = '{{ .chezmoi.homeDir }}/.config/nvim/dein-install.log'
 
-if (fn['dein#min#load_state'](dein_dir) == 1) then
+if (fn['dein#load_state'](dein_dir) == 1) then
   local rc_dir = fn.expand('{{ .chezmoi.homeDir }}/.config/nvim')
 
   local toml = rc_dir..'/dein.toml'
