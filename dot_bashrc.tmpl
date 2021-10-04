@@ -1,3 +1,5 @@
+#!/usr/bin/env bash
+
 # Where the magic happens.
 export DOTFILES={{ .chezmoi.homeDir }}/.dotfiles
 
@@ -8,7 +10,6 @@ done
 
 source {{ .chezmoi.homeDir }}/.alias
 
-export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64
 export EDITOR=nvim
 export AWS_EC2_METADATA_DISABLED=1
 export SXHKD_SHELL=/usr/bin/bash
@@ -17,10 +18,8 @@ export XDG_CONFIG_HOME={{ .chezmoi.homeDir }}/.config
 export XDG_DATA_DIRS={{ .chezmoi.homeDir }}/.local/share/flatpak/exports/share:/var/lib/flatpak/exports/share:/usr/local/share:/usr/share
 
 export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-<<<<<<< HEAD
 
-=======
->>>>>>> 6c4e9d3 (Update dot_bashrc.tmpl)
-. "$HOME/.cargo/env"
+[ -s "$NVM_DIR/nvm.sh" ] && source "$NVM_DIR/nvm.sh" # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && source "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+source "$HOME/.cargo/env"

@@ -8,7 +8,7 @@ sudo pacman -S git
 cd /tmp
 git clone https://aur.archlinux.org/yay.git
 cd yay
-sudo makepkg -si
+makepkg -si
 
 yay vim \
   sudo \
@@ -32,7 +32,8 @@ yay vim \
   curl \
   cloudflared-bin \
   neovim \
-  aws-cli-v2-bin
+  aws-cli-v2-bin \
+  deno
 {{  else if (.chezmoi.osRelease.name | contains "Debian") }}
 sudo apt update
 sudo apt -y upgrade
@@ -82,6 +83,7 @@ cask "hiddenbar"
 cask "plexamp"
 cask "stats"
 cask "visual-studio-code"
+cask "deno"
 EOF
 {{ end -}}
 
@@ -116,4 +118,4 @@ done
 
 curl -o- --tlsv1.2 https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh | sh -s -- {{ .chezmoi.homeDir }}/.cache/dein
 
-# curl -o- --tlsv1.2 https://raw.githubusercontent.com/nvm-sh/nvm/v0.38.0/install.sh | bash
+curl -o- --tlsv1.2 https://raw.githubusercontent.com/nvm-sh/nvm/v0.38.0/install.sh | bash
