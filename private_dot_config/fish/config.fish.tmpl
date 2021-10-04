@@ -10,10 +10,9 @@
 #     \  \:\       \__\/       /__/:/       \  \:\    
 #      \__\/                   \__\/         \__\/    
 
-fish_add_path -aP {{ .chezmoi.homeDir }}/.dotfiles/source
-fish_add_path -aP {{ .chezmoi.homeDir }}/.local/bin
-fish_add_path -aP {{ .chezmoi.homeDir }}/.cargo/bin
-fish_add_path -aP {{ .chezmoi.homeDir }}/.toolbox/bin
+fish_add_path -P {{ .chezmoi.homeDir }}/.local/bin
+fish_add_path -P {{ .chezmoi.homeDir }}/.cargo/bin
+fish_add_path -P {{ .chezmoi.homeDir }}/.toolbox/bin
 
 # Override fish colors
 set fish_color_normal white
@@ -41,41 +40,41 @@ set -g man_bold -o green
 set -g man_standout red
 set -g man_underline -u yellow
 
-set -Ux EDITOR nvim
-set -Ux AWS_EC2_METADATA_DISABLED 1
-set -Ux XDG_DATA_DIRS "/usr/local/share:/usr/share"
-set -Ux XDG_DATA_HOME "{{ .chezmoi.homeDir }}/.local/share"
-set -Ux XDG_CONFIG_HOME "{{ .chezmoi.homeDir }}/.config"
-set -Ux JUST_CHOOSER 'sk'
-set -Ux SKIM_DEFAULT_COMMAND 'fd --type f || git ls-tree -r --name-only HEAD || rg --files || find .'
-set -Ux FZF_DEFAULT_COMMAND 'rg --files --no-ignore --hidden --follow -g "!{.git,node_modules,*.swp,dist}/*" 2> /dev/null'
-set -Ux FZF_CTRL_T_COMMAND "$FZF_DEFAULT_COMMAND"
-set -Ux HOMEBREW_NO_ANALYTICS 1
-set -Ux EXA_ICON_SPACING 2
-set -Ux MCFLY_KEY_SCHEME vim
-set -Ux MCFLY_FUZZY true
+set -gx EDITOR nvim
+set -gx AWS_EC2_METADATA_DISABLED 1
+set -gx XDG_DATA_DIRS "/usr/local/share:/usr/share"
+set -gx XDG_DATA_HOME "{{ .chezmoi.homeDir }}/.local/share"
+set -gx XDG_CONFIG_HOME "{{ .chezmoi.homeDir }}/.config"
+set -gx JUST_CHOOSER 'sk'
+set -gx SKIM_DEFAULT_COMMAND 'fd --type f || git ls-tree -r --name-only HEAD || rg --files || find .'
+set -gx FZF_DEFAULT_COMMAND 'rg --files --no-ignore --hidden --follow -g "!{.git,node_modules,*.swp,dist}/*" 2> /dev/null'
+set -gx FZF_CTRL_T_COMMAND "$FZF_DEFAULT_COMMAND"
+set -gx HOMEBREW_NO_ANALYTICS 1
+set -gx EXA_ICON_SPACING 2
+set -gx MCFLY_KEY_SCHEME vim
+set -gx MCFLY_FUZZY true
 
 {{ if eq .chezmoi.os "darwin" -}}
 # Add GRC: https://github.com/garabik/grc
-source /usr/local/etc/grc.fish
+set -l grc /usr/local/etc/grc.fish
 
 # why do i have to set this?!
-set -Ux LANG en_US.UTF-8  
-set -Ux LC_COLLATE en_US.UTF-8
-set -Ux LC_CTYPE en_US.UTF-8
-set -Ux LC_MESSAGES en_US.UTF-8
-set -Ux LC_MONETARY en_US.UTF-8
-set -Ux LC_NUMERIC en_US.UTF-8
-set -Ux LC_TIME en_US.UTF-8
-set -Ux LC_ALL en_US.UTF-8
+set -gx LANG en_US.UTF-8  
+set -gx LC_COLLATE en_US.UTF-8
+set -gx LC_CTYPE en_US.UTF-8
+set -gx LC_MESSAGES en_US.UTF-8
+set -gx LC_MONETARY en_US.UTF-8
+set -gx LC_NUMERIC en_US.UTF-8
+set -gx LC_TIME en_US.UTF-8
+set -gx LC_ALL en_US.UTF-8
 
 # macos doesnt like sourcing this alias
 alias ls="exa --icons"
 {{ else if eq .chezmoi.os "linux" -}}
-set -Ux SXHKD_SHELL /bin/bash
+set -gx SXHKD_SHELL /bin/bash
 
 # Add GRC: https://github.com/garabik/grc
-source /etc/grc.fish
+set -l grc /etc/grc.fish
 {{ end -}}
 
 test -x (which aws_completer); and complete --command aws --no-files --arguments '(begin; set --local --export COMP_SHELL fish; set --local --export COMP_LINE (commandline); aws_completer | sed \'s/ $//\'; end)'
@@ -83,6 +82,10 @@ test -x (which aws_completer); and complete --command aws --no-files --arguments
 if not functions -q fisher
     curl https://git.io/fisher --create-dirs -sLo $XDG_CONFIG_HOME/fish/functions/fisher.fish
     fish -c fisher
+end
+
+if test -e $grc
+    source $grc
 end
 
 source ~/.alias

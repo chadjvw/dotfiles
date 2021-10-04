@@ -1,14 +1,9 @@
 #!/usr/bin/env zsh
 
-ZSH=/usr/share/oh-my-zsh/
+path=('{{ .chezmoi.homeDir }}/.local/bin' $path)
+path=('{{ .chezmoi.homeDir }}/.cargo/bin' $path)
 
-ZSH_THEME=eastwood
-
-DISABLE_AUTO_UPDATE="true"
-
-ZSH_CUSTOM=/usr/share/zsh
-
-plugins=(aws git z zsh-autosuggestions zsh-syntax-highlighting history-substring-search)
+export PATH
 
 HISTFILE={{ .chezmoi.homeDir }}/.histfile
 
@@ -18,7 +13,9 @@ SAVEHIST=100000
 setopt hist_ignore_all_dups
 setopt appendhistory autocd
 
-bindkey -e
+bindkey -v                 # vim > emacs
+bindkey ' ' magic-space    # also do history expansion on space
+bindkey '^I' complete-word # complete on tab, leave expansion to _expand
 
 zstyle :compinstall filename '{{ .chezmoi.homeDir }}/.zshrc'
 
@@ -30,25 +27,18 @@ export MANPATH="/usr/local/man:$MANPATH"
 # You may need to manually set your language environment
 export LANG=en_US.UTF-8
 
-# Preferred editor for local and remote sessions
-if [[ -n $SSH_CONNECTION ]]; then
-  export EDITOR='vim'
-else
-  export EDITOR='nvim'
-fi
+export EDITOR='nvim'
 
 [[ -s "{{ .chezmoi.homeDir }}/.alias" ]] && source {{ .chezmoi.homeDir }}/.alias
 [[ -s "{{ .chezmoi.homeDir }}/.zshrc-internal" ]] && source {{ .chezmoi.homeDir }}/.zshrc-internal
 
 # Add GRC: https://github.com/garabik/grc
 [[ -s "/etc/grc.zsh" ]] && source /etc/grc.zsh
+[[ -s "/usr/local/etc/grc.zsh" ]] && source /usr/local/etc/grc.zsh
 
 export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
 
-ZSH_CACHE_DIR={{ .chezmoi.homeDir }}/.cache/oh-my-zsh
-if [[ ! -d $ZSH_CACHE_DIR ]]; then
-  mkdir $ZSH_CACHE_DIR
-fi
+[[ -s "$NVM_DIR/nvm.sh" ]] && source "$NVM_DIR/nvm.sh" # This loads nvm
 
-[[ -s "$ZSH/oh-my-zsh.sh" ]] && source $ZSH/oh-my-zsh.sh
+eval "$(zoxide init zsh)"
+eval "$(mcfly init zsh)"
