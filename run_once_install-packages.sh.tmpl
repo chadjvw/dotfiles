@@ -14,7 +14,10 @@
   makepkg -si
  fi
 
-yay vim \
+
+# udpate db and install packages
+yay -Syu --needed \
+  vim \
   sudo \
   unrar \
   unzip \
@@ -38,6 +41,9 @@ yay vim \
   neovim \
   aws-cli-v2-bin \
   deno
+
+# clean unused dependencies
+yay -c
 {{  else if (.chezmoi.osRelease.name | contains "Debian") }}
 sudo apt update
 sudo apt -y upgrade
