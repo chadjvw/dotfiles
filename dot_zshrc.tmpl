@@ -1,9 +1,9 @@
 #!/usr/bin/env zsh
 
-path=('{{ .chezmoi.homeDir }}/.local/bin' $path)
-path=('{{ .chezmoi.homeDir }}/.cargo/bin' $path)
+# import this so we can overwrite thigns in it
+[[ -s "{{ .chezmoi.homeDir }}/.zshrc-internal" ]] && source {{ .chezmoi.homeDir }}/.zshrc-internal
 
-export PATH
+export path=('{{ .chezmoi.homeDir }}/.cargo/bin' '{{ .chezmoi.homeDir }}/.local/bin' $path)
 
 HISTFILE={{ .chezmoi.homeDir }}/.histfile
 
@@ -30,7 +30,6 @@ export LANG=en_US.UTF-8
 export EDITOR='nvim'
 
 [[ -s "{{ .chezmoi.homeDir }}/.alias" ]] && source {{ .chezmoi.homeDir }}/.alias
-[[ -s "{{ .chezmoi.homeDir }}/.zshrc-internal" ]] && source {{ .chezmoi.homeDir }}/.zshrc-internal
 
 # Add GRC: https://github.com/garabik/grc
 [[ -s "/etc/grc.zsh" ]] && source /etc/grc.zsh

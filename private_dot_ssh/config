@@ -1,4 +1,4 @@
-Include internal
+Include ~/.ssh/internal
 
 Host github.com
     IdentityFile ~/.ssh/id_ed25519_github

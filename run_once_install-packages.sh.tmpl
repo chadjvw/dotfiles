@@ -2,13 +2,17 @@
 
 {{ if eq .chezmoi.os "linux" -}}
 {{   if (.chezmoi.osRelease.name | contains "Arch Linux") }}
-sudo pacman -S base-devel
-sudo pacman -S git
+ yay_executable=$(which yay)
+ if [ ! -x "$yay_executable" ] ; then
+  sudo pacman -Sy
+  sudo pacman -S base-devel
+  sudo pacman -S git
 
-cd /tmp
-git clone https://aur.archlinux.org/yay.git
-cd yay
-makepkg -si
+  cd /tmp
+  git clone https://aur.archlinux.org/yay.git
+  cd yay
+  makepkg -si
+ fi
 
 yay vim \
   sudo \
