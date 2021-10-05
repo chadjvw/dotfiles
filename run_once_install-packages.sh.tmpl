@@ -4,16 +4,13 @@
 {{   if (.chezmoi.osRelease.name | contains "Arch Linux") }}
  yay_executable=$(which yay)
  if [ ! -x "$yay_executable" ] ; then
-  sudo pacman -Sy
-  sudo pacman -S base-devel
-  sudo pacman -S git
+  sudo pacman -Syu --needed base-devel git
 
   cd /tmp
   git clone https://aur.archlinux.org/yay.git
   cd yay
   makepkg -si
  fi
-
 
 # udpate db and install packages
 yay -Syu --needed \
@@ -123,7 +120,7 @@ declare -a rust_utils=(
 
 for var in ${rust_utils[@]}
 do
-  cargo install $var
+  cargo install $var --locked
 done
 
 curl -o- --tlsv1.2 https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh | sh -s -- {{ .chezmoi.homeDir }}/.cache/dein
