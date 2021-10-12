@@ -1,3 +1,5 @@
+require 'impatient'
+
 local api = vim.api
 local cmd = vim.cmd -- to execute Vim commands e.g. cmd('pwd')
 local fn = vim.fn -- to call Vim functions e.g. fn.bufnr()
@@ -5,60 +7,73 @@ local g = vim.g -- a table to access global variables
 local opt = vim.opt -- to set options
 
 -- Map leader to space
-g.mapleader = ' '
+g.mapleader = [[ ]]
+g.maplocalleader = [[,]]
 
 local function map(mode, lhs, rhs, opts)
-    local options = { noremap = true }
+    local options = {
+        noremap = true
+    }
+
     if opts then
-      options = vim.tbl_extend("force", options, opts)
+        options = vim.tbl_extend("force", options, opts)
     end
 
     api.nvim_set_keymap(mode, lhs, rhs, options)
 end
 
-local dein_dir = fn.expand('{{ .chezmoi.homeDir }}/.cache/dein')
-local dein_repo_dir = dein_dir..'/repos/github.com/Shougo/dein.vim'
-
--- bootstrap dein
-if not string.find(api.nvim_get_option('runtimepath'), '/dein.vim') then
-  if not (fn.isdirectory(dein_repo_dir) == 1) then
-    os.execute('git clone https://github.com/Shougo/dein.vim '..dein_repo_dir)
-  end
-
-  api.nvim_set_option('runtimepath', dein_repo_dir..','..api.nvim_get_option('runtimepath'))
+local install_path = fn.stdpath('data') .. '/site/pack/packer/start/packer.nvim'
+if fn.empty(fn.glob(install_path)) > 0 then
+    packer_bootstrap = fn.system({'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim',
+                                  install_path})
 end
 
-g['dein#lazy_rplugins'] = 1
-g['dein#install_check_diff '] = 1
-g['dein#install_progress_type'] = 'title'
-g['dein#enable_notification'] = 1
-g['dein#install_log_filename'] = '{{ .chezmoi.homeDir }}/.config/nvim/dein-install.log'
+require('plugins')
+-- require('packer_compiled')
 
-if (fn['dein#load_state'](dein_dir) == 1) then
-  local rc_dir = fn.expand('{{ .chezmoi.homeDir }}/.config/nvim')
+-- local dein_dir = fn.expand('{{ .chezmoi.homeDir }}/.cache/dein')
+-- local dein_repo_dir = dein_dir..'/repos/github.com/Shougo/dein.vim'
 
-  local toml = rc_dir..'/dein.toml'
-  local filetype = rc_dir..'/deinft.toml'
-  local lazy_toml = rc_dir..'/dein_lazy.toml'
-  local ddc_toml = rc_dir..'/ddc.toml'
+-- -- bootstrap dein
+-- if not string.find(api.nvim_get_option('runtimepath'), '/dein.vim') then
+--   if not (fn.isdirectory(dein_repo_dir) == 1) then
+--     os.execute('git clone https://github.com/Shougo/dein.vim '..dein_repo_dir)
+--   end
 
-  fn['dein#begin'](dein_dir, { toml, filetype, lazy_toml, ddc_toml })
+--   api.nvim_set_option('runtimepath', dein_repo_dir..','..api.nvim_get_option('runtimepath'))
+-- end
 
-  fn['dein#load_toml'](toml, { lazy = 0 })
-  fn['dein#load_toml'](filetype, { lazy = 0 })
-  fn['dein#load_toml'](lazy_toml, { lazy = 1 })
-  fn['dein#load_toml'](ddc_toml, { lazy = 1 })
+-- g['dein#lazy_rplugins'] = 1
+-- g['dein#install_check_diff '] = 1
+-- g['dein#install_progress_type'] = 'title'
+-- g['dein#enable_notification'] = 1
+-- g['dein#install_log_filename'] = '{{ .chezmoi.homeDir }}/.config/nvim/dein-install.log'
 
-  fn['dein#end']()
-  fn['dein#save_state']()
-end
+-- if (fn['dein#load_state'](dein_dir) == 1) then
+--   local rc_dir = fn.expand('{{ .chezmoi.homeDir }}/.config/nvim')
 
-local removed_plugins = fn['dein#check_clean']()
+--   local toml = rc_dir..'/dein.toml'
+--   local filetype = rc_dir..'/deinft.toml'
+--   local lazy_toml = rc_dir..'/dein_lazy.toml'
+--   local ddc_toml = rc_dir..'/ddc.toml'
 
-if fn.len(removed_plugins) > 0 then
-  fn.map(removed_plugins, "delete(v:val, 'rf')")
-  fn['dein#recache_runtimepath']()
-end
+--   fn['dein#begin'](dein_dir, { toml, filetype, lazy_toml, ddc_toml })
+
+--   fn['dein#load_toml'](toml, { lazy = 0 })
+--   fn['dein#load_toml'](filetype, { lazy = 0 })
+--   fn['dein#load_toml'](lazy_toml, { lazy = 1 })
+--   fn['dein#load_toml'](ddc_toml, { lazy = 1 })
+
+--   fn['dein#end']()
+--   fn['dein#save_state']()
+-- end
+
+-- local removed_plugins = fn['dein#check_clean']()
+
+-- if fn.len(removed_plugins) > 0 then
+--   fn.map(removed_plugins, "delete(v:val, 'rf')")
+--   fn['dein#recache_runtimepath']()
+-- end
 
 -- Colourscheme config
 --[[ vim.g.everforest_background = "hard"
@@ -68,13 +83,15 @@ vim.g.everforest_diagnostic_virtual_text = "colored"
 vim.g.everforest_current_word = "bold" ]]
 
 -- Load the colorscheme
-cmd([[colorscheme gruvbox]]) -- Put your favorite colorscheme here
+cmd([[colorscheme gruvbox-material]]) -- Put your favorite colorscheme here
 
-g['gruvbox_italic'] = 1
-g['gruvbox_contrast_dark'] ='hard'
+g.gruvbox_material_enable_bold = 1
+g.gruvbox_material_enable_italic = 1
+g.gruvbox_material_statusline_style = 'original'
+g.gruvbox_material_palette = 'original'
 
 opt.background = 'dark'
-opt.backspace = { "indent", "eol", "start" }
+opt.backspace = {"indent", "eol", "start"}
 opt.clipboard = "unnamedplus"
 opt.completeopt = "menuone,noselect"
 opt.cursorline = true
