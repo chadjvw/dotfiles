@@ -13,7 +13,7 @@ return require('packer').startup(function()
     }
 
     use 'lewis6991/impatient.nvim'
-
+    use 'b3nj5m1n/kommentary'
     -- Packer can manage itself
     use 'wbthomason/packer.nvim'
 
