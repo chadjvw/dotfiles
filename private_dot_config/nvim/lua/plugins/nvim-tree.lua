@@ -29,5 +29,3 @@ nvimtree.setup {
         width = 50
     }
 }
-
-vim.cmd[[autocmd VimEnter * NvimTreeOpen | wincmd p]]
