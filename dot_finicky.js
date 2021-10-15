@@ -27,11 +27,6 @@ module.exports = {
   ],
   handlers: [
     {
-      // open chime: url in Chime.app
-      match: ({ url }) => url.protocol === 'chime',
-      browser: '/Applications/Amazon Chime.app',
-    },
-    {
       match: ['open.spotify.com*', 'play.spotify.com*'],
       browser: 'Spotify',
     },
