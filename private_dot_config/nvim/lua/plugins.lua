@@ -15,6 +15,12 @@ vim.cmd([[
 
 local use = packer.use
 
+local compile_path = vim.fn.stdpath('config') .. '/plugin/packer_compiled.lua'
+
+if vim.fn.has('macunix') == 1 then
+    compile_path = vim.fn.stdpath('config') .. '/lua/packer_compiled.lua'
+end
+
 return packer.startup({
     function()
         use 'lewis6991/impatient.nvim'
@@ -42,9 +48,15 @@ return packer.startup({
         -- Load on an autocommand event
         use 'andymass/vim-matchup'
 
+        local treesitter_branch = 'master'
+
+        if vim.fn.has('macunix') == 1 then
+            treesitter_branch = '0.5-compat'
+        end
+
         use {
             'nvim-treesitter/nvim-treesitter',
-            branch = '0.5-compat',
+            branch = treesitter_branch,
             requires = 'nvim-treesitter/nvim-treesitter-refactor',
             run = ':TSUpdate',
             config = function()
@@ -127,10 +139,12 @@ return packer.startup({
         },
         display = {
             open_fn = function()
-              return require('packer.util').float({ border = 'single' })
+                return require('packer.util').float({
+                    border = 'single'
+                })
             end
-          },
+        },
         -- Move to lua dir so impatient.nvim can cache it
-        compile_path = vim.fn.stdpath('config') .. '/lua/packer_compiled.lua'
+        compile_path = compile_path
     }
 })
