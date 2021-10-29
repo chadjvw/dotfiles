@@ -34,12 +34,6 @@ set fish_pager_color_description yellow
 set fish_color_match brwhite --background=brmagenta
 set fish_color_history_current brgreen
 
-# Colored man pages
-set -g man_blink -o red
-set -g man_bold -o green
-set -g man_standout red
-set -g man_underline -u yellow
-
 set -gx EDITOR nvim
 set -gx AWS_EC2_METADATA_DISABLED 1
 set -gx XDG_DATA_DIRS "/usr/local/share:/usr/share"
@@ -53,6 +47,9 @@ set -gx HOMEBREW_NO_ANALYTICS 1
 set -gx EXA_ICON_SPACING 2
 set -gx MCFLY_KEY_SCHEME vim
 set -gx MCFLY_FUZZY true
+set -gx PAGER 'less --no-init --quit-if-one-screen --chop-long-lines'
+set -gx BAT_THEME gruvbox-dark
+set -gx MANPAGER "sh -c 'col -bx | bat -l man -p'"
 
 {{ if eq .chezmoi.os "darwin" -}}
 # Add GRC: https://github.com/garabik/grc

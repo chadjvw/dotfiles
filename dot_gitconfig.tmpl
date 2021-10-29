@@ -136,10 +136,11 @@
 [diff]
 	# Detect copies as well as renames
 	renames = copies
+    colorMoved = default
 
 [diff "bin"]
 	# Use `hexdump` to diff binary files
-	textconv = hexdump -v -C
+	textconv = xd 
 
 [help]
 	# Automatically correct and execute mistyped commands
@@ -175,7 +176,7 @@
     diffFilter = delta --color-only
 
 [delta]
-    features = side-by-side line-numbers decorations
+    features = gruvbox-dark side-by-side line-numbers decorations 
     whitespace-error-style = 22 reverse
 
 [delta "decorations"]
