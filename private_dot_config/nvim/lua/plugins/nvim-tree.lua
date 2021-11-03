@@ -1,6 +1,5 @@
 vim.o.termguicolors = true
 
-vim.g.nvim_tree_ignore = {'.git', 'node_modules', '.cache'}
 vim.g.nvim_tree_gitignore = 1
 vim.g.nvim_tree_indent_markers = 1
 vim.g.nvim_tree_git_hl = 1
@@ -27,5 +26,8 @@ nvimtree.setup {
     update_cwd = true,
     view = {
         width = 50
+    },
+    filters = {
+        custom = { '.git', 'node_modules', '.cache' }
     }
 }
