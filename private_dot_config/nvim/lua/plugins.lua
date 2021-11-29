@@ -96,7 +96,7 @@ return packer.startup({
         }
 
         use {
-            'kabouzeid/nvim-lspinstall',
+            'williamboman/nvim-lsp-installer',
             requires = {'neovim/nvim-lspconfig', 'hrsh7th/cmp-nvim-lsp'},
             config = function()
                 require 'plugins.lspconfig'
