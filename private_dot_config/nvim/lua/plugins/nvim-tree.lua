@@ -1,6 +1,5 @@
 vim.o.termguicolors = true
 
-vim.g.nvim_tree_gitignore = 1
 vim.g.nvim_tree_indent_markers = 1
 vim.g.nvim_tree_git_hl = 1
 vim.g.nvim_tree_highlight_opened_files = 1
@@ -28,6 +27,11 @@ nvimtree.setup {
         width = 50
     },
     filters = {
-        custom = { '.git', 'node_modules', '.cache' }
+        custom = {'.git', 'node_modules', '.cache'}
+    },
+    git = {
+        enable = true,
+        ignore = true,
+        timeout = 500
     }
 }
