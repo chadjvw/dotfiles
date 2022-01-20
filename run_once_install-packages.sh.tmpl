@@ -36,8 +36,7 @@ yay -Syu --needed \
   curl \
   cloudflared-bin \
   neovim \
-  aws-cli-v2-bin \
-  deno
+  aws-cli-v2-bin
 
 # clean unused dependencies
 yay -c
@@ -91,7 +90,6 @@ cask "hiddenbar"
 cask "plexamp"
 cask "stats"
 cask "visual-studio-code"
-cask "deno"
 EOF
 {{ end -}}
 
@@ -120,6 +118,8 @@ declare -a rust_utils=(
 "xd"
 "jql"
 "macchina"
+"gping"
+"ag"
 )
 
 for var in ${rust_utils[@]}

@@ -48,15 +48,8 @@ return packer.startup({
         -- Load on an autocommand event
         use 'andymass/vim-matchup'
 
-        local treesitter_branch = 'master'
-
-        if vim.fn.has('macunix') == 1 then
-            treesitter_branch = '0.5-compat'
-        end
-
         use {
             'nvim-treesitter/nvim-treesitter',
-            branch = treesitter_branch,
             requires = 'nvim-treesitter/nvim-treesitter-refactor',
             run = ':TSUpdate',
             config = function()
@@ -88,10 +81,10 @@ return packer.startup({
         }
 
         use {
-            'kyazdani42/nvim-tree.lua',
+            'sidebar-nvim/sidebar.nvim',
             requires = 'kyazdani42/nvim-web-devicons',
             config = function()
-                require 'plugins.nvim-tree'
+                require 'plugins.sidebar'
             end
         }
 
@@ -106,19 +99,8 @@ return packer.startup({
         -- Completion
         use {
             'hrsh7th/nvim-cmp',
-            requires = {{
-                'hrsh7th/cmp-nvim-lsp',
-                after = 'nvim-cmp'
-            }, {
-                'hrsh7th/cmp-buffer',
-                after = 'nvim-cmp'
-            }, {
-                'hrsh7th/cmp-path',
-                after = 'nvim-cmp'
-            }, {
-                'dcampos/cmp-snippy',
-                after = 'nvim-cmp'
-            }, 'dcampos/nvim-snippy', 'honza/vim-snippets'},
+            requires = {'hrsh7th/cmp-nvim-lsp', 'hrsh7th/cmp-nvim-lsp-signature-help', 'hrsh7th/cmp-buffer',
+                        'hrsh7th/cmp-path', 'dcampos/cmp-snippy', 'dcampos/nvim-snippy', 'honza/vim-snippets'},
             config = function()
                 require 'plugins.cmp'
             end
@@ -141,16 +123,6 @@ return packer.startup({
         }
     end,
     config = {
-        profile = {
-            enable = true
-        },
-        display = {
-            open_fn = function()
-                return require('packer.util').float({
-                    border = 'single'
-                })
-            end
-        },
         -- Move to lua dir so impatient.nvim can cache it
         compile_path = compile_path
     }
