@@ -5,7 +5,7 @@ if not present then
 end
 
 ts_config.setup({
-    ignore_install = {'haskell'},
+    ignore_install = {'haskell', 'elixir'},
     ensure_installed = 'maintained',
     highlight = {
         enable = true,

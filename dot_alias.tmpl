@@ -15,6 +15,7 @@ alias http="xh"
 alias hexdump="xd"
 alias hd="xd"
 alias jq="jql"
+alias ping="gping"
 
 ## ALTER EXISTING
 alias rg="rg --smart-case"
@@ -27,7 +28,6 @@ alias figlet="figlet -f isometric3"
 # scp is deprecated
 alias scp="rsync --progress --archive --verbose --compress --human-readable"
 alias sudo="sudo "
-alias ping="ping -c 5"
 alias sk="sk --color dark,fg:#{{ .colors.foreground }},bg:#{{ .colors.background }},matched:#{{ .colors.foreground }},matched_bg:#{{ .colors.normal.blue }},current:#{{ .colors.foreground }},current_bg:#{{ .colors.normal.green }},current_match:#{{ .colors.background }},current_match_bg:#{{ .colors.normal.yellow }},border:#{{ .colors.normal.green }},prompt:#fb4934,cursor:#{{ .colors.background }},selected:#{{ .colors.bright.yellow }},spinner:#{{ .colors.bright.yellow }},header:#{{ .colors.normal.blue }}"
 alias netstat="ss --tcp --udp --listening --processes --numeric" # -tulpn
 alias ss="ss --tcp --udp --listening --processes --numeric"
@@ -37,6 +37,7 @@ alias j="just"
 alias sysd="sudo systemctl"
 alias usysd="systemctl --user"
 alias ht="hunter"
+alias les="bat --decorations=never"
 
 ## CUSTOM COMMANDS
 alias .j="just --justfile {{ .chezmoi.homeDir }}/.justfile --working-directory {{ .chezmoi.homeDir }}"
