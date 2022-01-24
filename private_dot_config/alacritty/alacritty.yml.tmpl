@@ -29,6 +29,7 @@ window:
   startup_mode: Maximized
 {{- end }}
   dynamic_title: true
+  opacity: 1.0
 
 scrolling:
   history: 10000
@@ -117,8 +118,6 @@ bell:
   animation: EaseOutExpo
   duration: 1
   color: '#{{ .colors.cursor }}'
-
-background_opacity: 1.0
 
 mouse_bindings:
   - { mouse: Middle, action: PasteSelection }
