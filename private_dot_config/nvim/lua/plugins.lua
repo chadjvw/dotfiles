@@ -121,6 +121,23 @@ return packer.startup({
                 require('which-key').setup()
             end
         }
+
+        use 'folke/lsp-colors.nvim'
+
+        use {
+            "folke/trouble.nvim",
+            requires = "kyazdani42/nvim-web-devicons",
+            config = function()
+                require('trouble').setup()
+            end
+        }
+
+        use {
+            "j-hui/fidget.nvim",
+            config = function()
+                require('fidget').setup()
+            end
+        }
     end,
     config = {
         -- Move to lua dir so impatient.nvim can cache it
