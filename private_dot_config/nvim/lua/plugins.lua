@@ -58,6 +58,14 @@ return packer.startup({
         }
 
         use {
+            'IndianBoy42/tree-sitter-just',
+            requires = 'nvim-treesitter/nvim-treesitter',
+            config = function()
+                require'tree-sitter-just'.setup{}
+            end
+        }
+
+        use {
             'nvim-lualine/lualine.nvim',
             requires = 'kyazdani42/nvim-web-devicons',
             config = function()
@@ -73,7 +81,7 @@ return packer.startup({
             end
         }
 
-        use 'sainnhe/gruvbox-material'
+        use 'ellisonleao/gruvbox.nvim'
 
         use {
             'gelguy/wilder.nvim',
