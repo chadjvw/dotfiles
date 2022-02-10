@@ -18,12 +18,14 @@ vim.g.everforest_diagnostic_virtual_text = "colored"
 vim.g.everforest_current_word = "bold" ]]
 
 -- Load the colorscheme
-cmd([[colorscheme gruvbox-material]]) -- Put your favorite colorscheme here
+cmd([[colorscheme gruvbox]])
+g.gruvbox_italic = 1
+g.gruvbox_bold = 1
 
-g.gruvbox_material_enable_bold = 1
-g.gruvbox_material_enable_italic = 1
-g.gruvbox_material_statusline_style = 'original'
-g.gruvbox_material_palette = 'original'
+-- g.gruvbox_material_enable_bold = 1
+-- g.gruvbox_material_enable_italic = 1
+-- g.gruvbox_material_statusline_style = 'original'
+-- g.gruvbox_material_palette = 'original'
 
 opt.background = 'dark'
 opt.backspace = {"indent", "eol", "start"}
