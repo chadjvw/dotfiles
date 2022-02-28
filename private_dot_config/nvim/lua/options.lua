@@ -27,6 +27,8 @@ g.gruvbox_bold = 1
 -- g.gruvbox_material_statusline_style = 'original'
 -- g.gruvbox_material_palette = 'original'
 
+-- cmd[[colorscheme catppuccin]]
+
 opt.background = 'dark'
 opt.backspace = {"indent", "eol", "start"}
 opt.clipboard = "unnamedplus"

@@ -60,64 +60,68 @@ draw_bold_text_with_bright_colors: true
 
 colors:
   primary:
-    background: '#{{ .colors.background }}'
-    foreground: '#{{ .colors.foreground }}'
+    background: '0x{{ .colors.background }}'
+    foreground: '0x{{ .colors.foreground }}'
 
   cursor:
-    text: '#{{ .colors.text }}'
-    cursor: '#{{ .colors.cursor }}'
+    text: '0x{{ .colors.text }}'
+    cursor: '0x{{ .colors.cursor }}'
 
   normal:
-    black:   '#{{ .colors.normal.black }}'
-    red:     '#{{ .colors.normal.red }}'
-    green:   '#{{ .colors.normal.green }}'
-    yellow:  '#{{ .colors.normal.yellow }}'
-    blue:    '#{{ .colors.normal.blue }}'
-    magenta: '#{{ .colors.normal.magenta }}'
-    cyan:    '#{{ .colors.normal.cyan }}'
-    white:   '#{{ .colors.normal.white }}'
+    black:   '0x{{ .colors.normal.black }}'
+    red:     '0x{{ .colors.normal.red }}'
+    green:   '0x{{ .colors.normal.green }}'
+    yellow:  '0x{{ .colors.normal.yellow }}'
+    blue:    '0x{{ .colors.normal.blue }}'
+    magenta: '0x{{ .colors.normal.magenta }}'
+    cyan:    '0x{{ .colors.normal.cyan }}'
+    white:   '0x{{ .colors.normal.white }}'
 
   bright:
-    black:   '#{{ .colors.bright.black }}'
-    red:     '#fb4934'
-    green:   '#{{ .colors.bright.green }}'
-    yellow:  '#{{ .colors.bright.yellow }}'
-    blue:    '#{{ .colors.bright.blue }}'
-    magenta: '#{{ .colors.bright.magenta }}'
-    cyan:    '#{{ .colors.bright.cyan }}'
-    white:   '#{{ .colors.bright.white }}'
+    black:   '0x{{ .colors.bright.black }}'
+    red:     '0x{{ .colors.bright.red }}'
+    green:   '0x{{ .colors.bright.green }}'
+    yellow:  '0x{{ .colors.bright.yellow }}'
+    blue:    '0x{{ .colors.bright.blue }}'
+    magenta: '0x{{ .colors.bright.magenta }}'
+    cyan:    '0x{{ .colors.bright.cyan }}'
+    white:   '0x{{ .colors.bright.white }}'
+
+  indexed_colors:
+    - { index: 16, color: '0x{{ .colors.index.one_six }}' }
+    - { index: 17, color: '0x{{ .colors.index.one_seven }}' }
 
   vi_mode_cursor:
-    text: '#{{ .colors.text }}'
-    cursor: '#{{ .colors.cursor }}'
+    text: '0x{{ .colors.text }}'
+    cursor: '0x{{ .colors.cursor }}'
 
   selection:
-    text: '#{{ .colors.background }}'
-    background: '#{{ .colors.text }}'
+    text: '0x{{ .colors.background }}'
+    background: '0x{{ .colors.text }}'
 
   search:
     matches:
-      foreground: '#{{ .colors.foreground }}'
-      background: '#{{ .colors.bright.magenta }}'
+      foreground: '0x{{ .colors.foreground }}'
+      background: '0x{{ .colors.bright.magenta }}'
     focused_match:
-      foreground: '#{{ .colors.foreground }}'
-      background: '#{{ .colors.normal.blue }}'
+      foreground: '0x{{ .colors.foreground }}'
+      background: '0x{{ .colors.normal.blue }}'
     bar:
-     background: '#{{ .colors.bright.black }}'
-     foreground: '#{{ .colors.bright.yellow }}'
+     background: '0x{{ .colors.bright.black }}'
+     foreground: '0x{{ .colors.bright.yellow }}'
 
   hints:
     start:
-      foreground: '#{{ .colors.background }}'
-      background: '#fb4934'
+      foreground: '0x{{ .colors.background }}'
+      background: '0x{{ .colors.bright.red }}'
     end:
-      foreground: '#{{ .colors.background }}'
-      background: '#{{ .colors.bright.green }}'
+      foreground: '0x{{ .colors.background }}'
+      background: '0x{{ .colors.bright.green }}'
 
 bell:
   animation: EaseOutExpo
   duration: 1
-  color: '#{{ .colors.cursor }}'
+  color: '0x{{ .colors.cursor }}'
 
 mouse_bindings:
   - { mouse: Middle, action: PasteSelection }
