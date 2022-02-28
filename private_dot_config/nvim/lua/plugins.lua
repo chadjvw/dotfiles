@@ -84,6 +84,11 @@ return packer.startup({
         use 'ellisonleao/gruvbox.nvim'
 
         use {
+            "catppuccin/nvim",
+            as = "catppuccin"
+        }
+
+        use {
             'gelguy/wilder.nvim',
             requires = {'nixprime/cpsm', 'romgrk/fzy-lua-native'}
         }
