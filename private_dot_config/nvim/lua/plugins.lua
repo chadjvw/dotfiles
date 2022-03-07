@@ -61,7 +61,7 @@ return packer.startup({
             'IndianBoy42/tree-sitter-just',
             requires = 'nvim-treesitter/nvim-treesitter',
             config = function()
-                require'tree-sitter-just'.setup{}
+                require'tree-sitter-just'.setup {}
             end
         }
 
@@ -94,10 +94,10 @@ return packer.startup({
         }
 
         use {
-            'sidebar-nvim/sidebar.nvim',
+            'kyazdani42/nvim-tree.lua',
             requires = 'kyazdani42/nvim-web-devicons',
             config = function()
-                require 'plugins.sidebar'
+                require 'plugins.nvim-tree'
             end
         }
 
