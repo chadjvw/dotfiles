@@ -33,12 +33,12 @@ format = '\([$state( $progress_current/$progress_total)]($style)\) '
 style = "bright-black"
 
 [character]
-error_symbol = "[#](bright-red)"
-success_symbol = "[#](bright-green)"
-vicmd_symbol = "[#](bright-yellow)"
+error_symbol = "[#](bold red)"
+success_symbol = "[#](bold green)"
+vicmd_symbol = "[#](bold yellow)"
 
 [username]
-style = 'bright-yellow'
+style_user = 'bright-yellow'
 format = "[$user]($style)"
 
 [hostname]
