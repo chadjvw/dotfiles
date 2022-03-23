@@ -41,4 +41,4 @@ vicmd_symbol = "[#](bold yellow)"
 format = "[$user]($style)"
 
 [hostname]
-format = "[@$hostname]($style)"
+format = "[@$hostname]($style) "
