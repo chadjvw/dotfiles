@@ -18,7 +18,7 @@ format = "[$branch]($style)"
 style = "bright-black"
 
 [git_status]
-format = "[[(*$conflicted$untracked$modified$staged$renamed$deleted)](218) ($ahead_behind$stashed)]($style)"
+format = "[[(*$conflicted$untracked$modified$staged$renamed$deleted)](purple) ($ahead_behind$stashed)]($style) "
 style = "cyan"
 conflicted = "​"
 untracked = "​"
@@ -33,12 +33,18 @@ format = '\([$state( $progress_current/$progress_total)]($style)\) '
 style = "bright-black"
 
 [character]
-error_symbol = "[#](bold red)"
-success_symbol = "[#](bold green)"
-vicmd_symbol = "[#](bold yellow)"
+error_symbol = "[#](bright-red)"
+success_symbol = "[#](bright-green)"
+vicmd_symbol = "[#](bright-yellow)"
 
 [username]
+style = 'bright-yellow'
 format = "[$user]($style)"
 
 [hostname]
-format = "[@$hostname]($style) "
+style = 'green'
+format = "[@](bright-white)[$hostname]($style) "
+
+[cmd_duration]
+style = 'yellow'
+format = '[$duration]($style)'
