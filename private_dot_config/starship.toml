@@ -11,6 +11,7 @@ $character"""
 
 [directory]
 style = "blue"
+format = '[$path]($style) '
 
 [git_branch]
 format = "[$branch]($style)"
@@ -35,3 +36,9 @@ style = "bright-black"
 error_symbol = "[#](bold red)"
 success_symbol = "[#](bold green)"
 vicmd_symbol = "[#](bold yellow)"
+
+[username]
+format = "[$user]($style)"
+
+[hostname]
+format = "[@$hostname]($style)"
