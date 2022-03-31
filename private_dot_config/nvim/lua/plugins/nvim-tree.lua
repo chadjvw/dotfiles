@@ -18,7 +18,6 @@ end
 
 nvimtree.setup {
     open_on_setup = false,
-    auto_close = true,
     open_on_tab = true,
     update_cwd = true,
     view = {
@@ -42,5 +41,6 @@ vim.cmd([[
   augroup nvim-tree-user
     autocmd!
     autocmd VimEnter * lua require('nvim-tree').toggle(true, true)
+    autocmd BufEnter * ++nested if winnr('$') == 1 && bufname() == 'NvimTree_' . tabpagenr() | quit | endif
   augroup end
 ]])
