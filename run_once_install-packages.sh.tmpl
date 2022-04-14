@@ -71,6 +71,7 @@ brew "duf"
 brew "git"
 brew "grc"
 brew "htop"
+brew "btop"
 brew "jq"
 brew "neofetch"
 brew "neovim"
@@ -103,6 +104,7 @@ declare -a rust_utils=(
 "cargo-update"
 "fd-find"
 "git-delta"
+"difftastic"
 "just"
 "ripgrep"
 "skim"
@@ -129,4 +131,4 @@ do
   cargo install $var --locked
 done
 
-curl -o- --tlsv1.2 https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.0/install.sh | bash
+curl -o- --tlsv1.2 https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash

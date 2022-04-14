@@ -3,16 +3,23 @@
 	email = {{ .email }}
 
 [alias]
-	# View abbreviated SHA, description, and history graph of the latest 20 commits
-	l = log --pretty=oneline -n 20 --graph --abbrev-commit
+	# https://stackoverflow.com/a/34467298
+	l = lg1
+    lg = lg1
+    lg1 = lg1-specific --all
+    lg2 = lg2-specific --all
+    lg3 = lg3-specific --all
 
-	# view commits as a graph
-	lg = log --color --graph --pretty=format:'%C(yellow)%h%Creset%C(auto)%d%Creset %s %C(magenta)(%cr) %C(blue)<%an>%Creset' --abbrev-commit
+    lg1-specific = log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(dim white)- %an%C(reset)%C(auto)%d%C(reset)'
+    lg2-specific = log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold cyan)%aD%C(reset) %C(bold green)(%ar)%C(reset)%C(auto)%d%C(reset)%n''          %C(white)%s%C(reset) %C(dim white)- %an%C(reset)'
+    lg3-specific = log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold cyan)%aD%C(reset) %C(bold green)(%ar)%C(reset) %C(bold cyan)(committed: %cD)%C(reset) %C(auto)%d%C(reset)%n''          %C(white)%s%C(reset)%n''          %C(dim white)- %an <%ae> %C(reset) %C(dim white)(committer: %cn <%ce>)%C(reset)'
 
 	# View the current working tree status using the short format
-	s = status -sb
+	s = status --ahead-behind --show-stash -vsb
 	
 	a = add -p
+
+	dft = difftool
 
 	# Show the diff between the latest commit and the current state
 	d = !"git diff-index --quiet HEAD -- || clear; git --no-pager diff --patch-with-stat"
@@ -106,33 +113,16 @@
 	# http://michael-kuehnel.de/git/2014/11/21/git-mac-osx-and-german-umlaute.html
 	precomposeunicode = false
 
-	pager = delta
+	excludesfile = {{ .chezmoi.homeDir }}/.config/git/ignore
 
-[color]
-	# Use colors in Git commands that are capable of colored output when
-	# outputting to the terminal. (This is the default setting in Git ≥ 1.8.4.)
-	ui = auto
-
-[color "branch"]
-	current = yellow reverse
-	local = yellow
-	remote = green
-
-[color "diff"]
-	meta = yellow bold
-	frag = magenta bold # line info
-	old = red # deletions
-	new = green # additions
-
-[color "status"]
-	added = yellow
-	changed = green
-	untracked = cyan
+[pager]
+	difftool = true
 
 [diff]
 	# Detect copies as well as renames
 	renames = copies
     colorMoved = default
+	tool = difftastic
 
 [diff "bin"]
 	# Use `hexdump` to diff binary files
@@ -179,3 +169,9 @@
     commit-decoration-style = bold yellow box ul
     file-style = bold yellow ul
     file-decoration-style = none
+
+[difftool]
+    prompt = false
+
+[difftool "difftastic"]
+    cmd = difft "$LOCAL" "$REMOTE"

@@ -40,6 +40,9 @@ Thumbs.db
 # Folder config file
 Desktop.ini
 
+# Java
+.attach_pid*
+
 # Vim
 .swp
 .swo

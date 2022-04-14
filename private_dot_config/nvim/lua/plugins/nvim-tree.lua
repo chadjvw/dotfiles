@@ -1,4 +1,3 @@
-vim.g.nvim_tree_indent_markers = 1
 vim.g.nvim_tree_git_hl = 1
 vim.g.nvim_tree_highlight_opened_files = 1
 vim.cmd [[let g:nvim_tree_special_files = { 'README.md': 1, 'Makefile': 1, 'MAKEFILE': 1 }]]
@@ -34,6 +33,11 @@ nvimtree.setup {
     },
     diagnostics = {
         enable = true
+    },
+    renderer = {
+        indent_markers = {
+            enable = true
+        }
     }
 }
 
