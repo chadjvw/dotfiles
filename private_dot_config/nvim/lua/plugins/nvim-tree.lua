@@ -41,10 +41,21 @@ nvimtree.setup {
     }
 }
 
-vim.cmd([[
-  augroup nvim-tree-user
-    autocmd!
-    autocmd VimEnter * lua require('nvim-tree').toggle(true, true)
-    autocmd BufEnter * ++nested if winnr('$') == 1 && bufname() == 'NvimTree_' . tabpagenr() | quit | endif
-  augroup end
-]])
+local nvim_tree_group = vim.api.nvim_create_augroup('nvim-tree-user', {
+    clear = true
+})
+
+vim.api.nvim_create_autocmd('VimEnter', {
+    callback = function()
+        require('nvim-tree').toggle(true, true)
+    end,
+    group = nvim_tree_group,
+    pattern = '*'
+})
+
+vim.api.nvim_create_autocmd('BufEnter', {
+    command = "if winnr('$') == 1 && bufname() == 'NvimTree_' . tabpagenr() | quit | endif",
+    nested = true,
+    group = nvim_tree_group,
+    pattern = '*'
+})
