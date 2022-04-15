@@ -17,10 +17,27 @@ local function map(mode, lhs, rhs, opts)
 end
 
 -- Map leader to space
-g.mapleader = [[ ]]
-g.maplocalleader = [[,]]
+vim.g.mapleader = ' '
+vim.g.maplocalleader = ' '
 
-map('', '<up>', '<nop>')
-map('', '<down>', '<nop>')
-map('', '<left>', '<nop>')
-map('', '<right>', '<nop>')
+vim.keymap.set('', '<up>', '<nop>', {
+    noremap = true
+})
+vim.keymap.set('', '<down>', '<nop>', {
+    noremap = true
+})
+vim.keymap.set('', '<left>', '<nop>', {
+    noremap = true
+})
+vim.keymap.set('', '<right>', '<nop>', {
+    noremap = true
+})
+
+-- Remap space as leader key
+-- vim.keymap.set({ 'n', 'v' }, '<Space>', '<Nop>', { silent = true })
+-- vim.g.mapleader = ' '
+-- vim.g.maplocalleader = ' '
+
+-- --Remap for dealing with word wrap
+-- vim.keymap.set('n', 'k', "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
+-- vim.keymap.set('n', 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
