@@ -6,8 +6,15 @@ else
     return
 end
 
-local packer_group = vim.api.nvim_create_augroup('Packer', { clear = true })
-vim.api.nvim_create_autocmd('BufWritePost', { command = 'source <afile> | PackerCompile', group = packer_group, pattern = 'init.lua' })
+local packer_group = vim.api.nvim_create_augroup('Packer', {
+    clear = true
+})
+
+vim.api.nvim_create_autocmd('BufWritePost', {
+    command = 'source <afile> | PackerCompile',
+    group = packer_group,
+    pattern = 'init.lua'
+})
 
 local use = packer.use
 
@@ -31,7 +38,12 @@ return packer.startup({
         use 'wbthomason/packer.nvim'
 
         -- Simple plugins can be specified as strings
-        use '9mm/vim-closer'
+        use {
+            'windwp/nvim-autopairs',
+            config = function()
+                require('nvim-autopairs').setup {}
+            end
+        }
 
         -- Lazy loading:
         -- Load on specific commands
