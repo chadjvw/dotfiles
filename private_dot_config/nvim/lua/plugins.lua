@@ -1,9 +1,8 @@
-local present, packer = pcall(require, 'packer')
+local install_path = vim.fn.stdpath('data') .. '/site/pack/packer/start/packer.nvim'
 
-if present then
-    packer = require 'packer'
-else
-    return
+if vim.fn.empty(vim.fn.glob(install_path)) > 0 then
+    packer_bootstrap = vim.fn.system({'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim',
+                                  install_path})
 end
 
 local packer_group = vim.api.nvim_create_augroup('Packer', {
@@ -16,15 +15,7 @@ vim.api.nvim_create_autocmd('BufWritePost', {
     pattern = 'init.lua'
 })
 
-local use = packer.use
-
-local compile_path = vim.fn.stdpath('config') .. '/plugin/packer_compiled.lua'
-
-if vim.fn.has('macunix') == 1 then
-    compile_path = vim.fn.stdpath('config') .. '/lua/packer_compiled.lua'
-end
-
-return packer.startup({
+return require('packer').startup({
     function()
         use 'lewis6991/impatient.nvim'
 
@@ -65,13 +56,13 @@ return packer.startup({
             end
         }
 
-        use {
-            'IndianBoy42/tree-sitter-just',
-            requires = 'nvim-treesitter/nvim-treesitter',
-            config = function()
-                require'tree-sitter-just'.setup {}
-            end
-        }
+        -- use {
+        --     'IndianBoy42/tree-sitter-just',
+        --     requires = 'nvim-treesitter/nvim-treesitter',
+        --     config = function()
+        --         require'tree-sitter-just'.setup {}
+        --     end
+        -- }
 
         use {
             'nvim-lualine/lualine.nvim',
@@ -98,7 +89,10 @@ return packer.startup({
 
         use {
             'gelguy/wilder.nvim',
-            requires = {'nixprime/cpsm', 'romgrk/fzy-lua-native'}
+            requires = {'nixprime/cpsm', 'romgrk/fzy-lua-native'},
+            config = function()
+                require 'plugins.wilder'
+            end
         }
 
         use {
@@ -159,9 +153,10 @@ return packer.startup({
                 require('fidget').setup()
             end
         }
+
+        if packer_bootstrap then
+            require('packer').sync()
+        end
     end,
-    config = {
-        -- Move to lua dir so impatient.nvim can cache it
-        compile_path = compile_path
-    }
+    config = {}
 })
