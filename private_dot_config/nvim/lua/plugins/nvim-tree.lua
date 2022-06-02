@@ -1,14 +1,3 @@
-vim.g.nvim_tree_git_hl = 1
-vim.g.nvim_tree_highlight_opened_files = 1
-vim.cmd [[let g:nvim_tree_special_files = { 'README.md': 1, 'Makefile': 1, 'MAKEFILE': 1 }]]
-
-vim.g.nvim_tree_show_icons = {
-    folders = 1,
-    files = 1,
-    git = 1,
-    folder_arrows = 1
-}
-
 local present, nvimtree = pcall(require, "nvim-tree")
 
 if not present then
@@ -35,6 +24,8 @@ nvimtree.setup {
         enable = true
     },
     renderer = {
+        highlight_git = true,
+        highlight_opened_files = "icon",
         indent_markers = {
             enable = true
         }
@@ -53,9 +44,11 @@ vim.api.nvim_create_autocmd('VimEnter', {
     pattern = '*'
 })
 
-vim.api.nvim_create_autocmd('BufEnter', {
-    command = "if winnr('$') == 1 && bufname() == 'NvimTree_' . tabpagenr() | quit | endif",
+vim.api.nvim_create_autocmd("BufEnter", {
     nested = true,
-    group = nvim_tree_group,
-    pattern = '*'
+    callback = function()
+        if #vim.api.nvim_list_wins() == 1 and vim.api.nvim_buf_get_name(0):match("NvimTree_") ~= nil then
+            vim.cmd "quit"
+        end
+    end
 })
