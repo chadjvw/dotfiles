@@ -54,8 +54,6 @@ font:
     family: {{ .font.mono.name_bold }}
     style: Bold Italic
 
-  use_thin_strokes: true
-
 draw_bold_text_with_bright_colors: true
 
 colors:
@@ -106,9 +104,9 @@ colors:
     focused_match:
       foreground: '0x{{ .colors.foreground }}'
       background: '0x{{ .colors.normal.blue }}'
-    bar:
-     background: '0x{{ .colors.bright.black }}'
-     foreground: '0x{{ .colors.bright.yellow }}'
+    footer_bar:
+      background: '0x{{ .colors.bright.black }}'
+      foreground: '0x{{ .colors.bright.yellow }}'
 
   hints:
     start:
