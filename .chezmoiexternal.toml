@@ -1,0 +1,4 @@
+[".config/nvim"]
+    type = "git-repo"
+    url = "https://github.com/doom-neovim/doom-nvim.git"
+    refreshPeriod = "24h"
