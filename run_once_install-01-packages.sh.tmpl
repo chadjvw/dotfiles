@@ -1,6 +1,36 @@
 #!/usr/bin/env zsh
 
+declare -a rust_utils=(
+"exa"
+"bat"
+"xh"
+"mcfly"
+"cargo-update"
+"fd-find"
+"git-delta"
+"difftastic"
+"just"
+"ripgrep"
+"skim"
+# "starship"
+"tealdeer"
+"topgrade"
+"zoxide"
+"sd"
+"bottom"
+"dua"
+"xd"
+"jql"
+"macchina"
+"gping"
+"ag"
+"pueue"
+)
+
 {{ if eq .chezmoi.os "linux" -}}
+
+rust_utils+=("starship")
+
 {{   if (.chezmoi.osRelease.name | contains "Arch Linux") }}
  yay_executable=$(which yay)
  if [ ! -x "$yay_executable" ] ; then
@@ -91,7 +121,9 @@ cask "font-iosevka"
 cask "font-iosevka-nerd-font"
 cask "font-iosevka-slab"
 cask "font-iosevka-etoile"
-cask "font-iosevka-alie"
+cask "font-iosevka-aile"
+cask "font-iosevka-curly"
+cask "font-iosevka-curly-slab"
 cask "hiddenbar"
 cask "plexamp"
 cask "stats"
@@ -101,37 +133,25 @@ EOF
 
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y --default-toolchain none
 
-declare -a rust_utils=(
-"exa"
-"bat"
-"xh"
-"mcfly"
-"cargo-update"
-"fd-find"
-"git-delta"
-"difftastic"
-"just"
-"ripgrep"
-"skim"
-"starship"
-"tealdeer"
-"topgrade"
-"zoxide"
-"sd"
-"bottom"
-"dua"
-"xd"
-"jql"
-"macchina"
-"gping"
-"ag"
-"pueue"
-"onefetch"
+declare -a rustup_components=(
+"rust-docs"
+"clippy"
+"llvm-tools"
+"rust-analyzer"
+"rustfmt"
+"cargo"
+"rust-std"
 )
+
+rustup toolchain install nightly
+
+for var in ${rustup_components[@]}
+do
+  rustup component add $var
+  rustup component add --toolchain nightly $var
+done
 
 for var in ${rust_utils[@]}
 do
   cargo install $var --locked
 done
-
-curl -o- --tlsv1.2 https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash
