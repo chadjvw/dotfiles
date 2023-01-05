@@ -143,10 +143,10 @@
 
 # push to github and gitlab via ssh
 [url "ssh://github.com/"]
-        pushInsteadOf = https://github.com/
+  pushInsteadOf = https://github.com/
 
 [url "ssh://gitlab.com/"]
-        pushInsteadOf = https://gitlab.com/
+  pushInsteadOf = https://gitlab.com/
 
 [pull]
 	# always do a rebase when pulling
@@ -159,19 +159,25 @@
 	enabled = true
 
 [interactive]
-    diffFilter = delta --color-only
+  diffFilter = delta --color-only
 
 [delta]
-    features = gruvbox-dark side-by-side line-numbers decorations 
-    whitespace-error-style = 22 reverse
+  features = gruvbox-dark side-by-side line-numbers decorations 
+  whitespace-error-style = 22 reverse
 
 [delta "decorations"]
-    commit-decoration-style = bold yellow box ul
-    file-style = bold yellow ul
-    file-decoration-style = none
+  commit-decoration-style = bold yellow box ul
+  file-style = bold yellow ul
+  file-decoration-style = none
 
 [difftool]
-    prompt = false
+  prompt = false
 
 [difftool "difftastic"]
-    cmd = difft "$LOCAL" "$REMOTE"
+  cmd = difft "$LOCAL" "$REMOTE"
+
+[filter "lfs"]
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true
+	clean = git-lfs clean -- %f
