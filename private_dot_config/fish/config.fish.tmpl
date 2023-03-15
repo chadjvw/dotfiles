@@ -47,7 +47,7 @@ set -gx HOMEBREW_NO_ANALYTICS 1
 set -gx EXA_ICON_SPACING 2
 set -gx MCFLY_KEY_SCHEME vim
 set -gx MCFLY_FUZZY true
-set -gx PAGER 'less --no-config --quit-if-one-screen --chop-long-lines'
+set -gx PAGER 'less --quit-if-one-screen --chop-long-lines'
 set -gx BAT_THEME gruvbox-dark
 set -gx MANPAGER "sh -c 'col -bx | bat -l man -p'"
 
@@ -94,3 +94,4 @@ end
 test -x (which starship); and starship init fish | source
 test -x (which zoxide); and zoxide init fish | source
 test -x (which mcfly); and mcfly init fish | source
+test -x (which stg); and stg completion fish | source
