@@ -1,0 +1,4 @@
+Include {{ .chezmoi.homeDir }}/.ssh/internal
+
+Host github.com
+    IdentityFile {{ .chezmoi.homeDir }}/.ssh/id_rsa_github
