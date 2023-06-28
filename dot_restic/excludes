@@ -1,5 +1,5 @@
 $HOME/.restic/repo
-$HOME/.ssh
+$HOME/.ssh/id*
 $HOME/.aws
 $HOME/.config/bat/themes
 $HOME/.cargo
@@ -7,7 +7,6 @@ $HOME/.local/bin
 $HOME/.local/include
 $HOME/.local/lib
 $HOME/.cdk
-$HOME/.ssh
 $HOME/.gradle
 $HOME/.android
 $HOME/.rustup
@@ -19,8 +18,6 @@ $HOME/.local/share/fonts
 $HOME/git/**/target
 .pyenv
 .mypy_cache
-WorkDocs Drive
-Amazon WorkDocs Drive
 .cups
 .docker
 .ivy2
@@ -31,7 +28,6 @@ Amazon WorkDocs Drive
 .gnupg
 .Trash
 .DS_Store
-WorkDocs
 .vscode
 .ansible
 .gem
@@ -87,11 +83,10 @@ MailData/Envelope Index-wal
 /.vol
 /.file
 .cache
-.ssh
 .cargo
 .rustup
 .npm
-.unison
+.unison/*.log
 .aws
 .local/bin
 /usr/local/Cellar
