@@ -45,7 +45,7 @@ mouse-resizes-windows: true
 # floating
 floating: 
   - com.cisco.anyconnect.gui
-  - com.apple.systemprefrences
+  - com.apple.systempreferences
   - com.apple.Stickies
 float-small-windows: true
 floating-is-blacklist: true
