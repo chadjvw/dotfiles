@@ -6,6 +6,7 @@ declare -a rust_utils=(
 "xh"
 "mcfly"
 "cargo-update"
+"cargo-cache"
 "fd-find"
 "git-delta"
 "difftastic"
@@ -27,7 +28,6 @@ declare -a rust_utils=(
 )
 
 {{ if eq .chezmoi.os "linux" -}}
-
 rust_utils+=("starship")
 
 {{   if (.chezmoi.osRelease.name | contains "Arch Linux") }}
@@ -91,10 +91,22 @@ sudo apt -y install \
 pip3 install pynvim
 {{   end }}
 {{ else if eq .chezmoi.os "darwin" -}}
+
+rust_utils+=("unison-fsmonitor")
+
+# increae max watched files for unison
+sudo sysctl kern.maxfiles=1310720 kern.maxfilesperproc=65536
+
+# disable automatic space rearranging
+defaults write com.apple.dock "mru-spaces" -bool "false" && killall Dock
+
 brew tap homebrew/cask-fonts
+
 brew bundle --no-lock --file=/dev/stdin <<EOF
 brew "fish"
 brew "awscli"
+brew "curl"
+brew "wget"
 brew "figlet"
 brew "fzf"
 brew "duf"
@@ -103,15 +115,19 @@ brew "grc"
 brew "htop"
 brew "btop"
 brew "jq"
+brew "yq"
 brew "neofetch"
 brew "neovim"
+brew "helix"
 brew "restic"
 brew "rsync"
 brew "tmux"
+brew "zellij"
 brew "unison"
 brew "less"
 brew "starship"
 brew "stgit"
+brew "python3"
 cask "wezterm"
 cask "amethyst"
 cask "alfred"
@@ -132,6 +148,9 @@ cask "visual-studio-code"
 cask "bettertouchtool"
 cask "bitwarden"
 EOF
+
+pip3 install awslog
+
 {{ end -}}
 
 curl --proto '=https' --tlsv1.3 -sSf https://sh.rustup.rs | sh -s -- -y --default-toolchain none
