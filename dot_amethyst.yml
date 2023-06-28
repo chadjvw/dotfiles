@@ -1,0 +1,136 @@
+#       ___          ___          ___                   ___                   ___
+#      /  /\        /__/\        /  /\         ___     /__/\         ___     /  /\         ___
+#     /  /::\      |  |::\      /  /:/_       /  /\    \  \:\       /__/|   /  /:/_       /  /\
+#    /  /:/\:\     |  |:|:\    /  /:/ /\     /  /:/     \__\:\     |  |:|  /  /:/ /\     /  /:/
+#   /  /:/~/::\  __|__|:|\:\  /  /:/ /:/_   /  /:/  ___ /  /::\    |  |:| /  /:/ /::\   /  /:/
+#  /__/:/ /:/\:\/__/::::| \:\/__/:/ /:/ /\ /  /::\ /__/\  /:/\:\ __|__|:|/__/:/ /:/\:\ /  /::\
+#  \  \:\/:/__\/\  \:\~~\__\/\  \:\/:/ /://__/:/\:\\  \:\/:/__\//__/::::\\  \:\/:/~/://__/:/\:\
+#   \  \::/      \  \:\       \  \::/ /:/ \__\/  \:\\  \::/        ~\~~\:\\  \::/ /:/ \__\/  \:\
+#    \  \:\       \  \:\       \  \:\/:/       \  \:\\  \:\          \  \:\\__\/ /:/       \  \:\
+#     \  \:\       \  \:\       \  \::/         \__\/ \  \:\          \__\/  /__/:/         \__\/
+#      \__\/        \__\/        \__\/                 \__\/                 \__\/
+
+# general
+ignore-menu-bar: false
+new-windows-to-main: false
+follow-space-thrown-windows: true
+window-max-count: 0
+window-minimum-width: 0
+window-minimum-height: 0
+window-margins: true
+window-margin-size: 5
+smart-window-margins: false
+screen-padding-left: 0
+screen-padding-right: 0
+screen-padding-top: 0
+screen-padding-bottom: 0
+disable-screen-padding-on-inbuilt: true
+enables-layout-hud: true
+enables-layout-hud-on-space-change: true
+
+# layouts
+restore-layouts-on-launch: true
+window-resize-step: 5
+layouts:
+  - widescreen-tall
+  - fullscreen
+  - wide
+
+# mouse
+mouse-follows-focus: false
+focus-follows-mouse: false
+mouse-swaps-windows: true
+mouse-resizes-windows: true
+
+# floating
+floating: 
+  - com.cisco.anyconnect.gui
+  - com.apple.systemprefrences
+  - com.apple.Stickies
+float-small-windows: true
+floating-is-blacklist: true
+
+# debug
+use-canary-build: false
+debug-layout-info: false
+
+# shortcuts/key bindings
+mod1:
+  - shift
+  - command
+
+mod2:
+  - option
+  - shift
+  - command
+
+mod3:
+  - control
+
+mod4:
+  - control
+  - shift
+
+cycle-layout:
+  mod: mod1
+  key: space
+
+cycle-layout-backward:
+  mod: mod2
+  key: space
+
+shrink-main:
+  mod: mod3
+  key: h
+
+expand-main:
+  mod: mod3
+  key: l
+
+focus-ccw:
+  mod: mod3
+  key: k
+
+focus-cw:
+  mod: mod3
+  key: j
+
+throw-space-1:
+  mod: mod4
+  key: 1
+
+throw-space-2:
+  mod: mod4
+  key: 2
+
+throw-space-3:
+  mod: mod4
+  key: 3
+
+throw-space-4:
+  mod: mod4
+  key: 4
+
+throw-space-5:
+  mod: mod4
+  key: 5
+
+throw-space-6:
+  mod: mod4
+  key: 6
+
+throw-space-7:
+  mod: mod4
+  key: 7
+  
+throw-space-8:
+  mod: mod4
+  key: 8
+
+throw-space-9:
+  mod: mod4
+  key: 9
+
+throw-space-10:
+  mod: mod4
+  key: 0

@@ -12,7 +12,6 @@ declare -a rust_utils=(
 "just"
 "ripgrep"
 "skim"
-# "starship"
 "tealdeer"
 "topgrade"
 "zoxide"
@@ -92,6 +91,7 @@ sudo apt -y install \
 pip3 install pynvim
 {{   end }}
 {{ else if eq .chezmoi.os "darwin" -}}
+brew tap homebrew/cask-fonts
 brew bundle --no-lock --file=/dev/stdin <<EOF
 brew "fish"
 brew "awscli"
@@ -112,12 +112,12 @@ brew "unison"
 brew "less"
 brew "starship"
 brew "stgit"
-cask "alacritty"
+cask "wezterm"
+cask "amethyst"
 cask "alfred"
 cask "lunar"
 cask "shifty"
 cask "finicky"
-cask "busycal"
 cask "font-iosevka"
 cask "font-iosevka-nerd-font"
 cask "font-iosevka-slab"
@@ -129,10 +129,14 @@ cask "hiddenbar"
 cask "plexamp"
 cask "stats"
 cask "visual-studio-code"
+cask "bettertouchtool"
+cask "bitwarden"
 EOF
 {{ end -}}
 
-curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y --default-toolchain none
+curl --proto '=https' --tlsv1.3 -sSf https://sh.rustup.rs | sh -s -- -y --default-toolchain none
+
+source $HOME/.cargo/env
 
 declare -a rustup_components=(
 "rust-docs"

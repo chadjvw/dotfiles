@@ -1,0 +1,18 @@
+#!/bin/bash
+
+# BACKUP_PATHS='--files-from {{ .chezmoi.homeDir }}/.restic/includes --files-from {{ .chezmoi.homeDir }}/.restic/includes_internal'
+# BACKUP_EXCLUDES='--exclude-file {{ .chezmoi.homeDir }}/.restic/excludes --files-from {{ .chezmoi.homeDir }}/.restic/excludes_internal --exclude-if-present .exclude_from_backup'
+# RETENTION_HOURS=12
+# RETENTION_DAYS=14
+# RETENTION_WEEKS=12
+# RETENTION_MONTHS=12
+# RETENTION_YEARS=5
+
+RESTIC_REPOSITORY=$(security find-generic-password -s backup-restic-local-repository -w)
+export RESTIC_REPOSITORY
+
+RESTIC_PASSWORD_COMMAND='security find-generic-password -s backup-restic-password-local-repository -w'
+export RESTIC_PASSWORD_COMMAND 
+
+/usr/local/bin/restic "$@"
+# /usr/local/bin/restic forget --verbose --tag launchctl --group-by "paths,tags" --keep-hourly $RETENTION_HOURS --keep-daily $RETENTION_DAYS --keep-weekly $RETENTION_WEEKS --keep-monthly $RETENTION_MONTHS --keep-yearly $RETENTION_YEARS --prune
