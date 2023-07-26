@@ -23,5 +23,8 @@ config.front_end = 'WebGpu'
 -- use HighPerformance to help reduce input lag
 config.webgpu_power_preference = 'HighPerformance'
 
+-- start fish shell on launch
+config.default_prog = { '/usr/local/bin/fish', '-l' }
+
 return config
 
