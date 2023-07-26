@@ -129,6 +129,7 @@ brew "starship"
 brew "stgit"
 brew "python3"
 brew "fontconfig"
+brew "llvm"
 cask "wezterm"
 cask "amethyst"
 cask "alfred"
@@ -150,11 +151,11 @@ cask "bettertouchtool"
 cask "bitwarden"
 EOF
 
-pip3 install awslog
+pip3 install awslog --upgrade
 
 {{ end -}}
 
-curl --proto '=https' --tlsv1.3 -sSf https://sh.rustup.rs | sh -s -- -y --default-toolchain none
+curl --proto '=https' --tlsv1.3 -sSf https://sh.rustup.rs | sh -s -- -y
 
 source $HOME/.cargo/env
 
@@ -166,13 +167,14 @@ declare -a rustup_components=(
 "rustfmt"
 "cargo"
 "rust-std"
+"rust-src"
 )
 
 rustup toolchain install nightly
 
 for var in ${rustup_components[@]}
 do
-  rustup component add $var
+  rustup component add --toolchain stable $var
   rustup component add --toolchain nightly $var
 done
 
