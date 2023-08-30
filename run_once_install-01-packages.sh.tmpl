@@ -25,6 +25,7 @@ declare -a rust_utils=(
 "gping"
 "ag"
 "pueue"
+"rtx-cli"
 )
 
 {{ if eq .chezmoi.os "linux" -}}
@@ -150,6 +151,7 @@ cask "stats"
 cask "visual-studio-code"
 cask "bettertouchtool"
 cask "bitwarden"
+cask "raycast"
 EOF
 
 pip3 install awslog --upgrade

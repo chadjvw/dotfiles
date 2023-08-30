@@ -95,3 +95,8 @@ test -x (which starship); and starship init fish | source
 test -x (which zoxide); and zoxide init fish | source
 test -x (which mcfly); and mcfly init fish | source
 test -x (which stg); and stg completion fish | source
+
+if test -x (which rtx)
+    rtx activate fish | source
+    rtx completion fish | source
+end

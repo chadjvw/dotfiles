@@ -1,3 +1,6 @@
 #!/usr/bin/env zsh
 
-curl -o- --tlsv1.2 https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.3/install.sh | bash
+{{ if eq .chezmoi.os "darwin" -}}
+rtx install node@lts
+rtx use -g node@lts
+{{ end }}
