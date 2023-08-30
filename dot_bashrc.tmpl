@@ -17,10 +17,5 @@ export XDG_DATA_HOME={{ .chezmoi.homeDir }}/.local/share
 export XDG_CONFIG_HOME={{ .chezmoi.homeDir }}/.config
 export XDG_DATA_DIRS={{ .chezmoi.homeDir }}/.local/share/flatpak/exports/share:/var/lib/flatpak/exports/share:/usr/local/share:/usr/share
 
-export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
-
-[ -s "$NVM_DIR/nvm.sh" ] && source "$NVM_DIR/nvm.sh" # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && source "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-
 # cargo keeps addind this as ., so we elave it
 . "$HOME/.cargo/env"

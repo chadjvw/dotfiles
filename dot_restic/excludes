@@ -23,7 +23,6 @@ $HOME/git/**/target
 .ivy2
 .oracle_jre_usage
 .idea-build
-.nvm
 .runtimes
 .gnupg
 .Trash
@@ -102,10 +101,9 @@ MailData/Envelope Index-wal
 .localized
 .bash_history
 .cisco
-$HOME/.config/nvm
+$HOME/.local/share/rtx
 .ivy2
 $HOME/.local/share/yarn
-.nvm
 .oh-my-zsh
 .runtimes
 .SpaceVim*
