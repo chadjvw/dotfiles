@@ -102,6 +102,7 @@ sudo sysctl kern.maxfiles=1310720 kern.maxfilesperproc=65536
 defaults write com.apple.dock "mru-spaces" -bool "false" && killall Dock
 
 brew tap homebrew/cask-fonts
+brew tap espanso/espanso
 
 brew bundle --no-lock --file=/dev/stdin <<EOF
 brew "fish"
@@ -132,6 +133,8 @@ brew "stgit"
 brew "python3"
 brew "fontconfig"
 brew "llvm"
+brew "coreutils"
+brew "espanso"
 cask "wezterm"
 cask "amethyst"
 cask "alfred"
@@ -157,6 +160,11 @@ EOF
 pip3 install awslog --upgrade
 
 git lfs install
+
+espanso install actually-all-emojis
+espanso install kaimoji
+espanso install wttr
+espanso install dadjoke
 
 {{ end -}}
 
