@@ -8,7 +8,9 @@ end
 
 config.window_decorations = 'RESIZE'
 config.hide_tab_bar_if_only_one_tab = true
-config.color_scheme = 'GruvboxDark'
+
+config.color_scheme_dirs = { '{{ .chezmoi.homeDir }}/.config/wezterm/colors/everforest' }
+config.color_scheme = 'Everforest Dark (Hard)'
 
 config.font = wezterm.font {
   family = 'Iosevka Term',
