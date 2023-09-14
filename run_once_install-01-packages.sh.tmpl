@@ -1,7 +1,7 @@
 #!/usr/bin/env zsh
 
 declare -a rust_utils=(
-"exa"
+"eza"
 "bat"
 "xh"
 "mcfly"
@@ -95,7 +95,7 @@ pip3 install pynvim
 
 rust_utils+=("unison-fsmonitor")
 
-# increae max watched files for unison
+# increase max watched files for unison
 sudo sysctl kern.maxfiles=1310720 kern.maxfilesperproc=65536
 
 # disable automatic space rearranging
@@ -134,7 +134,6 @@ brew "python3"
 brew "fontconfig"
 brew "llvm"
 brew "coreutils"
-brew "espanso"
 brew "vale"
 cask "wezterm"
 cask "amethyst"
@@ -156,6 +155,7 @@ cask "visual-studio-code"
 cask "bettertouchtool"
 cask "bitwarden"
 cask "raycast"
+cask "espanso"
 EOF
 
 pip3 install awslog --upgrade
