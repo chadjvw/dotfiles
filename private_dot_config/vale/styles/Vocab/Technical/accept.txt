@@ -1,0 +1,15 @@
+(?i)Hostclass
+LDAP
+POSIX
+Kinesis
+AWS
+GMT
+ANT
+baselining
+SNS
+SQS
+sudo
+CWL
+denylist(ed)?
+allowlist(ed)?
+SLA
