@@ -80,7 +80,7 @@ export RESTIC_PASSWORD_COMMAND='security find-generic-password -s backup-restic-
 /usr/local/bin/restic backup --verbose --tag launchctl $BACKUP_PATHS $BACKUP_EXCLUDES
 
 echo "$(date +"%Y-%m-%d %T")" "Run forget and prune on local."
-/usr/local/bin/restic forget --verbose --tag launchctl --group-by "paths,tags" --keep-hourly $RETENTION_HOURS --keep-daily $RETENTION_DAYS --keep-weekly $RETENTION_WEEKS --keep-monthly $RETENTION_MONTHS --keep-yearly $RETENTION_YEARS --prune
+/usr/local/bin/restic forget --verbose --retry-lock 15s --cleanup-cache --tag launchctl --group-by "paths,tags" --keep-hourly $RETENTION_HOURS --keep-daily $RETENTION_DAYS --keep-weekly $RETENTION_WEEKS --keep-monthly $RETENTION_MONTHS --keep-yearly $RETENTION_YEARS --prune
 
 if [[ "${NETWORK_STATUS}" == "-UP-" ]]; then
   RESTIC_REPOSITORY2=$(security find-generic-password -s backup-restic-remote-repository -w)
@@ -89,7 +89,7 @@ if [[ "${NETWORK_STATUS}" == "-UP-" ]]; then
   export RESTIC_PASSWORD_COMMAND2='security find-generic-password -s backup-restic-password-remote-repository -w'
 
   echo "$(date +"%Y-%m-%d %T")" "Copy local snapshots to remote."
-  /usr/local/bin/restic copy --verbose
+  /usr/local/bin/restic copy --verbose --retry-lock 15s
 
   RESTIC_REPOSITORY=$(security find-generic-password -s backup-restic-remote-repository -w)
   export RESTIC_REPOSITORY
@@ -98,7 +98,7 @@ if [[ "${NETWORK_STATUS}" == "-UP-" ]]; then
 
   echo "$(date +"%Y-%m-%d %T")" "Run forget and prune on remote."
 
-  /usr/local/bin/restic forget --verbose --tag launchctl --group-by "paths,tags" --keep-hourly $RETENTION_HOURS --keep-daily $RETENTION_DAYS --keep-weekly $RETENTION_WEEKS --keep-monthly $RETENTION_MONTHS --keep-yearly $RETENTION_YEARS --prune
+  /usr/local/bin/restic forget --verbose --retry-lock 15s --cleanup-cache --tag launchctl --group-by "paths,tags" --keep-hourly $RETENTION_HOURS --keep-daily $RETENTION_DAYS --keep-weekly $RETENTION_WEEKS --keep-monthly $RETENTION_MONTHS --keep-yearly $RETENTION_YEARS --prune
   echo "$(date -v +4H +"%s")" > $TIMESTAMP_FILE
 else
   echo "$(date +"%Y-%m-%d %T")" "Network is $NETWORK_STATUS, skipping copy to remote." 
