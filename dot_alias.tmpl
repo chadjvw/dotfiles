@@ -6,8 +6,8 @@ alias top="btm"
 alias diff="difft"
 alias colordiff="difft"
 alias ls="eza --icons"
-alias vi="nvim"
-alias vim="nvim"
+alias vi="hx"
+alias vim="hx"
 alias less="bat --decorations=never"
 alias cat="bat --paging=never --style=plain"
 alias df="duf"
@@ -53,7 +53,7 @@ alias ll='eza --all --long --header --icons --sort=modified'
 alias lla='eza --all -all --long --header --group --icons --sort=modified'
 alias lt='eza --tree --level=15 --icons'
 alias llt='eza --tree --all --long --level=15 --icons'
-alias edit="nvim"
+alias edit="hx"
 alias clean-branches='git branch | grep -ve "master\$" | xargs git branch -D'
-alias svi="sudo nvim -u {{ .chezmoi.homeDir }}/.config/nvim/init.lua"
-alias svim="sudo nvim -u {{ .chezmoi.homeDir }}/.config/nvim/init.lua"
+alias svi="sudo hx -c {{ .chezmoi.homeDir }}/.config/helix/config.toml"
+alias svim="sudo hx -c {{ .chezmoi.homeDir }}/.config/helix/config.toml"

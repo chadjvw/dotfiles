@@ -34,7 +34,7 @@ set fish_pager_color_description yellow
 set fish_color_match brwhite --background=brmagenta
 set fish_color_history_current brgreen
 
-set -gx EDITOR nvim
+set -gx EDITOR hx
 set -gx AWS_EC2_METADATA_DISABLED 1
 set -gx XDG_DATA_DIRS "/usr/local/share:/usr/share"
 set -gx XDG_DATA_HOME "{{ .chezmoi.homeDir }}/.local/share"
@@ -44,9 +44,10 @@ set -gx SKIM_DEFAULT_COMMAND 'fd --type f || git ls-tree -r --name-only HEAD || 
 set -gx FZF_DEFAULT_COMMAND 'rg --files --no-ignore --hidden --follow -g "!{.git,node_modules,*.swp,dist}/*" 2> /dev/null'
 set -gx FZF_CTRL_T_COMMAND "$FZF_DEFAULT_COMMAND"
 set -gx HOMEBREW_NO_ANALYTICS 1
-set -gx EXA_ICON_SPACING 2
+set -gx RTX_NODE_DEFAULT_PACKAGES_FILE "{{ .chezmoi.homeDir }}/.config/rtx/default-npm-packages"
+set -gx EZA_ICON_SPACING 1
 set -gx PAGER 'less --quit-if-one-screen --chop-long-lines'
-set -gx BAT_THEME 'Everforest Dark'
+set -gx BAT_THEME 'gruvbox-dark'
 set -gx MANPAGER "sh -c 'col -bx | bat -l man -p'"
 
 {{ if eq .chezmoi.os "darwin" -}}
