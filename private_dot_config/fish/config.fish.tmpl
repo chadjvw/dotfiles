@@ -45,7 +45,7 @@ set -gx FZF_DEFAULT_COMMAND 'rg --files --no-ignore --hidden --follow -g "!{.git
 set -gx FZF_CTRL_T_COMMAND "$FZF_DEFAULT_COMMAND"
 set -gx HOMEBREW_NO_ANALYTICS 1
 set -gx RTX_NODE_DEFAULT_PACKAGES_FILE "{{ .chezmoi.homeDir }}/.config/rtx/default-npm-packages"
-set -gx EZA_ICON_SPACING 1
+set -gx EXA_ICON_SPACING 1
 set -gx PAGER 'less --quit-if-one-screen --chop-long-lines'
 set -gx BAT_THEME 'gruvbox-dark'
 set -gx MANPAGER "sh -c 'col -bx | bat -l man -p'"
