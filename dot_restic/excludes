@@ -16,6 +16,10 @@ $HOME/.unison/backup
 $HOME/.local/share/fish/generated_completions
 $HOME/.local/share/fonts
 $HOME/git/**/target
+$HOME/.config/vale/styles
+$HOME/.local/share/nvim
+$HOME/Applications/*.app
+.obsidian/plugins
 .pyenv
 .mypy_cache
 .cups
