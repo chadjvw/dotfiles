@@ -1,6 +1,6 @@
 [build]
 {{ if eq .chezmoi.os "darwin" -}}
-rustflags = ["-C", "target-cpu=native", "-C", "link-arg=-fuse-ld=/usr/local/opt/llvm/bin/ld64.lld"]
+rustflags = ["-C", "target-cpu=native", "-C", "link-arg=-fuse-ld=/opt/homebrew/opt/llvm/bin/ld64.lld"]
 {{ else }}
 rustflags = ["-C", "target-cpu=native"]
 {{ end -}}

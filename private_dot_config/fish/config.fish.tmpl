@@ -10,9 +10,13 @@
 #     \  \:\       \__\/       /__/:/       \  \:\    
 #      \__\/                   \__\/         \__\/    
 
-fish_add_path -P {{ .chezmoi.homeDir }}/.local/bin
-fish_add_path -P {{ .chezmoi.homeDir }}/.cargo/bin
-fish_add_path -P {{ .chezmoi.homeDir }}/.toolbox/bin
+fish_add_path --path {{ .chezmoi.homeDir }}/.local/bin
+{{ if eq .chezmoi.os "darwin" -}}
+fish_add_path --path /opt/homebrew/bin
+fish_add_path --path /opt/homebrew/sbin
+{{ end }}
+fish_add_path --path {{ .chezmoi.homeDir }}/.cargo/bin
+fish_add_path --path {{ .chezmoi.homeDir }}/.toolbox/bin
 
 # Override fish colors
 set fish_color_normal white
@@ -52,7 +56,7 @@ set -gx MANPAGER "sh -c 'col -bx | bat -l man -p'"
 
 {{ if eq .chezmoi.os "darwin" -}}
 # Add GRC: https://github.com/garabik/grc
-set -l grc /usr/local/etc/grc.fish
+set -l grc /opt/homebrew/etc/grc.fish
 
 # why do i have to set this?!
 set -gx LANG en_US.UTF-8  

@@ -101,7 +101,6 @@ sudo sysctl kern.maxfiles=1310720 kern.maxfilesperproc=65536
 defaults write com.apple.dock "mru-spaces" -bool "false" && killall Dock
 
 brew tap homebrew/cask-fonts
-brew tap espanso/espanso
 
 brew bundle --no-lock --file=/dev/stdin <<EOF
 brew "fish"
@@ -136,7 +135,6 @@ brew "coreutils"
 brew "vale"
 cask "wezterm"
 cask "amethyst"
-cask "alfred"
 cask "lunar"
 cask "shifty"
 cask "finicky"
@@ -147,24 +145,19 @@ cask "font-iosevka-etoile"
 cask "font-iosevka-aile"
 cask "font-iosevka-curly"
 cask "font-iosevka-curly-slab"
-cask "hiddenbar"
 cask "plexamp"
 cask "stats"
 cask "visual-studio-code"
+cask "jetbrains-toolbox"
 cask "bettertouchtool"
 cask "bitwarden"
 cask "raycast"
-cask "espanso"
+cask "bartender"
 EOF
 
 pip3 install awslog --upgrade
 
 git lfs install
-
-espanso install actually-all-emojis
-espanso install kaimoji
-espanso install wttr
-espanso install dadjoke
 
 vale sync
 
@@ -172,7 +165,7 @@ bat cache --build
 
 {{ end -}}
 
-curl --proto '=https' --tlsv1.3 -sSf https://sh.rustup.rs | sh -s -- -y
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
 
 source $HOME/.cargo/env
 

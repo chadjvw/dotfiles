@@ -22,5 +22,5 @@ export RESTIC_REPOSITORY
 RESTIC_PASSWORD_COMMAND='security find-generic-password -s backup-restic-password-remote-repository -w'
 export RESTIC_PASSWORD_COMMAND
 
-/usr/local/bin/restic "$@"
-# /usr/local/bin/restic forget --verbose --tag launchctl --group-by "paths,tags" --keep-hourly $RETENTION_HOURS --keep-daily $RETENTION_DAYS --keep-weekly $RETENTION_WEEKS --keep-monthly $RETENTION_MONTHS --keep-yearly $RETENTION_YEARS --prune
+/opt/homebrew/bin/restic "$@"
+# /opt/homebrew/bin/restic forget --verbose --tag launchctl --group-by "paths,tags" --keep-hourly $RETENTION_HOURS --keep-daily $RETENTION_DAYS --keep-weekly $RETENTION_WEEKS --keep-monthly $RETENTION_MONTHS --keep-yearly $RETENTION_YEARS --prune
