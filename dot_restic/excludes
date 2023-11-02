@@ -88,6 +88,7 @@ MailData/Envelope Index-wal
 .unison/*.log
 .aws
 .local/bin
+/opt/homebrew
 /usr/local/Cellar
 /usr/local/Caskroom
 /usr/local/Homebrew

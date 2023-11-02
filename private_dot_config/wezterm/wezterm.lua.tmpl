@@ -26,7 +26,11 @@ config.front_end = 'WebGpu'
 config.webgpu_power_preference = 'HighPerformance'
 
 -- start fish shell on launch
+{{ if eq .chezmoi.os "darwin" -}}
+config.default_prog = { '/opt/homebrew/bin/fish', '-l' }
+{{ else -}}
 config.default_prog = { '/usr/local/bin/fish', '-l' }
+{{ end -}}
 
 return config
 
