@@ -5,3 +5,4 @@ pyright
 yaml-language-server
 bash-language-server
 dockerfile-language-server-nodejs
+prettier

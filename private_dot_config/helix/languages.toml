@@ -1,0 +1,44 @@
+[language-server.ucm]
+command = "ncat"
+args = ["localhost", "5757"]
+
+[[language]]
+name = "unison"
+language-servers = [ "ucm" ]
+
+[language-server.yaml-language-server.config.yaml]
+format = { enable = true }
+validation = true
+
+[[language]]
+name = "toml"
+formatter = { command = "taplo", args = ["fmt", "-"] }
+
+[language-server.rust-analyzer.config.check]
+command = "clippy"
+
+[[language]]
+name = "python"
+language-servers = [ "pyright", "ruff" ]
+auto-format = true
+
+[language-server.pyright.config.python.analysis]
+typeCheckingMode = "basic"
+
+[language-server.ruff]
+command = "rtx exec -c 'ruff-lsp' python@3.11"
+
+[language-server.ruff.config.settings]
+args = ["--ignore", "E501"]
+
+[language.formatter]
+command = "rtx exec -c 'ruff-lsp' python@3.11"
+args = ["--line-length", "140", "--quiet", "-"]
+
+[language-server.sql-language-server]
+command = "sql-language-server"
+args = ["up", "--method", "stdio"]
+
+[[language]]
+name = "sql"
+language-servers = [ "sql-language-server" ]
