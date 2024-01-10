@@ -1,0 +1,5 @@
+["colors/everforest"]
+    type = "archive"
+    url = "https://github.com/frdwin/everforest-for-wezterm/archive/refs/heads/main.tar.gz"
+    refreshPeriod = "168h"
+    stripComponents = 1

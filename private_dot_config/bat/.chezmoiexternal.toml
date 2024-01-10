@@ -1,0 +1,5 @@
+["themes/everforest"]
+    type = "archive"
+    url = "https://github.com/mhanberg/everforest-textmate/archive/refs/heads/main.tar.gz"
+    refreshPeriod = "168h"
+    stripComponents = 1
