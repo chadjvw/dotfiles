@@ -117,7 +117,11 @@
 	precomposeunicode = false
 
 	excludesfile = {{ .chezmoi.homeDir }}/.config/git/ignore
+{{ if and (index .chezmoi.osRelease "id") (eq .chezmoi.osRelease.id "arch") -}}
+	editor = helix
+{{ else -}}
 	editor = hx
+{{ end -}}
 
 [pager]
 	difftool = true
