@@ -38,7 +38,11 @@ set fish_pager_color_description yellow
 set fish_color_match brwhite --background=brmagenta
 set fish_color_history_current brgreen
 
+{{ if and (index .chezmoi.osRelease "id") (eq .chezmoi.osRelease.id "arch") -}}
+set -gx EDITOR helix
+{{ else -}}
 set -gx EDITOR hx
+{{ end -}}
 set -gx AWS_EC2_METADATA_DISABLED 1
 set -gx XDG_DATA_DIRS "/usr/local/share:/usr/share"
 set -gx XDG_DATA_HOME "{{ .chezmoi.homeDir }}/.local/share"
