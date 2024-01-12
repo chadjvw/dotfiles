@@ -106,6 +106,7 @@ MailData/Envelope Index-wal
 .localized
 .bash_history
 .cisco
+$HOME/.local/share/mise
 $HOME/.local/share/rtx
 .ivy2
 $HOME/.local/share/yarn

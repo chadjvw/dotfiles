@@ -1,10 +1,10 @@
 #!/usr/bin/env zsh
 
 {{ if eq .chezmoi.os "darwin" -}}
-rtx install node@lts
-rtx use -g node@lts
-rtx install python@3.11
-rtx use -g python@3.11
-rtx exec -c 'pip install --upgrade pip' python@3.11
-rtx plugin add poetry
+mise install node@lts
+mise use -g node@lts
+mise install python@3.11
+mise use -g python@3.11
+mise exec -c 'pip install --upgrade pip' python@3.11
+mise plugin add poetry
 {{ end }}

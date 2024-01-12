@@ -26,13 +26,13 @@ auto-format = true
 typeCheckingMode = "basic"
 
 [language-server.ruff]
-command = "rtx exec -c 'ruff-lsp' python@3.11"
+command = "mise exec -c 'ruff-lsp' python@3.11"
 
 [language-server.ruff.config.settings]
 args = ["--ignore", "E501"]
 
 [language.formatter]
-command = "rtx exec -c 'ruff-lsp' python@3.11"
+command = "mise exec -c 'ruff-lsp' python@3.11"
 args = ["--line-length", "140", "--quiet", "-"]
 
 [language-server.sql-language-server]
