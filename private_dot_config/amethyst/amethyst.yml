@@ -35,6 +35,8 @@ layouts:
   - widescreen-tall
   - fullscreen
   - wide
+  - middle-wide
+  - centered
 
 # mouse
 mouse-follows-focus: false
