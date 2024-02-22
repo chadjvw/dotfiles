@@ -2,3 +2,22 @@ README.md
 LICENSE
 justfile
 .config/helix/runtime/grammars/*
+{{ if ne .chezmoi.os "darwin" -}}
+Library
+.config/amethyst
+.config/skhd
+.finicky.js
+{{end -}}
+{{ if ne .chezmoi.os "linux" -}}
+.gtkrc-2.0
+.xinitrc
+.config/bspwm
+.config/dunst
+.config/compton
+.config/gtk-3.0
+.config/polybar
+.config/rofi
+.config/sxhkd
+.config/betterlockscreenrc
+.config/user-dirs.dirs
+{{ end -}}
