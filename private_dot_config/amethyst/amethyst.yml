@@ -33,10 +33,9 @@ restore-layouts-on-launch: true
 window-resize-step: 5
 layouts:
   - widescreen-tall
+  - centered
   - fullscreen
   - wide
-  - middle-wide
-  - centered
 
 # mouse
 mouse-follows-focus: false
