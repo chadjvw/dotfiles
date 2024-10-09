@@ -25,6 +25,7 @@ declare -a rust_utils=(
 "ag"
 "pueue"
 "mise"
+"tokei"
 )
 
 {{ if eq .chezmoi.os "linux" -}}
@@ -100,8 +101,6 @@ sudo sysctl kern.maxfiles=1310720 kern.maxfilesperproc=65536
 # disable automatic space rearranging
 defaults write com.apple.dock "mru-spaces" -bool "false" && killall Dock
 
-brew tap homebrew/cask-fonts
-
 brew bundle --no-lock --file=/dev/stdin <<EOF
 brew "fish"
 brew "awscli"
@@ -151,11 +150,9 @@ cask "visual-studio-code"
 cask "jetbrains-toolbox"
 cask "bettertouchtool"
 cask "bitwarden"
-cask "raycast"
+cask "alfred"
 cask "bartender"
 EOF
-
-pip3 install awslog --upgrade
 
 git lfs install
 
