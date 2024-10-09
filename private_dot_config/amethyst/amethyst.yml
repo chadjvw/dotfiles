@@ -34,6 +34,7 @@ window-resize-step: 5
 layouts:
   - widescreen-tall
   - centered
+  - middle-wide
   - fullscreen
   - wide
 
