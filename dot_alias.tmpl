@@ -1,70 +1,69 @@
 ## NEW UTILS
-alias find="fd"
-alias sed="sd"
-alias htop="btm"
-alias top="btm"
-alias diff="difft"
-alias colordiff="difft"
-alias ls="eza --icons"
+alias find='fd'
+alias sed='sd'
+alias htop='btm'
+alias top='btm'
+alias diff='difft'
+alias colordiff='difft'
+alias ls='eza --icons'
 {{ if and (index .chezmoi.osRelease "id") (eq .chezmoi.osRelease.id "arch") -}}
-alias vi="helix"
-alias vim="helix"
+alias vi='helix'
+alias vim='helix'
 {{ else -}}
-alias vi="hx"
-alias vim="hx"
+alias vi='hx'
+alias vim='hx'
 {{ end -}}
-alias less="bat --decorations=never"
-alias cat="bat --paging=never --style=plain"
-alias df="duf"
-alias http="xh"
-alias hexdump="xd"
-alias hd="xd"
-alias jq="jql"
-alias ping="gping"
+alias less='bat --decorations=never'
+alias cat='bat --paging=never --style=plain'
+alias df='duf'
+alias http='xh'
+alias hexdump='xd'
+alias hd='xd'
+alias ping='gping'
 
 ## ALTER EXISTING
-alias rg="rg --smart-case"
-alias grep="grep --ignore-case --color=auto"
-alias mkdir="mkdir -pv"
-alias mv="mv -v"
-alias cp="cp -v"
-alias figlet="figlet -f isometric3"
+alias rg='rg --smart-case'
+alias grep='grep --ignore-case --color=auto'
+alias mkdir='mkdir -pv'
+alias mv='mv -v'
+alias cp='cp -v'
+alias figlet='figlet -f isometric3'
 # scp is deprecated
-alias scp="rsync --progress --archive --verbose --compress --human-readable"
-alias sudo="sudo "
-alias sk="sk --color dark,fg:#{{ .colors.foreground }},bg:#{{ .colors.background }},matched:#{{ .colors.foreground }},matched_bg:#{{ .colors.normal.blue }},current:#{{ .colors.foreground }},current_bg:#{{ .colors.normal.green }},current_match:#{{ .colors.background }},current_match_bg:#{{ .colors.normal.yellow }},border:#{{ .colors.normal.green }},prompt:#fb4934,cursor:#{{ .colors.background }},selected:#{{ .colors.bright.yellow }},spinner:#{{ .colors.bright.yellow }},header:#{{ .colors.normal.blue }}"
-alias netstat="ss --tcp --udp --listening --processes --numeric" # -tulpn
-alias ss="ss --tcp --udp --listening --processes --numeric"
+alias scp='rsync --progress --archive --verbose --compress --human-readable'
+alias sudo='sudo '
+alias sk='sk --color dark,fg:#{{ .colors.foreground }},bg:#{{ .colors.background }},matched:#{{ .colors.foreground }},matched_bg:#{{ .colors.normal.blue }},current:#{{ .colors.foreground }},current_bg:#{{ .colors.normal.green }},current_match:#{{ .colors.background }},current_match_bg:#{{ .colors.normal.yellow }},border:#{{ .colors.normal.green }},prompt:#fb4934,cursor:#{{ .colors.background }},selected:#{{ .colors.bright.yellow }},spinner:#{{ .colors.bright.yellow }},header:#{{ .colors.normal.blue }}'
+alias netstat='ss --tcp --udp --listening --processes --numeric' # -tulpn
+alias ss='ss --tcp --udp --listening --processes --numeric'
 
 ## SHORTEN EXISTING
-alias j="just"
-alias p="pueue"
-alias s="stg"
-alias sysd="sudo systemctl"
-alias usysd="systemctl --user"
-alias ht="hunter"
-alias les="bat --decorations=never"
+alias j='just'
+alias p='pueue'
+alias s='stg'
+alias sysd='sudo systemctl'
+alias usysd='systemctl --user'
+alias ht='hunter'
+alias les='bat --decorations=never'
 
 ## CUSTOM COMMANDS
-alias .j="just --justfile {{ .chezmoi.homeDir }}/.justfile --working-directory {{ .chezmoi.homeDir }}"
-alias ..="cd .."
-alias ...="cd ../.."
-alias ....="cd ../../.."
-alias .....="cd ../../../.."
-alias rcp="rsync --progress --size-only --inplace --verbose --human-readable"
-alias untar="tar --extract --verbose --file"
-alias la="eza --all --all --icons --sort=modified"
+alias .j='just --justfile {{ .chezmoi.homeDir }}/.justfile --working-directory {{ .chezmoi.homeDir }}'
+alias ..='cd ..'
+alias ...='cd ../..'
+alias ....='cd ../../..'
+alias .....='cd ../../../..'
+alias rcp='rsync --progress --size-only --inplace --verbose --human-readable'
+alias untar='tar --extract --verbose --file'
+alias la='eza --all --all --icons --sort=modified'
 alias ll='eza --all --long --header --icons --sort=modified'
 alias lla='eza --all -all --long --header --group --icons --sort=modified'
 alias lt='eza --tree --level=15 --icons'
 alias llt='eza --tree --all --long --level=15 --icons'
-alias clean-branches='git branch | grep -ve "master\$" | xargs git branch -D'
+alias clean-branches='git branch | grep -ve 'master\$' | xargs git branch -D'
 {{ if and (index .chezmoi.osRelease "id") (eq .chezmoi.osRelease.id "arch") -}}
-alias edit="helix"
-alias svi="sudo helix -c {{ .chezmoi.homeDir }}/.config/helix/config.toml"
-alias svim="sudo helix -c {{ .chezmoi.homeDir }}/.config/helix/config.toml"
+alias edit='helix'
+alias svi='sudo helix -c {{ .chezmoi.homeDir }}/.config/helix/config.toml'
+alias svim='sudo helix -c {{ .chezmoi.homeDir }}/.config/helix/config.toml'
 {{ else -}}
-alias edit="hx"
-alias svi="sudo hx -c {{ .chezmoi.homeDir }}/.config/helix/config.toml"
-alias svim="sudo hx -c {{ .chezmoi.homeDir }}/.config/helix/config.toml"
+alias edit='hx'
+alias svi='sudo hx -c {{ .chezmoi.homeDir }}/.config/helix/config.toml'
+alias svim='sudo hx -c {{ .chezmoi.homeDir }}/.config/helix/config.toml'
 {{ end -}}

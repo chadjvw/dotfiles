@@ -1,6 +1,0 @@
-["."]
-    type = "archive"
-    url = "https://github.com/NvChad/NvChad/archive/refs/heads/v2.0.tar.gz"
-    refreshPeriod = "168h"
-    stripComponents = 1
-
