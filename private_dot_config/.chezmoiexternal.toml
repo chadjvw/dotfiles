@@ -1,0 +1,11 @@
+{{ if eq .chezmoi.os "linux" -}}
+["systemd/user/pueued.service"]
+    type = "file"
+    url = "https://github.com/Nukesor/pueue/releases/download/v3.4.1/systemd.pueued.service"
+    refreshPeriod = "168h"
+{{ end -}}
+["nvim"]
+    type = "archive"
+    url = "https://github.com/NvChad/NvChad/archive/refs/heads/v2.0.tar.gz"
+    refreshPeriod = "168h"
+    stripComponents = 1
