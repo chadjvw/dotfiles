@@ -57,7 +57,7 @@ alias ll='eza --all --long --header --icons --sort=modified'
 alias lla='eza --all -all --long --header --group --icons --sort=modified'
 alias lt='eza --tree --level=15 --icons'
 alias llt='eza --tree --all --long --level=15 --icons'
-alias clean-branches='git branch | grep -ve 'master\$' | xargs git branch -D'
+alias clean-branches="git branch | grep -ve 'master\$' | xargs git branch -D"
 {{ if and (index .chezmoi.osRelease "id") (eq .chezmoi.osRelease.id "arch") -}}
 alias edit='helix'
 alias svi='sudo helix -c {{ .chezmoi.homeDir }}/.config/helix/config.toml'
