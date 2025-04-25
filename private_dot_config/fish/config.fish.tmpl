@@ -55,7 +55,6 @@ set -gx HOMEBREW_NO_ANALYTICS 1
 set -gx MISE_NODE_DEFAULT_PACKAGES_FILE "{{ .chezmoi.homeDir }}/.config/mise/default-npm-packages"
 set -gx MISE_PYTHON_DEFAULT_PACKAGES_FILE "{{ .chezmoi.homeDir }}/.config/mise/default-python-packages"
 set -gx EZA_ICON_SPACING 2
-set -gx PAGER 'less --quit-if-one-screen --chop-long-lines'
 set -gx BAT_THEME 'gruvbox-dark'
 set -gx MANPAGER "sh -c 'col -bx | bat -l man -p'"
 
@@ -102,6 +101,7 @@ end
 test -x (which starship); and starship init fish | source
 test -x (which zoxide); and zoxide init fish | source
 test -x (which stg); and stg completion fish | source
+test -x (which atuin); and atuin init fish | source
 
 if test -x (which mise)
     mise activate fish | source
