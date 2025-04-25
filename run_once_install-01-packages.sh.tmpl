@@ -26,6 +26,7 @@ declare -a rust_utils=(
 "pueue"
 "mise"
 "tokei"
+"atuin"
 )
 
 {{ if eq .chezmoi.os "linux" -}}
@@ -150,6 +151,8 @@ cask "bettertouchtool"
 cask "bitwarden"
 cask "alfred"
 cask "bartender"
+cask "obsidian"
+cask "istat-menus"
 EOF
 
 git lfs install
