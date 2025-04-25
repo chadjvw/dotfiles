@@ -102,58 +102,7 @@ sudo sysctl kern.maxfiles=1310720 kern.maxfilesperproc=65536
 # disable automatic space rearranging
 defaults write com.apple.dock "mru-spaces" -bool "false" && killall Dock
 
-brew bundle --no-lock --file=/dev/stdin <<EOF
-brew "fish"
-brew "awscli"
-brew "curl"
-brew "wget"
-brew "figlet"
-brew "fzf"
-brew "duf"
-brew "git"
-brew "git-lfs"
-brew "grc"
-brew "htop"
-brew "btop"
-brew "jq"
-brew "yq"
-brew "neofetch"
-brew "neovim"
-brew "helix"
-brew "restic"
-brew "rsync"
-brew "tmux"
-brew "zellij"
-brew "unison"
-brew "less"
-brew "starship"
-brew "stgit"
-brew "fontconfig"
-brew "lld"
-brew "coreutils"
-cask "wezterm"
-cask "amethyst"
-cask "lunar"
-cask "shifty"
-cask "finicky"
-cask "font-iosevka"
-cask "font-iosevka-nerd-font"
-cask "font-iosevka-slab"
-cask "font-iosevka-etoile"
-cask "font-iosevka-aile"
-cask "font-iosevka-curly"
-cask "font-iosevka-curly-slab"
-cask "plexamp"
-cask "istat-menus"
-cask "visual-studio-code"
-cask "jetbrains-toolbox"
-cask "bettertouchtool"
-cask "bitwarden"
-cask "alfred"
-cask "bartender"
-cask "obsidian"
-cask "istat-menus"
-EOF
+brew bundle install --global
 
 git lfs install
 
@@ -163,7 +112,7 @@ bat cache --build
 
 {{ end -}}
 
-curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
+curl --proto '=https' --tlsv1.3 -sSf https://sh.rustup.rs | sh -s -- -y
 
 source $HOME/.cargo/env
 
