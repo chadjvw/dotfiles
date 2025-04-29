@@ -9,3 +9,9 @@
     url = "https://github.com/NvChad/NvChad/archive/refs/heads/v2.0.tar.gz"
     refreshPeriod = "168h"
     stripComponents = 1
+["rio"]
+    type = "archive"
+    url = "https://github.com/raphamorim/rio-terminal-themes/archive/refs/heads/main.zip"
+    stripComponents = 1
+    refreshPeriod = "168h"
+    include = ["*/themes/**"]
