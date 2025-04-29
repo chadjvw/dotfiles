@@ -8,13 +8,14 @@ end
 
 config.window_decorations = 'RESIZE'
 config.hide_tab_bar_if_only_one_tab = true
+config.window_background_opacity = 0.96
 
 config.color_scheme_dirs = { '{{ .chezmoi.homeDir }}/.config/wezterm/colors/everforest' }
 config.color_scheme = 'GruvboxDark'
 
 config.font = wezterm.font {
-  family = 'Iosevka Term',
-  harfbuzz_features = { 'dlig' },
+  family = 'Iosevka NFP',
+  harfbuzz_features = { 'calt=0', 'dlig=1' },
 }
 
 config.font_size = 16.0
@@ -27,10 +28,15 @@ config.webgpu_power_preference = 'HighPerformance'
 
 -- start fish shell on launch
 {{ if eq .chezmoi.os "darwin" -}}
-config.default_prog = { '/opt/homebrew/bin/fish', '-l' }
+config.default_prog = { '/opt/homebrew/bin/fish', '--login' }
 {{ else -}}
-config.default_prog = { '/usr/local/bin/fish', '-l' }
+config.default_prog = { '/usr/local/bin/fish', '--login' }
 {{ end -}}
+
+config.keys = {
+  { key = '=', mods = 'CTRL', action = wezterm.action.Nop },
+  { key = '-', mods = 'CTRL', action = wezterm.action.Nop },
+}
 
 return config
 
