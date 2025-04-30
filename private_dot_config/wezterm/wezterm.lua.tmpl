@@ -21,10 +21,14 @@ config.font = wezterm.font {
 config.font_size = 16.0
 config.bold_brightens_ansi_colors = 'BrightAndBold'
 config.cursor_thickness = 1.0
+
 -- fonts look better on WebGpu than OpenGL (on mac's at least)
 config.front_end = 'WebGpu'
+
 -- use HighPerformance to help reduce input lag
 config.webgpu_power_preference = 'HighPerformance'
+
+config.scrollback_lines = 100000
 
 -- start fish shell on launch
 {{ if eq .chezmoi.os "darwin" -}}
