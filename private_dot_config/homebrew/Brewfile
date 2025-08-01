@@ -49,6 +49,7 @@ cask "alfred"
 cask "bartender"
 cask "obsidian"
 cask "istat-menus"
+cask "claude-code"
 mas "Amphetamine", id: 937984704
 mas "Pixelmator Pro", id: 1289583905
 

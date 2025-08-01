@@ -6,4 +6,3 @@ yaml-language-server
 bash-language-server
 dockerfile-language-server-nodejs
 prettier
-@anthropic-ai/claude-code
