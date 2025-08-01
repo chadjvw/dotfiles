@@ -1,4 +1,11 @@
+style = "full"
+workspaces = true
 auto_sync = false
 update_check = false
 enter_accept = true
+
+filter_mode_shell_up_key_binding = "workspace"
+
+[search]
+filters = [ "workspace", "directory", "session", "global" ]
 

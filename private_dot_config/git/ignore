@@ -56,3 +56,9 @@ Desktop.ini
 *.iml
 *.ipr
 *.iws
+
+# GEN AI #
+##########
+
+**/.claude/settings.local.json
+
