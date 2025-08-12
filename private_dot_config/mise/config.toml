@@ -1,7 +1,15 @@
 [tools]
-node = "lts"
+node = "latest"
 python = "latest"
 uv = "latest"
 
 [settings]
 idiomatic_version_file_enable_tools = []
+
+[settings.node]
+compile = false
+gpg_verify = false
+
+[settings.python]
+compile = false
+
