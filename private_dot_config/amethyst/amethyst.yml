@@ -32,8 +32,9 @@ enables-layout-hud-on-space-change: true
 restore-layouts-on-launch: true
 window-resize-step: 5
 layouts:
+  - center-focus
+  - four-corners
   - widescreen-tall
-  - centered
   - middle-wide
   - fullscreen
   - wide
