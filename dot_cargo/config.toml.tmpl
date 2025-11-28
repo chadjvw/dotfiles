@@ -1,6 +1,6 @@
 [build]
 {{ if eq .chezmoi.os "darwin" -}}
-rustflags = ["-C", "target-cpu=native", "-C", "link-arg=-ld_new""]
+rustflags = ["-C", "target-cpu=native", "-C", "link-arg=-ld_new"]
 {{ else }}
 rustflags = ["-C", "target-cpu=native"]
 {{ end -}}
