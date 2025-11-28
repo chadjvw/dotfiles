@@ -17,6 +17,7 @@ $HOME/.local/share/fish/generated_completions
 $HOME/.local/share/fonts
 $HOME/git/**/target
 $HOME/.config/vale/styles
+$HOME/.config/helix/runtime/grammars
 $HOME/.local/share/nvim
 $HOME/Applications/*.app
 .obsidian/plugins
