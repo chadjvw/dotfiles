@@ -1,4 +1,5 @@
 #!/bin/bash
+set -euo pipefail
 
 PID_FILE={{ .chezmoi.homeDir }}/.restic/backup.pid
 TIMESTAMP_FILE={{ .chezmoi.homeDir }}/.restic/backup_timestamp
@@ -10,16 +11,18 @@ RETENTION_WEEKS=12
 RETENTION_MONTHS=12
 RETENTION_YEARS=5
 
+# Cleanup on exit
+cleanup() {
+  if [ -f "$PID_FILE" ]; then
+    rm -f "$PID_FILE"
+  fi
+}
+trap cleanup EXIT
+
 CheckForNetwork()
 {
-	local test
-
 	if [ -z "${NETWORK_STATUS:=}" ]; then
-    curl https://console.aws.amazon.com
-    
-		test=$?
-
-		if [ "${test}" -eq 0 ]; then
+    if curl -sf https://console.aws.amazon.com >/dev/null 2>&1; then
 			NETWORK_STATUS="-UP-"
 		else
 			NETWORK_STATUS="-DOWN-"
@@ -49,8 +52,13 @@ if [ -f "$TIMESTAMP_FILE" ]; then
   fi
 fi
 
-if [[ $(ipconfig getsummary en0 | awk -F ' SSID : '  '/ SSID : / {print $2}' | grep -E "Goat Haunt|A2Z") == "" ]]; then
-  echo "$(date +"%Y-%m-%d %T")" "Unsupported network."
+ssid="$(en="$(networksetup -listallhardwareports | awk '/Wi-Fi|AirPort/{getline; print $NF}')"; ipconfig getsummary "$en" | grep -Fxq "  Active : FALSE" || networksetup -listpreferredwirelessnetworks "$en" | sed -n '2s/^\t//p')"
+if [ -z "$ssid" ]; then
+  echo "$(date +"%Y-%m-%d %T")" "Unable to determine network SSID (Wi-Fi may be off)."
+  exit 3
+fi
+if ! echo "$ssid" | grep -qE "Goat Haunt|A2Z"; then
+  echo "$(date +"%Y-%m-%d %T")" "Unsupported network: $ssid"
   exit 3
 fi
 
@@ -66,10 +74,16 @@ echo "$(date +"%Y-%m-%d %T")" "Backup start"
 
 export AWS_DEFAULT_REGION=us-west-2
 
-AWS_ACCESS_KEY_ID=$(security find-generic-password -s backup-restic-aws-access-key -w)
+AWS_ACCESS_KEY_ID=$(security find-generic-password -s backup-restic-aws-access-key -w) || {
+  echo "$(date +"%Y-%m-%d %T")" "Failed to retrieve AWS access key from keychain."
+  exit 5
+}
 export AWS_ACCESS_KEY_ID
 
-AWS_SECRET_ACCESS_KEY=$(security find-generic-password -s backup-restic-aws-secret-key -w)
+AWS_SECRET_ACCESS_KEY=$(security find-generic-password -s backup-restic-aws-secret-key -w) || {
+  echo "$(date +"%Y-%m-%d %T")" "Failed to retrieve AWS secret key from keychain."
+  exit 5
+}
 export AWS_SECRET_ACCESS_KEY
 
 RESTIC_REPOSITORY='{{ .chezmoi.homeDir }}/.restic/repo'
@@ -77,10 +91,15 @@ export RESTIC_REPOSITORY
 
 export RESTIC_PASSWORD_COMMAND='security find-generic-password -s backup-restic-password-local-repository -w'
 
-/opt/homebrew/bin/restic backup --verbose --tag launchctl $BACKUP_PATHS $BACKUP_EXCLUDES
+echo "$(date +"%Y-%m-%d %T")" "Starting local backup..."
+/opt/homebrew/bin/restic backup --verbose --tag launchctl $BACKUP_PATHS $BACKUP_EXCLUDES || rc=$?
+if [ "${rc:-0}" -ne 0 ] && [ "${rc:-0}" -ne 3 ]; then
+  echo "$(date +"%Y-%m-%d %T")" "ERROR: Local backup failed!"
+  exit 6
+fi
 
 echo "$(date +"%Y-%m-%d %T")" "Run forget and prune on local."
-/opt/homebrew/bin/restic forget --verbose --retry-lock 15s --cleanup-cache --tag launchctl --group-by "paths,tags" --keep-hourly $RETENTION_HOURS --keep-daily $RETENTION_DAYS --prune
+/opt/homebrew/bin/restic forget --verbose --retry-lock 15s --cleanup-cache --tag launchctl --group-by "paths,tags" --keep-hourly $RETENTION_HOURS --keep-daily $RETENTION_DAYS --prune --max-unused 0 --max-repack-size 0
 
 if [[ "${NETWORK_STATUS}" == "-UP-" ]]; then
   RESTIC_REPOSITORY2=$(security find-generic-password -s backup-restic-remote-repository -w)
@@ -89,22 +108,21 @@ if [[ "${NETWORK_STATUS}" == "-UP-" ]]; then
   export RESTIC_PASSWORD_COMMAND2='security find-generic-password -s backup-restic-password-remote-repository -w'
 
   echo "$(date +"%Y-%m-%d %T")" "Copy local snapshots to remote."
-  /opt/homebrew/bin/restic copy --verbose --retry-lock 15s
+  if ! /opt/homebrew/bin/restic copy --verbose --retry-lock 15s; then
+    echo "$(date +"%Y-%m-%d %T")" "WARNING: Failed to copy to remote repository."
+  else
+    RESTIC_REPOSITORY=$(security find-generic-password -s backup-restic-remote-repository -w)
+    export RESTIC_REPOSITORY
 
-  RESTIC_REPOSITORY=$(security find-generic-password -s backup-restic-remote-repository -w)
-  export RESTIC_REPOSITORY
+    export RESTIC_PASSWORD_COMMAND='security find-generic-password -s backup-restic-password-remote-repository -w'
 
-  export RESTIC_PASSWORD_COMMAND='security find-generic-password -s backup-restic-password-remote-repository -w'
-
-  echo "$(date +"%Y-%m-%d %T")" "Run forget and prune on remote."
-
-  /opt/homebrew/bin/restic forget --verbose --retry-lock 15s --cleanup-cache --tag launchctl --group-by "paths,tags" --keep-hourly $RETENTION_HOURS --keep-daily $RETENTION_DAYS --keep-weekly $RETENTION_WEEKS --keep-monthly $RETENTION_MONTHS --keep-yearly $RETENTION_YEARS --prune
+    echo "$(date +"%Y-%m-%d %T")" "Run forget and prune on remote."
+    /opt/homebrew/bin/restic forget --verbose --retry-lock 15s --cleanup-cache --tag launchctl --group-by "paths,tags" --keep-hourly $RETENTION_HOURS --keep-daily $RETENTION_DAYS --keep-weekly $RETENTION_WEEKS --keep-monthly $RETENTION_MONTHS --keep-yearly $RETENTION_YEARS --prune
+  fi
   echo "$(date -v +4H +"%s")" > $TIMESTAMP_FILE
 else
   echo "$(date +"%Y-%m-%d %T")" "Network is $NETWORK_STATUS, skipping copy to remote." 
   echo "$(date -v +2H +"%s")" > $TIMESTAMP_FILE
 fi
 
-echo "$(date +"%Y-%m-%d %T")" "Backup finished"
-
-rm $PID_FILE
+echo "$(date +"%Y-%m-%d %T")" "Backup finished successfully"
