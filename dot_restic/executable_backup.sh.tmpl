@@ -99,7 +99,7 @@ if [ "${rc:-0}" -ne 0 ] && [ "${rc:-0}" -ne 3 ]; then
 fi
 
 echo "$(date +"%Y-%m-%d %T")" "Run forget and prune on local."
-/opt/homebrew/bin/restic forget --verbose --retry-lock 15s --cleanup-cache --tag launchctl --group-by "paths,tags" --keep-hourly $RETENTION_HOURS --keep-daily $RETENTION_DAYS --prune --max-unused 0 --max-repack-size 0
+/opt/homebrew/bin/restic forget --verbose --retry-lock 15s --cleanup-cache --tag launchctl --group-by "paths,tags" --keep-hourly 5 --keep-daily 3 --prune --max-unused 0 --max-repack-size 500M
 
 if [[ "${NETWORK_STATUS}" == "-UP-" ]]; then
   RESTIC_REPOSITORY2=$(security find-generic-password -s backup-restic-remote-repository -w)

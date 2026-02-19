@@ -1,0 +1,4 @@
+["conf.d/rgrc.fish"]
+    type = "file"
+    url = "https://raw.githubusercontent.com/lazywalker/rgrc/refs/heads/master/etc/rgrc.fish"
+    refreshPeriod = "168h"

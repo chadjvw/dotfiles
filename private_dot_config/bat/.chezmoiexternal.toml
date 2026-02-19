@@ -3,3 +3,7 @@
     url = "https://github.com/mhanberg/everforest-textmate/archive/refs/heads/main.tar.gz"
     refreshPeriod = "168h"
     stripComponents = 1
+["themes/Kanagawa.tmTheme"]
+    type = "file"
+    url = "https://raw.githubusercontent.com/obergodmar/kanagawa-tmTheme/refs/heads/master/Kanagawa.tmTheme"
+    refreshPeriod = "168h"

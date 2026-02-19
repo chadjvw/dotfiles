@@ -3,7 +3,6 @@
 declare -a rust_utils=(
 "eza"
 "bat"
-"xh"
 "cargo-update"
 "cargo-cache"
 "fd-find"
@@ -11,20 +10,13 @@ declare -a rust_utils=(
 "difftastic"
 "just"
 "ripgrep"
-"skim"
 "tealdeer"
 "topgrade"
 "zoxide"
 "sd"
 "bottom"
 "dua"
-"xd"
-"jql"
-"macchina"
 "gping"
-"ag"
-"pueue"
-"mise"
 "tokei"
 "atuin"
 )
@@ -67,6 +59,8 @@ yay -Syu --needed \
   curl \
   cloudflared-bin \
   neovim \
+  mise \
+  jq \
   aws-cli-v2-bin
 
 # clean unused dependencies
@@ -105,8 +99,6 @@ defaults write com.apple.dock "mru-spaces" -bool "false" && killall Dock
 brew bundle install --global
 
 git lfs install
-
-vale sync
 
 bat cache --build
 

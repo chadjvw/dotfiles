@@ -7,15 +7,19 @@ $HOME/.local/bin
 $HOME/.local/include
 $HOME/.local/lib
 $HOME/.cdk
+$HOME/.bun
 $HOME/.gradle
 $HOME/.android
+$HOME/.derena
 $HOME/.rustup
+$HOME/.rbenv
 $HOME/.cache
 $HOME/.npm
 $HOME/.unison/backup
+$HOME/.kiro/extensions
+$HOME/.m2
 $HOME/.local/share/fish/generated_completions
 $HOME/.local/share/fonts
-$HOME/git/**/target
 $HOME/.config/vale/styles
 $HOME/.config/helix/runtime/grammars
 $HOME/.local/share/nvim
@@ -28,6 +32,10 @@ $HOME/Applications/*.app
 .ivy2
 .oracle_jre_usage
 .idea-build
+.idea
+.claude/debug
+.semantic_search
+.ees-interactive-repl
 .runtimes
 .gnupg
 .Trash
@@ -55,12 +63,21 @@ Downloads
 DerivedData
 node_modules
 Logs
+target
+logs
 iTunes/iTunes Media/Downloads
 iTunes/iTunes Media/Podcasts
 iTunes/Album Artwork
 iTunes/Previous iTunes Libraries
 Library/Application Support/CrashReporter
+Library/Application Support/com.raycast.macos
 Library/Application Support/Dropbox
+Library/Application Support/TOPPING_PRO
+Library/Application Support/Zed
+Library/Application Support/Kiro
+Library/Application Support/Audio Hijack 4
+Library/Application Support/dev.lapce.Lapce-Stable
+Library/Application Support/iStat Menus 7
 Library/Application Support/MobileSync/Backup
 Library/Caches
 Library/Developer

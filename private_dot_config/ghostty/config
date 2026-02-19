@@ -1,0 +1,47 @@
+shell-integration = fish
+scrollback-limit = 50000000
+clipboard-read = allow
+clipboard-write = allow
+copy-on-select = clipboard
+window-colorspace = display-p3
+window-save-state = always
+window-theme = dark
+window-padding-x=10
+window-padding-y=10
+link-url=true
+background-opacity = 0.97
+theme = Kanagawa Wave
+bold-is-bright = true
+minimum-contrast = 1.1
+background = #1f1f28
+foreground = #dcd7ba
+selection-background = #2d4f67
+selection-foreground = #c8c093
+cursor-color = #c8c093
+cursor-text = #1d202f
+cursor-invert-fg-bg = true
+cursor-style = block
+cursor-style-blink = true
+shell-integration-features = no-cursor, sudo, title, ssh-env
+palette = 0=#090618
+palette = 1=#c34043
+palette = 2=#76946a
+palette = 3=#c0a36e
+palette = 4=#7e9cd8
+palette = 5=#957fb8
+palette = 6=#6a9589
+palette = 7=#c8c093
+palette = 8=#727169
+palette = 9=#e82424
+palette = 10=#98bb6c
+palette = 11=#e6c384
+palette = 12=#7fb4ca
+palette = 13=#938aa9
+palette = 14=#7aa89f
+palette = 15=#dcd7ba
+font-family = Berkeley Mono Variable
+window-title-font-family = Berkeley Mono Variable
+font-variation = wdth=80
+font-size = 17
+font-feature = -calt
+macos-window-shadow = false

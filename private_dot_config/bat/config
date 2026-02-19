@@ -1,3 +1,4 @@
---theme="ansi"
+--theme=Kanagawa
 --italic-text=always
 --map-syntax ".ignore:Git Ignore"
+--map-syntax "Config:Perl"
