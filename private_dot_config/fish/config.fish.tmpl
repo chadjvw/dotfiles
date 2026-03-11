@@ -69,8 +69,6 @@ alias ls="eza --icons"
 {{ else if eq .chezmoi.os "linux" -}}
 set -gx SXHKD_SHELL /bin/bash
 
-# Add GRC: https://github.com/garabik/grc
-set -l grc /etc/grc.fish
 {{ end -}}
 
 test -x (which aws_completer); and complete --command aws --no-files --arguments '(begin; set --local --export COMP_SHELL fish; set --local --export COMP_LINE (commandline); aws_completer | sed \'s/ $//\'; end)'
@@ -78,10 +76,6 @@ test -x (which aws_completer); and complete --command aws --no-files --arguments
 if not functions -q fisher
     curl https://git.io/fisher --create-dirs -sLo $XDG_CONFIG_HOME/fish/functions/fisher.fish
     fish -c fisher
-end
-
-if test -e $grc
-    source $grc
 end
 
 source ~/.alias
