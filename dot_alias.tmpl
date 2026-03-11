@@ -13,8 +13,8 @@ alias vim='helix'
 alias vi='hx'
 alias vim='hx'
 {{ end -}}
-alias less='bat --decorations=never'
-alias cat='bat --paging=never'
+alias less='bat --decorations=never --style=header'
+alias cat='bat --paging=never --style=header'
 alias df='duf'
 alias http='xh'
 alias hexdump='xd'
@@ -34,6 +34,7 @@ alias sudo='sudo '
 alias sk='sk --color dark,fg:#{{ .colors.foreground }},bg:#{{ .colors.background }},matched:#{{ .colors.foreground }},matched_bg:#{{ .colors.normal.blue }},current:#{{ .colors.foreground }},current_bg:#{{ .colors.normal.green }},current_match:#{{ .colors.background }},current_match_bg:#{{ .colors.normal.yellow }},border:#{{ .colors.normal.green }},prompt:#fb4934,cursor:#{{ .colors.background }},selected:#{{ .colors.bright.yellow }},spinner:#{{ .colors.bright.yellow }},header:#{{ .colors.normal.blue }}'
 alias netstat='ss --tcp --udp --listening --processes --numeric' # -tulpn
 alias ss='ss --tcp --udp --listening --processes --numeric'
+alias omp='omp --allow-home'
 
 ## SHORTEN EXISTING
 alias j='just'

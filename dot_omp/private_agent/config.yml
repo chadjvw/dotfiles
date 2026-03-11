@@ -1,0 +1,55 @@
+modelRoles: 
+  smol: kiro/claude-haiku-4-5
+  plan: kiro/claude-opus-4-6-1m
+  commit: kiro/claude-sonnet-4-6
+  default: kiro/claude-opus-4-6-1m
+theme: 
+  dark: kanagawa-wave
+symbolPreset: unicode
+browser: 
+  enabled: false
+  headless: false
+async: 
+  enabled: true
+disabledExtensions: 
+  []
+disabledProviders: 
+  - claude
+  - codex
+  - gemini
+  - github-copilot
+lastChangelogVersion: 13.3.6
+compaction: 
+  enabled: true
+  thresholdPercent: 80
+  strategy: context-full
+  handoffSaveToDisk: false
+secrets: 
+  enabled: true
+providers: 
+  webSearch: kagi
+hideThinkingBlock: true
+steeringMode: all
+memories: 
+  enabled: true
+treeFilterMode: default
+ask: 
+  timeout: 0
+renderMermaid: 
+  enabled: true
+notebook: 
+  enabled: false
+checkpoint: 
+  enabled: true
+calc: 
+  enabled: true
+task: 
+  eager: true
+commands: 
+  enableClaudeUser: false
+  enableClaudeProject: false
+python: 
+  toolMode: both
+bashInterceptor: 
+  enabled: true
+  simpleLs: true
