@@ -62,3 +62,7 @@ Desktop.ini
 
 **/.claude/settings.local.json
 .serena
+.radial
+
+# Other VCS
+.jj
