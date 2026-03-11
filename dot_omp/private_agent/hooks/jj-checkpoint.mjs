@@ -7,13 +7,38 @@
 export default function hook(pi) {
 	const checkpoints = new Map();
 	let currentEntryId;
+	let jjAvailable; // undefined = unchecked, true/false = cached
+
+	async function ensureJj(ctx) {
+		if (jjAvailable !== undefined) return jjAvailable;
+		try {
+			await pi.exec("jj", ["root"]);
+			jjAvailable = true;
+		} catch {
+			if (ctx?.hasUI) {
+				const choice = await ctx.ui.select(
+					"No jj repo detected. Initialize one?",
+					["Yes, run jj git init --colocate", "No, skip jj checkpoints"],
+				);
+				if (choice?.startsWith("Yes")) {
+					await pi.exec("jj", ["git", "init", "--colocate"]);
+					ctx.ui.notify("jj initialized", "info");
+					jjAvailable = true;
+					return true;
+				}
+			}
+			jjAvailable = false;
+		}
+		return jjAvailable;
+	}
 
 	pi.on("tool_result", async (_event, ctx) => {
 		const leaf = ctx.sessionManager.getLeafEntry();
 		if (leaf) currentEntryId = leaf.id;
 	});
 
-	pi.on("turn_start", async () => {
+	pi.on("turn_start", async (_event, ctx) => {
+		if (!(await ensureJj(ctx))) return;
 		try {
 			// Snapshot working copy, then record the operation ID.
 			// This captures repo state before the LLM makes changes.
@@ -27,16 +52,17 @@ export default function hook(pi) {
 				checkpoints.set(currentEntryId, opId);
 			}
 		} catch {
-			// Not a jj repo — nothing to checkpoint.
+			// jj command failed unexpectedly.
 		}
 	});
 
 	pi.on("turn_end", async () => {
+		if (!jjAvailable) return;
 		try {
 			// Snapshot so jj captures everything the LLM changed this turn.
 			await pi.exec("jj", ["status"]);
 		} catch {
-			// Not a jj repo.
+			// jj command failed unexpectedly.
 		}
 	});
 
