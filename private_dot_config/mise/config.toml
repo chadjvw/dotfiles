@@ -1,9 +1,11 @@
 [tools]
 bun = "latest"
+"github:badlogic/pi-mono" = "latest"
 "github:can1357/oh-my-pi" = "latest"
 node = "latest"
 python = "latest"
 uv = "latest"
+usage = "latest"
 
 [settings]
 idiomatic_version_file_enable_tools = []

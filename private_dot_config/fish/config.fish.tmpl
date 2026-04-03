@@ -38,7 +38,7 @@ set fish_pager_color_description yellow
 set fish_color_match brwhite --background=brmagenta
 set fish_color_history_current brgreen
 
-set -gx EDITOR helix
+set -gx EDITOR hx
 set -gx AWS_EC2_METADATA_DISABLED 1
 set -gx XDG_DATA_DIRS "/usr/local/share:/usr/share"
 set -gx XDG_DATA_HOME "{{ .chezmoi.homeDir }}/.local/share"
@@ -71,7 +71,7 @@ set -gx SXHKD_SHELL /bin/bash
 
 {{ end -}}
 
-test -x (which aws_completer); and complete --command aws --no-files --arguments '(begin; set --local --export COMP_SHELL fish; set --local --export COMP_LINE (commandline); aws_completer | sed \'s/ $//\'; end)'
+command -q aws_completer; and complete --command aws --no-files --arguments '(begin; set --local --export COMP_SHELL fish; set --local --export COMP_LINE (commandline); aws_completer | sed \'s/ $//\'; end)'
 
 if not functions -q fisher
     curl https://git.io/fisher --create-dirs -sLo $XDG_CONFIG_HOME/fish/functions/fisher.fish
@@ -84,13 +84,13 @@ if test -e ~/.internal-alias
     source ~/.internal-alias
 end
 
-test -x (which starship); and starship init fish | source
-test -x (which zoxide); and zoxide init fish | source
-test -x (which stg); and stg completion fish | source
-test -x (which atuin); and atuin init fish | source
-test -x (which zellij); and zellij setup --generate-completion fish | source
+command -q starship; and starship init fish | source
+command -q zoxide; and zoxide init fish | source
+command -q stg; and stg completion fish | source
+command -q atuin; and atuin init fish | source
+command -q zellij; and zellij setup --generate-completion fish | source
 
-if test -x (which mise)
+if command -q mise
     mise activate fish | source
     mise completion fish | source
 end
