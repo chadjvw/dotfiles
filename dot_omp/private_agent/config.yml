@@ -1,8 +1,10 @@
 modelRoles: 
-  smol: kiro/claude-haiku-4-5
-  plan: kiro/claude-opus-4-6-1m
-  commit: kiro/claude-sonnet-4-6
-  default: kiro/claude-opus-4-6-1m
+  smol: amazon-bedrock/global.anthropic.claude-sonnet-4-6
+  plan: amazon-bedrock/global.anthropic.claude-opus-4-6-v1:high
+  commit: amazon-bedrock/eu.anthropic.claude-haiku-4-5-20251001-v1:0
+  default: amazon-bedrock/global.anthropic.claude-opus-4-6-v1
+  slow: amazon-bedrock/global.anthropic.claude-opus-4-6-v1:xhigh
+  task: amazon-bedrock/global.anthropic.claude-sonnet-4-6
 theme: 
   dark: kanagawa-wave
 symbolPreset: unicode

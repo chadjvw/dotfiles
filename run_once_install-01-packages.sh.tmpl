@@ -19,6 +19,7 @@ declare -a rust_utils=(
 "gping"
 "tokei"
 "atuin"
+"rgrc"
 )
 
 {{ if eq .chezmoi.os "linux" -}}
@@ -133,3 +134,4 @@ do
 done
 
 cargo install taplo-cli --features lsp --locked
+cargo install --locked --bin jj jj-cli

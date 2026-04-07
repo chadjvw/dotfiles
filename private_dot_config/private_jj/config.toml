@@ -15,3 +15,23 @@ diff-args = ["--color=always", "$left", "$right"]
 
 [revset-aliases]
 "immutable_heads()" = "builtin_immutable_heads() | (trunk().. & ~mine())"
+
+[fix.tools.prettier]
+command = ["$root/node_modules/.bin/prettier", "--stdin-filepath=$path"]
+patterns = ["glob:'**/*.ts'", "glob:'**/*.tsx'", "glob:'**/*.js'", "glob:'**/*.jsx'", "glob:'**/*.css'", "glob:'**/*.json'", "glob:'**/*.md'", "glob:'**/*.yaml'", "glob:'**/*.yml'"]
+
+[fix.tools.rustfmt]
+command = ["rustfmt", "--emit", "stdout"]
+patterns = ["glob:'**/*.rs'"]
+
+[fix.tools.black]
+command = ["black", "--stdin-filename=$path", "-"]
+patterns = ["glob:'**/*.py'"]
+
+[fix.tools.shfmt]
+command = ["shfmt", "-"]
+patterns = ["glob:'**/*.sh'", "glob:'**/*.bash'"]
+
+[fix.tools.taplo]
+command = ["taplo", "fmt", "-"]
+patterns = ["glob:'**/*.toml'"]
