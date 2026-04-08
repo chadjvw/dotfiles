@@ -1,3 +1,11 @@
+---
+name: jj-practices
+description: "Jujutsu (jj) version control — command mappings, commit discipline, workflow practices, revsets. Use when doing VCS operations, committing, rebasing, pushing, or creating branches."
+tags: [jj, jujutsu, vcs, version-control, commits]
+---
+
+# Jujutsu (jj) Practices
+
 ## Core Principle
 
 Use `jj` for ALL version control operations. Do NOT use `git` commands directly — even in colocated repos where `.git` exists alongside `.jj`. Jujutsu manages the git backend; direct git mutations risk state divergence.
@@ -9,6 +17,8 @@ You MUST commit at logical steps. A "logical step" is any self-contained unit of
 You MUST run `jj describe -m "<message>"` immediately after completing each unit of work. The description MUST follow Conventional Commits format. An undescribed change is an unnamed variable — unacceptable.
 
 You MUST run `jj commit -m "<message>"` to finalize the current change and start a new one when moving to the next logical step. This is NOT optional. Failing to commit between logical steps produces tangled history that is painful to review and impossible to bisect.
+
+`jj describe` is NOT equivalent to `jj commit`. `describe` only updates the message on the current working-copy change — it does NOT finalize it. `jj commit` finalizes the working copy into an actual commit and starts a new empty change on top. Do NOT use `describe` when you mean `commit`.
 
 You MUST run `jj st` after every meaningful edit to confirm the working copy state. This is cheap and catches problems early.
 
@@ -176,9 +186,3 @@ jj --no-pager show
 
 - Bookmarks containing consecutive `--` (e.g. `foo--bar`) no longer need quoting in revsets. Write `jj diff -r foo--bar` directly.
 - Pattern aliases are supported: e.g. `'grep:x' = 'description(regex:x)'` in revsets and templates.
-
----
-description: "Jujutsu (jj) version control — use jj for all VCS operations instead of git. Colocated mode, command mappings, workflow practices."
-globs:
-  - "**"
----

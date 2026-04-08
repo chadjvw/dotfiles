@@ -32,6 +32,10 @@ export default function hook(pi) {
 		return jjAvailable;
 	}
 
+	pi.on("session_start", async () => {
+		jjAvailable = undefined;
+	});
+
 	pi.on("tool_result", async (_event, ctx) => {
 		const leaf = ctx.sessionManager.getLeafEntry();
 		if (leaf) currentEntryId = leaf.id;
@@ -52,7 +56,6 @@ export default function hook(pi) {
 				checkpoints.set(currentEntryId, opId);
 			}
 		} catch {
-			// jj command failed unexpectedly.
 		}
 	});
 
@@ -62,7 +65,6 @@ export default function hook(pi) {
 			// Snapshot so jj captures everything the LLM changed this turn.
 			await pi.exec("jj", ["status"]);
 		} catch {
-			// jj command failed unexpectedly.
 		}
 	});
 

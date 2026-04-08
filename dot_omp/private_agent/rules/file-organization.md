@@ -1,7 +1,7 @@
 ---
 description: "File and code organization standards — naming conventions, directory structure, workspace hygiene."
 condition: "mkdir|touch|new.*file|create.*dir"
-scope: "tool:bash, tool:write"
+scope: "tool:bash"
 ---
 
 ## Code Organization
