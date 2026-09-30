@@ -31,7 +31,7 @@
 	di = !"d() { git diff --patch-with-stat HEAD~$1; }; git diff-index --quiet HEAD -- || clear; d"
 
 	# Pull in remote changes for the current repository and all its submodules
-	p = !"git pull; git submodule foreach git pull origin master"
+	p = pull --recurse-submodules
 
 	# Clone a repository including all submodules
 	c = clone --recursive
@@ -57,7 +57,7 @@
 	credit = "!f() { git commit --amend --author \"$1 <$2>\" -C HEAD; }; f"
 
 	# Interactive rebase with the given number of latest commits
-	reb = "!r() { git rebase -i HEAD{{ .chezmoi.homeDir }}$1; }; r"
+	reb = "!r() { git rebase -i HEAD~$1; }; r"
 
 	# Remove the old tag with this name and tag the latest commit with it.
 	retag = "!r() { git tag -d $1 && git push origin :refs/tags/$1 && git tag $1; }; r"
@@ -110,10 +110,6 @@
 	# More info: <http://www.git-tower.com/blog/make-git-rebase-safe-on-osx/>
 	# trustctime = false
 
-	# Prevent showing files whose names contain non-ASCII symbols as unversioned.
-	# http://michael-kuehnel.de/git/2014/11/21/git-mac-osx-and-german-umlaute.html
-	precomposeunicode = false
-
 	excludesfile = {{ .chezmoi.homeDir }}/.config/git/ignore
 	editor = {{ .helix }}
 
@@ -164,7 +160,8 @@
   diffFilter = delta --color-only
 
 [delta]
-  features = gruvbox-dark side-by-side line-numbers decorations 
+  features = side-by-side line-numbers decorations
+  syntax-theme = {{ if and .theme.noctalia (lookPath "noctalia") }}noctalia{{ else }}{{ .theme.fallback.bat }}{{ end }}
   whitespace-error-style = 22 reverse
 
 [delta "decorations"]

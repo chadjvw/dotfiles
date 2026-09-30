@@ -2,7 +2,7 @@
 
 [user]
 name = "Chad Van Wyhe"
-email = "chadvanw@amazon.com"
+email = "{{ .email }}"
 
 [ui]
 default-command = "log"
@@ -25,7 +25,7 @@ command = ["rustfmt", "--emit", "stdout"]
 patterns = ["glob:'**/*.rs'"]
 
 [fix.tools.black]
-command = ["black", "--stdin-filename=$path", "-"]
+command = ["mise", "exec", "pipx:black", "--", "black", "--stdin-filename=$path", "-"]
 patterns = ["glob:'**/*.py'"]
 
 [fix.tools.shfmt]

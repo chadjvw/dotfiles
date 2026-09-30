@@ -12,11 +12,9 @@ source $HOME/.cargo/env
 rustup toolchain install nightly
 rustup component add rust-docs clippy llvm-tools rust-analyzer rustfmt rust-src
 
-for var in eza bat xh cargo-update cargo-cache fd-find git-delta difftastic just ripgrep skim tealdeer topgrade rgrc zoxide sd bottom dua macchina gping pueue mise tokei atuin unison-fsmonitor; do
+# not in homebrew-core
+for var in rgrc unison-fsmonitor; do
   cargo install $var --locked
 done
-cargo install taplo-cli --features lsp --locked
 
-cargo install --locked --bin jj jj-cli
-mise install node@lts python@3.11
-mise use -g node@lts python@3.11
+mise install

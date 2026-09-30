@@ -4,9 +4,7 @@ justfile
 {{ if ne .chezmoi.os "darwin" -}}
 Library
 .config/amethyst
-.config/skhd
 .config/homebrew
-.finicky.js
 darwin-*.sh
 {{ end -}}
 {{ if ne .chezmoi.os "linux" -}}

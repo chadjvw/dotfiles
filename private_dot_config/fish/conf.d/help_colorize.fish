@@ -24,5 +24,5 @@ function _help_handler
     end
 end
 
-bind \r _help_handler
-bind \n _help_handler
+bind enter _help_handler
+bind ctrl-j _help_handler

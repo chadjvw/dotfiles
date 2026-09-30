@@ -1,6 +1,9 @@
 [build]
-{{ if eq .chezmoi.os "darwin" -}}
-rustflags = ["-C", "target-cpu=native", "-C", "link-arg=-ld_new"]
-{{ else }}
+{{- if or (eq .chezmoi.os "darwin") .archlike }}
 rustflags = ["-C", "target-cpu=native"]
-{{ end -}}
+{{- else if eq .chezmoi.arch "amd64" }}
+rustflags = ["-C", "target-cpu=x86-64-v2"]
+{{- else if eq .chezmoi.arch "arm64" }}
+# Graviton2+ / Ampere baseline
+rustflags = ["-C", "target-cpu=neoverse-n1"]
+{{- end }}
