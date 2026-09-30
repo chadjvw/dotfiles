@@ -21,19 +21,24 @@ command = "clippy"
 name = "python"
 language-servers = [ "pyright", "ruff" ]
 auto-format = true
+formatter = { command = "mise", args = ["exec", "pipx:black", "--", "black", "--line-length", "140", "--quiet", "-"] }
+
+[language-server.pyright]
+command = "mise"
+args = ["exec", "npm:pyright", "--", "pyright-langserver", "--stdio"]
 
 [language-server.pyright.config.python.analysis]
 typeCheckingMode = "basic"
 
 [language-server.ruff]
-command = "mise exec -c 'ruff-lsp' python@3.11"
+command = "mise"
+args = ["exec", "ruff", "--", "ruff", "server"]
 
 [language-server.ruff.config.settings]
-args = ["--ignore", "E501"]
+lineLength = 140
 
-[language.formatter]
-command = "mise exec -c 'ruff-lsp' python@3.11"
-args = ["--line-length", "140", "--quiet", "-"]
+[language-server.ruff.config.settings.lint]
+ignore = ["E501"]
 
 [language-server.sql-language-server]
 command = "sql-language-server"
@@ -42,3 +47,16 @@ args = ["up", "--method", "stdio"]
 [[language]]
 name = "sql"
 language-servers = [ "sql-language-server" ]
+
+[[language]]
+# Brazil Config files
+name = "perl"
+scope = "source.brazil-config"
+file-types = [{glob = "Config"}]
+roots = ["Config"]
+comment-token = "#"
+language-servers = ["barium"]
+grammar = "perl"
+
+[language-server.barium]
+command = "barium"

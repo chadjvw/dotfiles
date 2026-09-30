@@ -9,7 +9,6 @@ font-feature = -calt
 font-size = {{ if eq .chezmoi.os "darwin" }}17{{ else }}12{{ end }}
 window-title-font-family = Berkeley Mono Variable
 
-window-decoration = false
 window-theme = dark
 window-padding-x = 10
 window-padding-y = 10
@@ -18,8 +17,6 @@ background-blur-radius = 32
 unfocused-split-opacity = 0.7
 confirm-close-surface = false
 app-notifications = false
-gtk-titlebar = false
-gtk-single-instance = true
 
 bold-is-bright = true
 minimum-contrast = 1.1
@@ -38,8 +35,14 @@ link-url = true
 
 keybind = shift+enter=text:\n
 {{ if eq .chezmoi.os "darwin" -}}
+macos-titlebar-style = tabs
 window-colorspace = display-p3
 window-save-state = always
 macos-window-shadow = false
-keybind = alt+backspace=text:\x1b\x7f
+macos-option-as-alt = left
+keybind = global:cmd+grave_accent=toggle_quick_terminal
+{{ else -}}
+window-decoration = false
+gtk-titlebar = false
+gtk-single-instance = true
 {{ end -}}

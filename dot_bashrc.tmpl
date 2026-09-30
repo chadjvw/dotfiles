@@ -6,7 +6,11 @@ export EDITOR={{ .helix }}
 export AWS_EC2_METADATA_DISABLED=1
 export XDG_DATA_HOME={{ .chezmoi.homeDir }}/.local/share
 export XDG_CONFIG_HOME={{ .chezmoi.homeDir }}/.config
+{{ if eq .chezmoi.os "darwin" -}}
+export XDG_DATA_DIRS=/opt/homebrew/share:/usr/local/share:/usr/share
+{{ else -}}
 export XDG_DATA_DIRS={{ .chezmoi.homeDir }}/.local/share/flatpak/exports/share:/var/lib/flatpak/exports/share:/usr/local/share:/usr/share
+{{ end -}}
 
 [ -f "$HOME/.cargo/env" ] && . "$HOME/.cargo/env"
 export PATH="$HOME/.config/emacs/bin:$PATH"

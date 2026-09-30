@@ -24,8 +24,10 @@ alias figlet='figlet -f isometric3'
 # scp is deprecated
 alias scp='rsync --progress --archive --verbose --compress --human-readable'
 alias sudo='sudo '
+{{ if eq .chezmoi.os "linux" -}}
 alias netstat='ss --tcp --udp --listening --processes --numeric' # -tulpn
 alias ss='ss --tcp --udp --listening --processes --numeric'
+{{ end -}}
 
 ## SHORTEN EXISTING
 alias j='just'
@@ -49,7 +51,7 @@ alias ll='eza --all --long --header --icons --sort=modified'
 alias lla='eza --all -all --long --header --group --icons --sort=modified'
 alias lt='eza --tree --level=15 --icons'
 alias llt='eza --tree --all --long --level=15 --icons'
-alias clean-branches="git branch | grep -ve 'master\$' | xargs git branch -D"
+alias clean-branches="git branch | grep -vE '^\\*|^ *main\$' | xargs git branch -D"
 alias edit='{{ .helix }}'
 alias svi='sudo {{ .helix }} -c {{ .chezmoi.homeDir }}/.config/helix/config.toml'
 alias svim='sudo {{ .helix }} -c {{ .chezmoi.homeDir }}/.config/helix/config.toml'

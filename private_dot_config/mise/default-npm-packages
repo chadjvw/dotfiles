@@ -1,8 +1,8 @@
 vscode-langservers-extracted
 typescript
 typescript-language-server
-pyright
 yaml-language-server
 bash-language-server
 dockerfile-language-server-nodejs
 prettier
+@agentclientprotocol/claude-agent-acp
