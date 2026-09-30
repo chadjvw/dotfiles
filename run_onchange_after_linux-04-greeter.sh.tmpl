@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+# Noctalia Greeter on greetd; takes effect on next boot. Sync appearance from Noctalia's settings (Security > Noctalia Greeter).
+set -euo pipefail
+
+sudo install -Dm644 /dev/stdin /etc/greetd/config.toml <<'EOS'
+[terminal]
+vt = 1
+
+[default_session]
+command = "/usr/bin/noctalia-greeter-session"
+user = "greeter"
+EOS
+
+sudo systemctl enable greetd.service

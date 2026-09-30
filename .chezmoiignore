@@ -1,23 +1,47 @@
 README.md
 LICENSE
 justfile
-.config/helix/runtime/grammars/*
 {{ if ne .chezmoi.os "darwin" -}}
 Library
 .config/amethyst
 .config/skhd
+.config/homebrew
 .finicky.js
-{{end -}}
-{{ if ne .chezmoi.os "linux" -}}
-.gtkrc-2.0
-.xinitrc
-.config/bspwm
-.config/dunst
-.config/compton
-.config/gtk-3.0
-.config/polybar
-.config/rofi
-.config/sxhkd
-.config/betterlockscreenrc
-.config/user-dirs.dirs
+darwin-*.sh
 {{ end -}}
+{{ if ne .chezmoi.os "linux" -}}
+.config/niri
+.config/gtk-3.0
+.config/gtk-4.0
+.config/qt5ct
+.config/qt6ct
+.config/user-dirs.dirs
+.config/environment.d
+.config/mimeapps.list
+.config/noctalia
+.config/systemd
+.config/vesktop
+linux-*.sh
+{{ end -}}
+{{ if .archlike -}}
+linux-05-editors.sh
+{{ end -}}
+{{ if and (eq .chezmoi.os "linux") (not .archlike) -}}
+.config/niri
+.config/ghostty
+.config/gtk-3.0
+.config/gtk-4.0
+.config/qt5ct
+.config/qt6ct
+.config/environment.d
+.config/mimeapps.list
+.config/noctalia
+.config/zed
+.config/systemd
+.config/vesktop
+linux-01-packages.sh
+linux-02-xdg-dirs.sh
+linux-04-greeter.sh
+{{ end -}}
+.gitconfig
+.gitignore

@@ -1,0 +1,22 @@
+#!/usr/bin/env zsh
+# macOS bootstrap; Linux is handled by run_onchange_linux-01-packages.sh.tmpl.
+brew bundle install --global
+
+sudo sysctl kern.maxfiles=1310720 kern.maxfilesperproc=65536
+defaults write com.apple.dock "mru-spaces" -bool "false" && killall Dock
+git lfs install
+bat cache --build
+
+curl --proto '=https' --tlsv1.3 -sSf https://sh.rustup.rs | sh -s -- -y
+source $HOME/.cargo/env
+rustup toolchain install nightly
+rustup component add rust-docs clippy llvm-tools rust-analyzer rustfmt rust-src
+
+for var in eza bat xh cargo-update cargo-cache fd-find git-delta difftastic just ripgrep skim tealdeer topgrade rgrc zoxide sd bottom dua macchina gping pueue mise tokei atuin unison-fsmonitor; do
+  cargo install $var --locked
+done
+cargo install taplo-cli --features lsp --locked
+
+cargo install --locked --bin jj jj-cli
+mise install node@lts python@3.11
+mise use -g node@lts python@3.11

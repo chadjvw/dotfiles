@@ -1,0 +1,22 @@
+[linux]
+# CachyOS: repo packages via paru (also pulls from AUR). System/kernel/firmware/driver packages are left to CachyOS.
+pacman = [
+  # shell + cli
+  "fish", "starship", "zoxide", "atuin", "mise", "usage", "fzf", "skim", "tmux", "zellij",
+  "eza", "bat", "fd", "ripgrep", "the_silver_searcher", "sd", "xh", "duf", "dua-cli", "gping", "bottom", "btop",
+  "tealdeer", "tokei", "just", "macchina", "fastfetch", "pueue", "git-delta", "difftastic",
+  "cargo-nextest", "cargo-update", "cargo-cache", "rustup", "uv", "meld",
+  # editors
+  "helix", "micro", "zed", "emacs-wayland", "ttf-nerd-fonts-symbols", "adw-gtk-theme",
+  # dev / ops
+  "git", "github-cli", "jujutsu", "jq", "kubectl", "k9s", "krew", "aws-cli-v2", "sops", "age", "restic", "rclone", "rsync", "openssh",
+  # niri desktop
+  "niri", "noctalia", "noctalia-greeter", "xwayland-satellite", "xorg-xwayland", "wl-clipboard", "brightnessctl", "pavucontrol", "qt5ct", "kvantum", "xdg-user-dirs", "qt6ct", "polkit-kde-agent",
+  # terminals
+  "ghostty",
+  # fonts
+  "ttc-iosevka", "ttf-meslo-nerd", "ttf-fantasque-nerd", "noto-fonts", "noto-fonts-cjk", "noto-fonts-emoji", "otf-font-awesome",
+  # apps
+  "firefox", "vivaldi", "discord", "signal-desktop", "bitwarden", "spotify-launcher", "vlc-plugins-all", "inkscape", "libreoffice-fresh",
+]
+aur = ["rgrc-bin", "ghostmirror", "vesktop", "stgit", "topgrade-bin", "orca-slicer", "zsa-keymapp-bin"]

@@ -1,8 +1,3 @@
 #!/usr/bin/env bash
 
-if [ -f "$HOME/.bashrc" ]; then
-  source "$HOME/.bashrc"
-fi
-
-# cargo keeps addind this as ., so we elave it
-. "$HOME/.cargo/env"
+[ -f "$HOME/.bashrc" ] && source "$HOME/.bashrc"

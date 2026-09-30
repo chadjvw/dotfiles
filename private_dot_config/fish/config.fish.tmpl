@@ -16,6 +16,7 @@ fish_add_path --path /opt/homebrew/bin
 fish_add_path --path /opt/homebrew/sbin
 {{ end }}
 fish_add_path --path {{ .chezmoi.homeDir }}/.cargo/bin
+fish_add_path --path {{ .chezmoi.homeDir }}/.config/emacs/bin
 fish_add_path --path {{ .chezmoi.homeDir }}/.toolbox/bin
 
 # Override fish colors
@@ -38,7 +39,8 @@ set fish_pager_color_description yellow
 set fish_color_match brwhite --background=brmagenta
 set fish_color_history_current brgreen
 
-set -gx EDITOR hx
+set -gx EDITOR {{ .helix }}
+set -gx KUBE_EDITOR {{ .helix }}
 set -gx AWS_EC2_METADATA_DISABLED 1
 set -gx XDG_DATA_DIRS "/usr/local/share:/usr/share"
 set -gx XDG_DATA_HOME "{{ .chezmoi.homeDir }}/.local/share"
@@ -66,9 +68,6 @@ set -gx LC_ALL en_US.UTF-8
 
 # macos doesnt like sourcing this alias
 alias ls="eza --icons"
-{{ else if eq .chezmoi.os "linux" -}}
-set -gx SXHKD_SHELL /bin/bash
-
 {{ end -}}
 
 command -q aws_completer; and complete --command aws --no-files --arguments '(begin; set --local --export COMP_SHELL fish; set --local --export COMP_LINE (commandline); aws_completer | sed \'s/ $//\'; end)'

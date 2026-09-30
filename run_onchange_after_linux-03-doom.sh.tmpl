@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+# Doom Emacs setup; reruns `doom sync` whenever the doom config changes.
+# init.el:     {{ include "private_dot_config/doom/init.el" | sha256sum }}
+# packages.el: {{ include "private_dot_config/doom/packages.el" | sha256sum }}
+# config.el:   {{ include "private_dot_config/doom/config.el.tmpl" | sha256sum }}
+set -euo pipefail
+
+command -v emacs >/dev/null || { echo "emacs not installed, skipping doom"; exit 0; }
+
+export PATH="$HOME/.config/emacs/bin:$PATH"
+
+if [ ! -d ~/.config/emacs/.local/straight ]; then
+  doom install --force
+else
+  doom sync
+fi

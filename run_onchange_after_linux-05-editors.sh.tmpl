@@ -1,0 +1,41 @@
+#!/usr/bin/env bash
+# Latest helix and emacs for Linux without them packaged (Amazon Linux). Rechecked monthly: {{ now | date "2006-01" }}
+set -euo pipefail
+
+arch=$(uname -m)
+prefix="$HOME/.local"
+mkdir -p "$prefix/bin" "$prefix/opt"
+tmp=$(mktemp -d)
+trap 'rm -rf "$tmp"' EXIT
+
+# helix: the release tarball carries hx and its runtime; hx finds runtime/ next to the real binary
+tag=$(curl -fsSLI -o /dev/null -w '%{url_effective}' https://github.com/helix-editor/helix/releases/latest)
+tag=${tag##*/}
+if [ ! -d "$prefix/opt/helix-$tag" ]; then
+  curl -fsSL "https://github.com/helix-editor/helix/releases/download/$tag/helix-$tag-$arch-linux.tar.xz" | tar -xJ -C "$tmp"
+  rm -rf "$prefix"/opt/helix-*
+  mv "$tmp/helix-$tag-$arch-linux" "$prefix/opt/helix-$tag"
+  ln -sfn "$prefix/opt/helix-$tag/hx" "$prefix/bin/hx"
+fi
+
+# emacs: terminal-only build from the gnu ftp with tree-sitter, only when a newer release exists
+latest=$(curl -fsSL https://ftp.gnu.org/gnu/emacs/ | grep -o 'emacs-[0-9][0-9.]*\.tar\.xz' | sort -uV | tail -1)
+ver=${latest#emacs-}
+ver=${ver%.tar.xz}
+installed=$("$prefix/bin/emacs" --version 2>/dev/null | sed -n '1s/.* //p' || true)
+if [ "$installed" != "$ver" ]; then
+  sudo "$(command -v dnf || command -v yum)" install -y gcc make ncurses-devel gnutls-devel libxml2-devel jansson-devel texinfo
+
+  # libtree-sitter isn't packaged on Amazon Linux; build the latest release
+  ts=$(curl -fsSLI -o /dev/null -w '%{url_effective}' https://github.com/tree-sitter/tree-sitter/releases/latest)
+  ts=${ts##*/}
+  curl -fsSL "https://github.com/tree-sitter/tree-sitter/archive/refs/tags/$ts.tar.gz" | tar -xz -C "$tmp"
+  make -C "$tmp/tree-sitter-${ts#v}" -j"$(nproc)" PREFIX="$prefix" install
+
+  curl -fsSL "https://ftp.gnu.org/gnu/emacs/$latest" | tar -xJ -C "$tmp"
+  cd "$tmp/emacs-$ver"
+  PKG_CONFIG_PATH="$prefix/lib/pkgconfig" LDFLAGS="-Wl,-rpath,$prefix/lib" \
+    ./configure --prefix="$prefix" --without-x --without-ns --without-native-compilation --with-gnutls --with-tree-sitter
+  make -j"$(nproc)"
+  make install
+fi

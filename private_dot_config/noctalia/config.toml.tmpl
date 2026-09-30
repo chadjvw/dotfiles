@@ -1,0 +1,69 @@
+# Hand-written noctalia config. The GUI writes ~/.local/state/noctalia/settings.toml on top of this
+# and wins on conflict, so delete a key there if a change here seems ignored.
+
+[shell]
+lang = "en"
+
+[weather]
+unit = "imperial"
+
+[nightlight]
+enabled = true
+
+[plugins]
+enabled = [ "raycursive/niri-displays" ]
+
+[theme]
+builtin = "Tokyo-Night"
+community_palette = "Oxocarbon"
+mode = "dark"
+source = "builtin"
+wallpaper_scheme = "m3-content"
+
+[wallpaper]
+directory = "{{ .chezmoi.homeDir }}/Pictures/walls"
+
+    [wallpaper.automation]
+    enabled = true
+
+[bar.default]
+font_family = "Berkeley Mono Variable"
+end = [
+    "bar",
+    "media",
+    "tray",
+    "notifications",
+    "ram",
+    "cpu",
+    "network",
+    "bluetooth",
+    "volume",
+    "brightness",
+    "battery",
+    "control-center",
+    "session"
+]
+
+[widget.cpu]
+visualization = "graph"
+
+[widget.media]
+hide_when_no_media = true
+
+[idle]
+behavior_order = [ "lock", "screen-off", "lock-and-suspend" ]
+
+    [idle.behavior.lock]
+    action = "lock"
+    enabled = true
+    timeout = 300.0
+
+    [idle.behavior.screen-off]
+    action = "screen_off"
+    enabled = true
+    timeout = 600.0
+
+    [idle.behavior.lock-and-suspend]
+    action = "lock_and_suspend"
+    enabled = true
+    timeout = 1800.0
