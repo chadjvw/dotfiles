@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+# Reruns when the package lists change.
+set -euo pipefail
+
+packages=(
+{{- range (concat .linux.pacman .linux.aur) }}
+  {{ . }}
+{{- end }}
+)
+paru -Syu --needed "${packages[@]}"
+
+rustup toolchain install stable nightly --profile default \
+  -c rust-src -c rust-analyzer -c llvm-tools
+rustup default stable
+
+cargo install taplo-cli --features lsp --locked || true
+
+mise install
+tldr --update || true

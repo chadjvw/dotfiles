@@ -6,19 +6,12 @@ alias top='btm'
 alias diff='difft'
 alias colordiff='difft'
 alias ls='eza --icons'
-{{ if and (index .chezmoi.osRelease "id") (eq .chezmoi.osRelease.id "arch") -}}
-alias vi='helix'
-alias vim='helix'
-{{ else -}}
-alias vi='hx'
-alias vim='hx'
-{{ end -}}
+alias vi='{{ .helix }}'
+alias vim='{{ .helix }}'
 alias less='bat --decorations=never --style=header'
 alias cat='bat --paging=never --style=header'
 alias df='duf'
 alias http='xh'
-alias hexdump='xd'
-alias hd='xd'
 alias ping='gping'
 
 ## ALTER EXISTING
@@ -31,7 +24,6 @@ alias figlet='figlet -f isometric3'
 # scp is deprecated
 alias scp='rsync --progress --archive --verbose --compress --human-readable'
 alias sudo='sudo '
-alias sk='sk --color dark,fg:#{{ .colors.foreground }},bg:#{{ .colors.background }},matched:#{{ .colors.foreground }},matched_bg:#{{ .colors.normal.blue }},current:#{{ .colors.foreground }},current_bg:#{{ .colors.normal.green }},current_match:#{{ .colors.background }},current_match_bg:#{{ .colors.normal.yellow }},border:#{{ .colors.normal.green }},prompt:#fb4934,cursor:#{{ .colors.background }},selected:#{{ .colors.bright.yellow }},spinner:#{{ .colors.bright.yellow }},header:#{{ .colors.normal.blue }}'
 alias netstat='ss --tcp --udp --listening --processes --numeric' # -tulpn
 alias ss='ss --tcp --udp --listening --processes --numeric'
 
@@ -58,12 +50,6 @@ alias lla='eza --all -all --long --header --group --icons --sort=modified'
 alias lt='eza --tree --level=15 --icons'
 alias llt='eza --tree --all --long --level=15 --icons'
 alias clean-branches="git branch | grep -ve 'master\$' | xargs git branch -D"
-{{ if and (index .chezmoi.osRelease "id") (eq .chezmoi.osRelease.id "arch") -}}
-alias edit='helix'
-alias svi='sudo helix -c {{ .chezmoi.homeDir }}/.config/helix/config.toml'
-alias svim='sudo helix -c {{ .chezmoi.homeDir }}/.config/helix/config.toml'
-{{ else -}}
-alias edit='hx'
-alias svi='sudo hx -c {{ .chezmoi.homeDir }}/.config/helix/config.toml'
-alias svim='sudo hx -c {{ .chezmoi.homeDir }}/.config/helix/config.toml'
-{{ end -}}
+alias edit='{{ .helix }}'
+alias svi='sudo {{ .helix }} -c {{ .chezmoi.homeDir }}/.config/helix/config.toml'
+alias svim='sudo {{ .helix }} -c {{ .chezmoi.homeDir }}/.config/helix/config.toml'

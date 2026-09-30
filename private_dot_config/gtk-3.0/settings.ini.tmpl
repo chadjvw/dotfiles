@@ -1,0 +1,15 @@
+[Settings]
+gtk-application-prefer-dark-theme=true
+gtk-button-images=true
+gtk-cursor-theme-name=capitaine-cursors
+gtk-cursor-theme-size=24
+gtk-enable-animations=true
+gtk-font-name=Fira Sans,  10
+gtk-menu-images=true
+gtk-modules=colorreload-gtk-module:appmenu-gtk-module
+gtk-primary-button-warps-slider=false
+gtk-shell-shows-menubar=1
+{{ if and .theme.noctalia (lookPath "noctalia") -}}
+{{ else -}}
+gtk-theme-name={{ .theme.fallback.gtk }}
+{{ end -}}

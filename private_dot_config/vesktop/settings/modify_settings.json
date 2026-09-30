@@ -1,0 +1,9 @@
+{{- /* chezmoi:modify-template; Vencord owns this file, only select the noctalia theme */ -}}
+{{- if and .theme.noctalia (lookPath "noctalia") -}}
+{{-   $s := dict -}}
+{{-   if .chezmoi.stdin }}{{ $s = fromJson .chezmoi.stdin }}{{ end -}}
+{{-   $_ := set $s "enabledThemes" (list "noctalia.theme.css") -}}
+{{ toPrettyJson $s }}
+{{- else -}}
+{{ .chezmoi.stdin }}
+{{- end -}}

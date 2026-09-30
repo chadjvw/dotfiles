@@ -1,0 +1,45 @@
+{{ if and .theme.noctalia (lookPath "noctalia") -}}
+theme = noctalia
+{{ else -}}
+theme = {{ .theme.fallback.ghostty }}
+{{ end -}}
+font-family = Berkeley Mono Variable
+font-variation = wdth=80
+font-feature = -calt
+font-size = {{ if eq .chezmoi.os "darwin" }}17{{ else }}12{{ end }}
+window-title-font-family = Berkeley Mono Variable
+
+window-decoration = false
+window-theme = dark
+window-padding-x = 10
+window-padding-y = 10
+background-opacity = 0.97
+background-blur-radius = 32
+unfocused-split-opacity = 0.7
+confirm-close-surface = false
+app-notifications = false
+gtk-titlebar = false
+gtk-single-instance = true
+
+bold-is-bright = true
+minimum-contrast = 1.1
+cursor-style = block
+cursor-style-blink = true
+cursor-invert-fg-bg = true
+
+shell-integration = fish
+shell-integration-features = no-cursor,sudo,title,ssh-env
+scrollback-limit = 50000000
+clipboard-read = allow
+clipboard-write = allow
+copy-on-select = clipboard
+mouse-hide-while-typing = true
+link-url = true
+
+keybind = shift+enter=text:\n
+{{ if eq .chezmoi.os "darwin" -}}
+window-colorspace = display-p3
+window-save-state = always
+macos-window-shadow = false
+keybind = alt+backspace=text:\x1b\x7f
+{{ end -}}

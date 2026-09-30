@@ -1,0 +1,14 @@
+;;; $DOOMDIR/config.el -*- lexical-binding: t; -*-
+
+{{ if and .theme.noctalia (lookPath "noctalia") -}}
+;; noctalia writes themes/noctalia-theme.el on first run; fall back until it exists
+(setq doom-theme (if (file-exists-p (expand-file-name "themes/noctalia-theme.el" doom-user-dir))
+                     'noctalia
+                   '{{ .theme.fallback.doom }}))
+{{- else -}}
+(setq doom-theme '{{ .theme.fallback.doom }})
+{{- end }}
+
+(setq display-line-numbers-type t)
+
+(setq org-directory "~/org/")

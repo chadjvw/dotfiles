@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+# Create the dirs named in user-dirs.dirs so xdg-user-dirs-update stops resetting them.
+# user-dirs hash: {{ include "private_dot_config/user-dirs.dirs.tmpl" | sha256sum }}
+set -euo pipefail
+
+. ~/.config/user-dirs.dirs
+for v in $(compgen -v | grep '^XDG_.*_DIR$'); do
+  mkdir -p "${!v}"
+done

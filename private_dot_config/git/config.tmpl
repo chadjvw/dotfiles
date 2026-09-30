@@ -81,8 +81,6 @@
 	# List contributors with number of commits
 	contributors = shortlog --summary --numbered
 
-	# Set a sane editor
-	editor = nvim
 
 	# Merge GitHub pull request on top of the current branch or,
 	# if a branch name is specified, on top of the specified branch
@@ -117,11 +115,7 @@
 	precomposeunicode = false
 
 	excludesfile = {{ .chezmoi.homeDir }}/.config/git/ignore
-{{ if and (index .chezmoi.osRelease "id") (eq .chezmoi.osRelease.id "arch") -}}
-	editor = helix
-{{ else -}}
-	editor = hx
-{{ end -}}
+	editor = {{ .helix }}
 
 [pager]
 	difftool = true
@@ -134,7 +128,7 @@
 
 [diff "bin"]
 	# Use `hexdump` to diff binary files
-	textconv = xd 
+	textconv = hexdump -C
 
 [help]
 	# Automatically correct and execute mistyped commands
@@ -150,10 +144,10 @@
 	followTags = true
 
 # push to github and gitlab via ssh
-[url "ssh://github.com/"]
+[url "ssh://git@github.com/"]
   pushInsteadOf = https://github.com/
 
-[url "ssh://gitlab.com/"]
+[url "ssh://git@gitlab.com/"]
   pushInsteadOf = https://gitlab.com/
 
 [pull]

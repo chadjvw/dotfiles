@@ -1,0 +1,6 @@
+# Doom Emacs itself; updates go through `doom upgrade`, not chezmoi.
+[".config/emacs"]
+  type = "git-repo"
+  url = "https://github.com/doomemacs/doomemacs.git"
+  clone.args = ["--depth", "1"]
+  pull.args = ["--ff-only"]

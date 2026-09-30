@@ -1,0 +1,5 @@
+# Which apps noctalia themes. Each entry rewrites that app's theme file (or config) on palette changes.
+[theme.templates]
+builtin_ids = [ "btop", "gtk3", "gtk4", "ghostty", "helix", "kcolorscheme", "niri", "qt", "starship", "emacs" ]
+enable_community_templates = true
+community_ids = [ "discord", "bat", "zed", "zellij" ]

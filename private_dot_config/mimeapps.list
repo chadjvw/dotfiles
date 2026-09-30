@@ -1,0 +1,12 @@
+[Default Applications]
+application/xhtml+xml=waterfox.desktop
+text/html=waterfox.desktop
+x-scheme-handler/http=waterfox.desktop
+x-scheme-handler/https=waterfox.desktop
+x-scheme-handler/chrome=waterfox.desktop
+application/x-extension-htm=waterfox.desktop
+application/x-extension-html=waterfox.desktop
+application/x-extension-shtml=waterfox.desktop
+application/x-extension-xhtml=waterfox.desktop
+application/x-extension-xht=waterfox.desktop
+x-scheme-handler/discord=vesktop.desktop
