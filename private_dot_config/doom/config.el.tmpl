@@ -9,6 +9,22 @@
 (setq doom-theme '{{ .theme.fallback.doom }})
 {{- end }}
 
-(setq display-line-numbers-type t)
+(setq display-line-numbers-type (quote relative))
 
 (setq org-directory "~/org/")
+
+{{ if eq .chezmoi.os "linux" -}}
+;; system has "Symbols Nerd Font", not the "...Mono" variant nerd-icons expects
+(setq nerd-icons-font-family "Symbols Nerd Font")
+{{ end }}
+
+(after! treemacs
+  (treemacs-follow-mode 1))
+
+(setq ghostel-module-auto-install (quote download))
+
+;; language servers installed via mise
+(let ((shims (expand-file-name "~/.local/share/mise/shims")))
+  (when (file-directory-p shims)
+    (add-to-list 'exec-path shims)
+    (setenv "PATH" (concat shims ":" (getenv "PATH")))))

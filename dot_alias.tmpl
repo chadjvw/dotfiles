@@ -53,3 +53,8 @@ alias clean-branches="git branch | grep -ve 'master\$' | xargs git branch -D"
 alias edit='{{ .helix }}'
 alias svi='sudo {{ .helix }} -c {{ .chezmoi.homeDir }}/.config/helix/config.toml'
 alias svim='sudo {{ .helix }} -c {{ .chezmoi.homeDir }}/.config/helix/config.toml'
+
+## EDITORS
+# terminal frame on the emacs daemon, starting it if needed
+alias emacs='emacsclient -t -a ""'
+alias em='emacsclient -t -a ""'

@@ -3,8 +3,8 @@
 (doom! :input
 
        :completion
-       (corfu +orderless)
-       vertico
+       (corfu +orderless +icons)
+       (vertico +icons)
 
        :ui
        doom
@@ -25,19 +25,21 @@
        (whitespace +guess +trim)
 
        :emacs
-       dired
+       (dired +icons)
        electric
        tramp
        undo
        vc
 
        :term
+       (ghostel +everywhere)
 
        :checkers
        syntax
 
        :tools
        (eval +overlay)
+       (lsp +eglot)
        lookup
        magit
        tree-sitter
@@ -50,6 +52,14 @@
        markdown
        org
        sh
+       data
+       (json +lsp)
+       (javascript +lsp)
+       plantuml
+       (python +lsp)
+       (rust +lsp)
+       web
+       (yaml +lsp)
 
        :email
 
