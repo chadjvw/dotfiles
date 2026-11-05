@@ -1,21 +1,84 @@
 #!/usr/bin/env bash
-# Latest helix and emacs for Linux without them packaged (Amazon Linux). Rechecked monthly: {{ now | date "2006-01" }}
+# Latest cli tools, editors, and emacs for Linux without them packaged. Rechecked monthly: {{ now | date "2006-01" }}
 set -euo pipefail
 
-arch=$(uname -m)
 prefix="$HOME/.local"
-mkdir -p "$prefix/bin" "$prefix/opt"
+pm=$(command -v dnf || command -v yum)
+mkdir -p "$prefix/bin"
 tmp=$(mktemp -d)
 trap 'rm -rf "$tmp"' EXIT
 
-# helix: the release tarball carries hx and its runtime; hx finds runtime/ next to the real binary
-tag=$(curl -fsSLI -o /dev/null -w '%{url_effective}' https://github.com/helix-editor/helix/releases/latest)
-tag=${tag##*/}
-if [ ! -d "$prefix/opt/helix-$tag" ]; then
-  curl -fsSL "https://github.com/helix-editor/helix/releases/download/$tag/helix-$tag-$arch-linux.tar.xz" | tar -xJ -C "$tmp"
-  rm -rf "$prefix"/opt/helix-*
-  mv "$tmp/helix-$tag-$arch-linux" "$prefix/opt/helix-$tag"
-  ln -sfn "$prefix/opt/helix-$tag/hx" "$prefix/bin/hx"
+# mise: installed by hand since everything below falls back to it
+export PATH="$HOME/.cargo/bin:$prefix/bin:$HOME/.local/share/mise/shims:$PATH"
+command -v mise >/dev/null || curl -fsSL https://mise.run | sh
+
+# rustup isn't in the mise registry; shell rc files already put ~/.cargo/bin on PATH
+if ! command -v rustup >/dev/null; then
+  curl -fsSL https://sh.rustup.rs | sh -s -- -y --no-modify-path
+fi
+rustup component add rust-analyzer
+
+# tools: anything not already on PATH comes from dnf when it has the package, otherwise mise.
+# mise tools go in a conf.d file so they don't fight the chezmoi-managed mise config.
+tools=(
+  # binary              dnf package     mise tool
+  "hx                   helix           helix"
+  "fish                 fish            github:fish-shell/fish-shell"
+  "starship             starship        starship"
+  "zoxide               zoxide          zoxide"
+  "atuin                atuin           cargo:atuin"
+  "usage                usage           usage"
+  "tmux                 tmux            tmux"
+  "zellij               zellij          zellij"
+  "eza                  eza             eza"
+  "bat                  bat             bat"
+  "fd                   fd-find         fd"
+  "rg                   ripgrep         ripgrep"
+  "sd                   sd              sd"
+  "duf                  duf             duf"
+  "tldr                 tealdeer        tealdeer"
+  "tokei                tokei           tokei"
+  "delta                git-delta       delta"
+  "difft                difftastic      difftastic"
+  "cargo-nextest        cargo-nextest   cargo:cargo-nextest"
+  "cargo-install-update cargo-update    cargo:cargo-update"
+  "cargo-cache          cargo-cache     cargo:cargo-cache"
+  "uv                   uv              uv"
+  "topgrade             topgrade        topgrade"
+  "rgrc                 rgrc            cargo:rgrc"
+)
+missing=()
+for t in "${tools[@]}"; do
+  read -r bin _ _ <<<"$t"
+  command -v "$bin" >/dev/null || missing+=("$t")
+done
+if [ ${#missing[@]} -gt 0 ]; then
+  names=()
+  for t in "${missing[@]}"; do
+    read -r _ pkg _ <<<"$t"
+    names+=("$pkg")
+  done
+  # cache-only: a non-root metadata refresh can hang on an unreachable repo
+  available=" $("$pm" -q -C repoquery --qf '%{name}\n' "${names[@]}" 2>/dev/null | tr '\n' ' ') "
+
+  dnf_pkgs=()
+  mise_tools=()
+  for t in "${missing[@]}"; do
+    read -r _ pkg tool <<<"$t"
+    if [[ $available == *" $pkg "* ]]; then
+      dnf_pkgs+=("$pkg")
+    else
+      mise_tools+=("$tool@latest")
+    fi
+  done
+
+  [ ${#dnf_pkgs[@]} -eq 0 ] || sudo "$pm" install -y "${dnf_pkgs[@]}"
+  if [ ${#mise_tools[@]} -gt 0 ]; then
+    # cargo: tools build from source
+    [[ " ${mise_tools[*]}" != *" cargo:"* ]] || sudo "$pm" install -y gcc make perl openssl-devel
+    mkdir -p "$HOME/.config/mise/conf.d"
+    mise use --path "$HOME/.config/mise/conf.d/local.toml" "${mise_tools[@]}"
+  fi
 fi
 
 # emacs: terminal-only build from the gnu ftp with tree-sitter, only when a newer release exists
@@ -24,9 +87,9 @@ ver=${latest#emacs-}
 ver=${ver%.tar.xz}
 installed=$("$prefix/bin/emacs" --version 2>/dev/null | sed -n '1s/.* //p' || true)
 if [ "$installed" != "$ver" ]; then
-  sudo "$(command -v dnf || command -v yum)" install -y gcc make ncurses-devel gnutls-devel libxml2-devel jansson-devel texinfo
+  sudo "$pm" install -y gcc make ncurses-devel gnutls-devel libxml2-devel jansson-devel texinfo
 
-  # libtree-sitter isn't packaged on Amazon Linux; build the latest release
+  # libtree-sitter isn't packaged here; build the latest release
   ts=$(curl -fsSLI -o /dev/null -w '%{url_effective}' https://github.com/tree-sitter/tree-sitter/releases/latest)
   ts=${ts##*/}
   curl -fsSL "https://github.com/tree-sitter/tree-sitter/archive/refs/tags/$ts.tar.gz" | tar -xz -C "$tmp"
