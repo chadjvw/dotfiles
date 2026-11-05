@@ -1,3 +1,6 @@
+# skip grammars we never use
+use-grammars = { except = ["gotmpl"] }
+
 [language-server.ucm]
 command = "ncat"
 args = ["localhost", "5757"]
