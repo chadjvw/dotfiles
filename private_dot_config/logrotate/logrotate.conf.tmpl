@@ -1,0 +1,5 @@
+# User-level logrotate, run daily by ~/Library/LaunchAgents/local.logrotate.plist
+compress
+missingok
+notifempty
+include {{ .chezmoi.homeDir }}/.config/logrotate/conf.d

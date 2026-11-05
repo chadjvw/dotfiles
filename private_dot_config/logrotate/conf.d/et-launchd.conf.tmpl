@@ -1,0 +1,9 @@
+{{ .chezmoi.homeDir }}/.ssh/et-launchd.log {
+  weekly
+  size 10M
+  rotate 4
+  compress
+  missingok
+  notifempty
+  copytruncate
+}
