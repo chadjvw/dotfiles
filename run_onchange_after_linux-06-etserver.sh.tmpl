@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+# Eternal Terminal server as a user unit; linger keeps it up without a login session.
+# etserver.service: {{ include "private_dot_config/systemd/user/etserver.service" | sha256sum }}
+# et.cfg:           {{ include "private_dot_config/et/et.cfg" | sha256sum }}
+set -euo pipefail
+
+command -v etserver >/dev/null || { echo "etserver not installed, skipping"; exit 0; }
+
+loginctl enable-linger "$USER" 2>/dev/null || sudo loginctl enable-linger "$USER"
+systemctl --user daemon-reload
+systemctl --user enable etserver.service
+systemctl --user restart etserver.service

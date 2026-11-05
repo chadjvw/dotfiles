@@ -36,6 +36,11 @@ linux-*.sh
 {{ if .archlike -}}
 linux-05-editors.sh
 {{ end -}}
+{{ if or (ne .chezmoi.os "linux") .archlike -}}
+.config/et
+.config/systemd/user/etserver.service
+linux-06-etserver.sh
+{{ end -}}
 {{ if and (eq .chezmoi.os "linux") (not .archlike) -}}
 .config/niri
 .config/ghostty
@@ -47,7 +52,8 @@ linux-05-editors.sh
 .config/mimeapps.list
 .config/noctalia
 .config/zed
-.config/systemd
+.config/systemd/user/ghostmirror.*
+.config/systemd/user/timers.target.wants
 .config/vesktop
 linux-01-packages.sh
 linux-02-xdg-dirs.sh

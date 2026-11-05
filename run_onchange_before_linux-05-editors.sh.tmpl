@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Latest cli tools, editors, and emacs for Linux without them packaged. Rechecked monthly: {{ now | date "2006-01" }}
+# Latest cli tools, editors, eternal terminal, and emacs for Linux without them packaged. Rechecked monthly: {{ now | date "2006-01" }}
 set -euo pipefail
 
 prefix="$HOME/.local"
@@ -78,6 +78,32 @@ if [ ${#missing[@]} -gt 0 ]; then
     [[ " ${mise_tools[*]}" != *" cargo:"* ]] || sudo "$pm" install -y gcc make perl openssl-devel
     mkdir -p "$HOME/.config/mise/conf.d"
     mise use --path "$HOME/.config/mise/conf.d/local.toml" "${mise_tools[@]}"
+  fi
+fi
+
+# eternal terminal: dnf when it has it, otherwise build the latest release (no linux binaries, no mise tool)
+stamp="$prefix/share/eternalterminal/version"
+if ! rpm -q et >/dev/null 2>&1; then
+  if [ ! -e "$stamp" ] && "$pm" -q -C repoquery --qf '%{name}\n' et 2>/dev/null | grep -qx et; then
+    sudo "$pm" install -y et
+  else
+    tag=$(curl -fsSLI -o /dev/null -w '%{url_effective}' https://github.com/MisterTea/EternalTerminal/releases/latest)
+    tag=${tag##*/}
+    if [ "$(cat "$stamp" 2>/dev/null)" != "$tag" ]; then
+      sudo "$pm" install -y cmake gcc-c++ git libsodium-devel protobuf-devel protobuf-compiler \
+        openssl-devel zlib-devel libunwind-devel libutempter-devel libatomic
+      # submodules aren't in the release tarball
+      git clone -q --depth 1 --branch "$tag" --recurse-submodules --shallow-submodules \
+        https://github.com/MisterTea/EternalTerminal.git "$tmp/et"
+      cmake -S "$tmp/et" -B "$tmp/et/build" -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX="$prefix" \
+        -DDISABLE_VCPKG=ON -DBUILD_TESTING=OFF -DDISABLE_TELEMETRY=ON
+      cmake --build "$tmp/et/build" -j"$(nproc)"
+      cmake --install "$tmp/et/build" --strip
+      # the et client runs etterminal over non-interactive ssh, which doesn't see ~/.local/bin
+      sudo ln -sfn "$prefix/bin/etterminal" /usr/local/bin/etterminal
+      mkdir -p "${stamp%/*}"
+      echo "$tag" >"$stamp"
+    fi
   fi
 fi
 

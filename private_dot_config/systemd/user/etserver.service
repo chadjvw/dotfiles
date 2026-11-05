@@ -1,0 +1,10 @@
+[Unit]
+Description=Eternal Terminal server
+After=network-online.target
+
+[Service]
+ExecStart=%h/.local/bin/etserver --cfgfile=%h/.config/et/et.cfg --logtostdout
+Restart=on-failure
+
+[Install]
+WantedBy=default.target
