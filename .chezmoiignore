@@ -1,6 +1,18 @@
 README.md
 LICENSE
 justfile
+{{/* Doom (with the tree-sitter module) needs emacs 29+; skip all of it otherwise.
+     Linux always gets the latest emacs (pacman, or the editors before-script) ahead of doom sync. */ -}}
+{{ $doom := eq .chezmoi.os "linux" -}}
+{{ $emacs := lookPath "emacs" -}}
+{{ if and (not $doom) $emacs -}}
+{{   $doom = ge (output $emacs "-Q" "--batch" "--eval" "(princ emacs-major-version)" | trim | atoi) 29 -}}
+{{ end -}}
+{{ if not $doom -}}
+.config/emacs
+.config/doom
+linux-03-doom.sh
+{{ end -}}
 {{ if ne .chezmoi.os "darwin" -}}
 Library
 .config/amethyst
