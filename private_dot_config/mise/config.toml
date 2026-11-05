@@ -1,16 +1,31 @@
 [tools]
 bun = "latest"
-"github:badlogic/pi-mono" = "latest"
 node = "latest"
 python = "latest"
 ruff = "latest"
 "npm:pyright" = "latest"
+"npm:vscode-langservers-extracted" = "latest"
+"npm:typescript" = "latest"
+"npm:typescript-language-server" = "latest"
+"npm:yaml-language-server" = "latest"
+"npm:bash-language-server" = "latest"
+"npm:dockerfile-language-server-nodejs" = "latest"
+"npm:prettier" = "latest"
+"npm:@agentclientprotocol/claude-agent-acp" = "latest"
 "pipx:black" = "latest"
 uv = "latest"
 usage = "latest"
+chezmoi = "latest"
 
 [settings]
 idiomatic_version_file_enable_tools = []
+
+[settings.self_update]
+auto = true
+
+# npm: tools install through bun instead of npm
+[settings.npm]
+package_manager = "bun"
 
 [settings.node]
 compile = false
