@@ -1,4 +1,7 @@
 [build]
+{{- if gt (output "getconf" "_NPROCESSORS_ONLN" | trim | atoi) 24 }}
+jobs = 24
+{{- end }}
 {{- if or (eq .chezmoi.os "darwin") .archlike }}
 rustflags = ["-C", "target-cpu=native"]
 {{- else if eq .chezmoi.arch "amd64" }}
