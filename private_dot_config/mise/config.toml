@@ -1,7 +1,7 @@
 [tools]
 bun = "latest"
-node = "latest"
-python = "latest"
+node = ["latest", "24", "22"]
+python = ["latest", "3.12", "3.11", "3.10"]
 ruff = "latest"
 "npm:pyright" = "latest"
 "npm:vscode-langservers-extracted" = "latest"
@@ -16,6 +16,8 @@ ruff = "latest"
 uv = "latest"
 usage = "latest"
 chezmoi = "latest"
+btop = "latest"
+restic = "latest"
 
 [settings]
 idiomatic_version_file_enable_tools = []
