@@ -171,8 +171,8 @@ keep_old() {
 }
 
 mkdir -p "${local_toml%/*}"
-new_toml="$local_toml.new"
-rm -f "$new_toml"
+# mise only accepts *.toml paths, and loads every *.toml in conf.d, so build it outside conf.d.
+new_toml="$(mktemp -d)/local.toml"
 for row in ${via_mise[@]+"${via_mise[@]}"}; do
   IFS='|' read -r name _ _ spec cargo <<<"$row"
   attempts=()
