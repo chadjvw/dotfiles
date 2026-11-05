@@ -2,6 +2,13 @@
 	name = Chad Van Wyhe
 	email = {{ .email }}
 
+[includeIf "hasconfig:remote.*.url:https://github.com/**"]
+	path = github
+[includeIf "hasconfig:remote.*.url:ssh://git@github.com/**"]
+	path = github
+[includeIf "hasconfig:remote.*.url:git@github.com:*/**"]
+	path = github
+
 [init]
 	defaultBranch = main
 
