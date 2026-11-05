@@ -24,7 +24,7 @@ command = "clippy"
 name = "python"
 language-servers = [ "pyright", "ruff" ]
 auto-format = true
-formatter = { command = "mise", args = ["exec", "pipx:black", "--", "black", "--line-length", "140", "--quiet", "-"] }
+formatter = { command = "mise", args = ["exec", "pypi:black", "--", "black", "--line-length", "140", "--quiet", "-"] }
 
 [language-server.pyright]
 command = "mise"

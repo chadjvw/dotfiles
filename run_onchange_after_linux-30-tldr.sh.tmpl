@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+# packages.toml: {{ include ".chezmoidata/packages.toml" | sha256sum }}
+set -euo pipefail
+
+tldr --update || true

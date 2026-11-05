@@ -2,7 +2,7 @@ README.md
 LICENSE
 justfile
 {{/* Doom (with the tree-sitter module) needs emacs 29+; skip all of it otherwise.
-     Linux always gets the latest emacs (pacman, or the editors before-script) ahead of doom sync. */ -}}
+     Linux always gets the latest emacs (pacman, or the source-builds before-script) ahead of doom sync. */ -}}
 {{ $doom := eq .chezmoi.os "linux" -}}
 {{ $emacs := lookPath "emacs" -}}
 {{ if and (not $doom) $emacs -}}
@@ -16,7 +16,7 @@ linux-03-doom.sh
 {{ if ne .chezmoi.os "darwin" -}}
 Library
 .config/amethyst
-.config/homebrew
+.config/logrotate
 darwin-*.sh
 {{ end -}}
 {{ if ne .chezmoi.os "linux" -}}
@@ -34,7 +34,7 @@ darwin-*.sh
 linux-*.sh
 {{ end -}}
 {{ if .archlike -}}
-linux-05-editors.sh
+linux-20-source-builds.sh
 {{ end -}}
 {{ if or (ne .chezmoi.os "linux") .archlike -}}
 .config/et
@@ -55,9 +55,9 @@ linux-06-etserver.sh
 .config/systemd/user/ghostmirror.*
 .config/systemd/user/timers.target.wants
 .config/vesktop
-linux-01-packages.sh
 linux-02-xdg-dirs.sh
 linux-04-greeter.sh
+linux-30-tldr.sh
 {{ end -}}
 .gitconfig
 .gitignore

@@ -25,7 +25,7 @@ command = ["rustfmt", "--emit", "stdout"]
 patterns = ["glob:'**/*.rs'"]
 
 [fix.tools.black]
-command = ["mise", "exec", "pipx:black", "--", "black", "--stdin-filename=$path", "-"]
+command = ["mise", "exec", "pypi:black", "--", "black", "--stdin-filename=$path", "-"]
 patterns = ["glob:'**/*.py'"]
 
 [fix.tools.shfmt]

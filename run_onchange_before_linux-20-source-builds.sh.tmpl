@@ -1,0 +1,57 @@
+#!/usr/bin/env bash
+# Eternal terminal and emacs for non-Arch Linux, which package them old or not at all. Rechecked monthly: {{ now | date "2006-01" }}
+set -euo pipefail
+
+prefix="$HOME/.local"
+pm=$(command -v dnf || command -v yum)
+mkdir -p "$prefix/bin"
+tmp=$(mktemp -d)
+trap 'rm -rf "$tmp"' EXIT
+
+# eternal terminal: dnf when it has it, otherwise build the latest release (no linux binaries, no mise tool)
+stamp="$prefix/share/eternalterminal/version"
+if ! rpm -q et >/dev/null 2>&1; then
+  if [ ! -e "$stamp" ] && "$pm" -q -C repoquery --qf '%{name}\n' et 2>/dev/null | grep -qx et; then
+    sudo "$pm" install -y et
+  else
+    tag=$(curl -fsSLI -o /dev/null -w '%{url_effective}' https://github.com/MisterTea/EternalTerminal/releases/latest)
+    tag=${tag##*/}
+    if [ "$(cat "$stamp" 2>/dev/null)" != "$tag" ]; then
+      sudo "$pm" install -y cmake gcc-c++ git libsodium-devel protobuf-devel protobuf-compiler \
+        openssl-devel zlib-devel libunwind-devel libutempter-devel libatomic
+      # submodules aren't in the release tarball
+      git clone -q --depth 1 --branch "$tag" --recurse-submodules --shallow-submodules \
+        https://github.com/MisterTea/EternalTerminal.git "$tmp/et"
+      cmake -S "$tmp/et" -B "$tmp/et/build" -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX="$prefix" \
+        -DDISABLE_VCPKG=ON -DBUILD_TESTING=OFF -DDISABLE_TELEMETRY=ON
+      cmake --build "$tmp/et/build" -j"$(nproc)"
+      cmake --install "$tmp/et/build" --strip
+      # the et client runs etterminal over non-interactive ssh, which doesn't see ~/.local/bin
+      sudo ln -sfn "$prefix/bin/etterminal" /usr/local/bin/etterminal
+      mkdir -p "${stamp%/*}"
+      echo "$tag" >"$stamp"
+    fi
+  fi
+fi
+
+# emacs: terminal-only build from the gnu ftp with tree-sitter, only when a newer release exists
+latest=$(curl -fsSL https://ftp.gnu.org/gnu/emacs/ | grep -o 'emacs-[0-9][0-9.]*\.tar\.xz' | sort -uV | tail -1)
+ver=${latest#emacs-}
+ver=${ver%.tar.xz}
+installed=$("$prefix/bin/emacs" --version 2>/dev/null | sed -n '1s/.* //p' || true)
+if [ "$installed" != "$ver" ]; then
+  sudo "$pm" install -y gcc make ncurses-devel gnutls-devel libxml2-devel jansson-devel texinfo
+
+  # libtree-sitter isn't packaged here; build the latest release
+  ts=$(curl -fsSLI -o /dev/null -w '%{url_effective}' https://github.com/tree-sitter/tree-sitter/releases/latest)
+  ts=${ts##*/}
+  curl -fsSL "https://github.com/tree-sitter/tree-sitter/archive/refs/tags/$ts.tar.gz" | tar -xz -C "$tmp"
+  make -C "$tmp/tree-sitter-${ts#v}" -j"$(nproc)" PREFIX="$prefix" install
+
+  curl -fsSL "https://ftp.gnu.org/gnu/emacs/$latest" | tar -xJ -C "$tmp"
+  cd "$tmp/emacs-$ver"
+  PKG_CONFIG_PATH="$prefix/lib/pkgconfig" LDFLAGS="-Wl,-rpath,$prefix/lib" \
+    ./configure --prefix="$prefix" --without-x --without-ns --without-native-compilation --with-gnutls --with-tree-sitter
+  make -j"$(nproc)"
+  make install
+fi

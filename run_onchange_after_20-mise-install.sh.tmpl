@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+# main mise config: {{ include "private_dot_config/mise/config.toml.tmpl" | sha256sum }}
+set -euo pipefail
+
+export PATH="$HOME/.cargo/bin:$HOME/.local/bin:/opt/homebrew/bin:$PATH"
+mise install

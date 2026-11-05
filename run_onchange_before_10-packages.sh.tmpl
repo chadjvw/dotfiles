@@ -1,0 +1,200 @@
+{{- $pm := "dnf" -}}
+{{- if eq .chezmoi.os "darwin" }}{{ $pm = "brew" }}{{ else if .archlike }}{{ $pm = "paru" }}{{ end -}}
+#!/usr/bin/env bash
+# CLI tools: on PATH -> skip; native package manager has it -> install; else mise (binary, then cargo).
+# DRY_RUN=1 prints the native/mise split and installs nothing.
+# Rechecked monthly: {{ now | date "2006-01" }}
+# packages.toml: {{ include ".chezmoidata/packages.toml" | sha256sum }}
+set -euo pipefail
+
+DRY_RUN=${DRY_RUN:-}
+prefix="$HOME/.local"
+export PATH="$HOME/.cargo/bin:$prefix/bin:$PATH"
+local_toml="$HOME/.config/mise/conf.d/local.toml"
+failed=()
+
+{{ if eq $pm "brew" -}}
+if [ -x /opt/homebrew/bin/brew ]; then eval "$(/opt/homebrew/bin/brew shellenv)"; fi
+command -v brew >/dev/null || { echo "brew not found" >&2; exit 1; }
+
+available() { local p; for p in "$@"; do brew info --formula "$p" >/dev/null 2>&1 && echo "$p" || true; done; }
+install() { brew install "$@"; }
+{{- else if eq $pm "paru" -}}
+available() { local p; for p in "$@"; do paru -Si "$p" >/dev/null 2>&1 && echo "$p" || true; done; }
+install() { paru -S --needed "$@"; }
+{{- else -}}
+pm=$(command -v dnf || command -v yum)
+# cache-only: a non-root metadata refresh can hang on an unreachable repo
+available() { "$pm" -q -C repoquery --qf '%{name}\n' "$@" 2>/dev/null || true; }
+install() { sudo "$pm" install -y "$@"; }
+{{- end }}
+
+# name|bin|native package|mise spec|cargo crate
+tools=(
+{{- range $name, $t := .cli }}
+{{-   if not (and (eq $pm "dnf") (dig "source_build" false $t)) }}
+{{-   $bin := dig "bin" $name $t }}
+{{-   if eq $name "helix" }}{{ $bin = $.helix }}{{ end }}
+{{-   $pkg := "" }}
+{{-   if eq $pm "brew" }}{{ $pkg = dig "brew" $name $t }}
+{{-   else if eq $pm "dnf" }}{{ $pkg = dig "dnf" $name $t }}
+{{-   else }}
+{{-     $pkg = $name }}
+{{-     if hasKey $t "pacman" }}{{ $pkg = index $t "pacman" }}{{ else if hasKey $t "aur" }}{{ $pkg = index $t "aur" }}{{ end }}
+{{-   end }}
+{{-   $mise := dig "mise" $name $t }}
+  "{{ $name }}|{{ $bin }}|{{ if $pkg }}{{ $pkg }}{{ end }}|{{ if $mise }}{{ $mise }}{{ end }}|{{ dig "cargo" "" $t }}"
+{{-   end }}
+{{- end }}
+)
+
+# Ignore mise shims and installs: a tool mise installed last run must be re-added to the regenerated local.toml.
+clean_path=
+IFS=: read -ra dirs <<<"$PATH"
+for d in "${dirs[@]}"; do
+  [[ $d == */mise/* ]] || clean_path+="${clean_path:+:}$d"
+done
+on_path() { local PATH=$clean_path; command -v "$1" >/dev/null; }
+
+missing=()
+for row in "${tools[@]}"; do
+  IFS='|' read -r _ bin _ <<<"$row"
+  on_path "$bin" || missing+=("$row")
+done
+
+native=()
+via_mise=()
+if [ ${#missing[@]} -gt 0 ]; then
+  names=()
+  for row in "${missing[@]}"; do
+    IFS='|' read -r _ _ pkg _ <<<"$row"
+    [ -z "$pkg" ] || names+=("$pkg")
+  done
+  avail=" $( [ ${#names[@]} -eq 0 ] || available "${names[@]}" | tr '\n' ' ') "
+  for row in "${missing[@]}"; do
+    IFS='|' read -r _ _ pkg _ <<<"$row"
+    if [ -n "$pkg" ] && [[ $avail == *" $pkg "* ]]; then
+      native+=("$pkg")
+    else
+      via_mise+=("$row")
+    fi
+  done
+fi
+
+{{ if eq $pm "brew" -}}
+casks=({{ range .gui.brew_cask }} {{ . }}{{ end }})
+mas_apps=(
+{{- range $app, $id := .gui.mas }}
+  "{{ $id }}|{{ $app }}"
+{{- end }}
+)
+gui_formulae=({{ range .gui.brew }} {{ . }}{{ end }})
+{{- else if eq $pm "paru" -}}
+gui=({{ range concat .gui.pacman .gui.aur }} {{ . }}{{ end }})
+{{- end }}
+
+if [ -n "$DRY_RUN" ]; then
+  echo "on PATH: $((${#tools[@]} - ${#missing[@]})) of ${#tools[@]}"
+  echo "native ({{ $pm }}): ${native[*]:-}"
+  echo "mise:"
+  for row in ${via_mise[@]+"${via_mise[@]}"}; do
+    IFS='|' read -r name _ _ spec cargo <<<"$row"
+    echo "  $name -> ${spec:-none}${cargo:+ (fallback cargo:$cargo)}"
+  done
+  exit 0
+fi
+
+mkdir -p "$prefix/bin"
+have() { command -v "$1" >/dev/null; }
+{{ if eq $pm "paru" -}}
+paru -Syu
+{{ end -}}
+{{ if eq $pm "dnf" -}}
+have mise || curl -fsSL https://mise.run | sh
+have rustup || curl -fsSL https://sh.rustup.rs | sh -s -- -y --no-modify-path
+{{- else if eq $pm "paru" -}}
+have mise || install mise
+have rustup || install rustup
+{{- else -}}
+have mise || install mise
+have rustup || curl -fsSL https://sh.rustup.rs | sh -s -- -y --no-modify-path
+{{- end }}
+
+if [ ${#native[@]} -gt 0 ]; then
+  install "${native[@]}" || for p in "${native[@]}"; do install "$p" || failed+=("$p"); done
+fi
+
+{{ if eq $pm "brew" -}}
+install "${gui_formulae[@]}" || failed+=("gui formulae")
+installed_casks=$(brew list --cask -1 2>/dev/null || true)
+for c in "${casks[@]}"; do
+  grep -qx "$c" <<<"$installed_casks" || brew install --cask "$c" || brew install --cask --adopt "$c" || failed+=("cask:$c")
+done
+for app in "${mas_apps[@]}"; do
+  IFS='|' read -r id title <<<"$app"
+  mas list | awk '{print $1}' | grep -qx "$id" || mas install "$id" || failed+=("mas:$title")
+done
+{{- else if eq $pm "paru" -}}
+install "${gui[@]}" || failed+=("gui packages")
+{{- end }}
+
+if ! { rustup toolchain install stable nightly --profile default \
+  -c rust-src -c rust-analyzer -c llvm-tools -c clippy -c rustfmt -c rust-docs \
+  && rustup default stable; }; then
+  failed+=("rustup toolchains")
+fi
+
+cargo_deps_installed=
+cargo_deps() {
+  [ -z "$cargo_deps_installed" ] || return 0
+  cargo_deps_installed=1
+{{- if eq $pm "dnf" }}
+  install gcc make perl openssl-devel
+{{- else if eq $pm "paru" }}
+  install base-devel
+{{- else }}
+  :
+{{- end }}
+}
+
+# local.toml is regenerated each run so tools that became native drop out; it is not managed by chezmoi.
+# Built beside the old file; a tool that fails again keeps its old entry so it stays on PATH.
+keep_old() {
+  local s line
+  [ -f "$local_toml" ] || return 0
+  for s in "$@"; do
+    line=$(awk -v k1="\"$s\"" -v k2="$s" '{ split($0, a, " = "); if (a[1] == k1 || a[1] == k2) print }' "$local_toml")
+    [ -n "$line" ] || continue
+    grep -q '^\[tools\]' "$new_toml" 2>/dev/null || echo '[tools]' >>"$new_toml"
+    echo "$line" >>"$new_toml"
+  done
+}
+
+mkdir -p "${local_toml%/*}"
+new_toml="$local_toml.new"
+rm -f "$new_toml"
+for row in ${via_mise[@]+"${via_mise[@]}"}; do
+  IFS='|' read -r name _ _ spec cargo <<<"$row"
+  attempts=()
+  [ -z "$spec" ] || attempts+=("$spec")
+  [ -z "$cargo" ] || [ "cargo:$cargo" = "$spec" ] || attempts+=("cargo:$cargo")
+  ok=
+  for s in ${attempts[@]+"${attempts[@]}"}; do
+    [[ $s != cargo:* ]] || cargo_deps
+    if mise use --path "$new_toml" "$s@latest"; then ok=1; break; fi
+  done
+  if [ -z "$ok" ]; then
+    failed+=("$name")
+    keep_old ${attempts[@]+"${attempts[@]}"}
+  fi
+done
+if [ -f "$new_toml" ]; then mv "$new_toml" "$local_toml"; else rm -f "$local_toml"; fi
+
+if [ ${#failed[@]} -gt 0 ]; then
+  {
+    echo "=============================================="
+    echo "WARNING: some packages were not installed:"
+    printf '  %s\n' "${failed[@]}"
+    echo "=============================================="
+  } >&2
+fi
