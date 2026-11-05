@@ -60,6 +60,8 @@ roots = ["Config"]
 comment-token = "#"
 language-servers = ["barium"]
 grammar = "perl"
+# barium --format rewrites a file in place; round-trip stdin through a temp file
+formatter = { command = "sh", args = ["-c", 'f=$(mktemp); trap "rm -f \"$f\"" EXIT; cat >"$f" && barium --format "$f" && cat "$f"'] }
 
 [language-server.barium]
 command = "barium"
