@@ -12,6 +12,7 @@
        hl-todo
        modeline
        ophints
+       treemacs
        (popup +defaults)
        (vc-gutter +pretty)
        vi-tilde-fringe
@@ -23,6 +24,7 @@
        fold
        snippets
        (whitespace +guess +trim)
+       word-wrap
 
        :emacs
        (dired +icons)
@@ -36,6 +38,8 @@
 
        :checkers
        syntax
+       (spell +flyspell)
+       grammar
 
        :tools
        (eval +overlay)
