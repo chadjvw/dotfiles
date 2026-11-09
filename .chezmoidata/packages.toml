@@ -1,6 +1,7 @@
 # [cli.<name>]: every CLI tool, installed on every OS. Skipped when `bin` is already on PATH.
 #   bin    binary to look for (default: name)
 #   brew, pacman, aur, dnf   native package (default: name; false = not packaged, go straight to mise)
+#                            aur = false: not installed on Arch at all
 #   mise   mise tool spec (default: name; false = none). A cargo: spec builds from source.
 #   cargo  crate to build from source if the mise spec fails
 #   source_build  true = a linux-20 script builds it on non-Arch Linux; the tool is left out there
@@ -68,8 +69,8 @@ tealdeer = { bin = "tldr" }
 tmux = {}
 tokei = {}
 topgrade = { aur = "topgrade-bin" }
-unison = { mise = false }
-unison-fsmonitor = { brew = false, mise = "cargo:unison-fsmonitor" }
+unison = { dnf = false, mise = "github:bcpierce00/unison[asset_pattern=*x86_64-static.tar.gz]", aur = false }
+unison-fsmonitor = { brew = false, mise = "cargo:unison-fsmonitor", aur = false }
 usage = {}
 uv = {}
 watch = { pacman = "procps-ng", dnf = "procps-ng", mise = false }

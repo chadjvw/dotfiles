@@ -32,7 +32,7 @@ install() { sudo "$pm" install -y "$@"; }
 # name|bin|native package|mise spec|cargo crate
 tools=(
 {{- range $name, $t := .cli }}
-{{-   if not (and (eq $pm "dnf") (dig "source_build" false $t)) }}
+{{-   if not (or (and (eq $pm "dnf") (dig "source_build" false $t)) (and (eq $pm "paru") (hasKey $t "aur") (not (index $t "aur")))) }}
 {{-   $bin := dig "bin" $name $t }}
 {{-   if eq $name "helix" }}{{ $bin = $.helix }}{{ end }}
 {{-   $pkg := "" }}
