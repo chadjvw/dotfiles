@@ -27,7 +27,7 @@ difftastic = { bin = "difft" }
 dua-cli = { bin = "dua", mise = "dua" }
 duf = {}
 emacs = { pacman = "emacs-wayland", mise = false, source_build = true }
-et = { brew = "MisterTea/et/et", aur = "eternalterminal", mise = false, source_build = true }
+et = { aur = "eternalterminal", mise = false, source_build = true }
 eza = {}
 fd = { dnf = "fd-find" }
 figlet = { mise = false }
