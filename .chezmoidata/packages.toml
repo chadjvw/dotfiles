@@ -94,7 +94,7 @@ pacman = [
   # editors + theme
   "meld", "zed", "ttf-nerd-fonts-symbols", "adw-gtk-theme",
   # niri desktop
-  "niri", "noctalia", "noctalia-greeter", "xwayland-satellite", "xorg-xwayland", "wl-clipboard", "brightnessctl", "pavucontrol", "qt5ct", "kvantum", "xdg-user-dirs", "qt6ct", "polkit-kde-agent",
+  "niri", "noctalia", "noctalia-greeter", "xwayland-satellite", "xorg-xwayland", "wl-clipboard", "brightnessctl", "ddcutil", "pavucontrol", "qt5ct", "kvantum", "xdg-user-dirs", "qt6ct", "polkit-kde-agent",
   # terminals
   "ghostty",
   # fonts

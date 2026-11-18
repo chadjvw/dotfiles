@@ -1,0 +1,68 @@
+{{ if .archlike -}}
+#!/usr/bin/env bash
+# Small /etc tweaks. Package-owned files are edited in place (sed) so upgrades don't produce .pacnew churn.
+set -euo pipefail
+
+# Kernel modules to load at every boot. On-demand loading breaks after a kernel upgrade until reboot.
+modules=(
+  uhid # BLE mice/keyboards (MX Master)
+)
+printf '%s\n' "${modules[@]}" | sudo install -Dm644 /dev/stdin /etc/modules-load.d/chezmoi.conf
+sudo modprobe -a "${modules[@]}" || echo "some modules not loadable for the running kernel; they will load on next boot"
+
+# MT7921/MT7922 Wi-Fi/BT: ASPM causes drops. No-op on machines without the chip.
+echo 'options mt7921e disable_aspm=1' | sudo install -Dm644 /dev/stdin /etc/modprobe.d/wifi.conf
+
+# pacman
+sudo sed -i \
+  -e 's/^#\(Color\|VerbosePkgLists\)$/\1/' \
+  -e 's/^CheckSpace$/#CheckSpace/' \
+  -e 's/^#\?ParallelDownloads.*/ParallelDownloads = 10/' \
+  /etc/pacman.conf
+grep -qx DisableDownloadTimeout /etc/pacman.conf || sudo sed -i '/^ParallelDownloads/i DisableDownloadTimeout' /etc/pacman.conf
+sudo sed -i '/^#\[multilib\]$/{s/^#//;n;s/^#//}' /etc/pacman.conf
+# Arch repos use ghostmirror's list (user timer), once it has generated one.
+ghost={{ .chezmoi.homeDir }}/.config/ghostmirror/mirrorlist
+[ -s "$ghost" ] && sudo sed -i "s|^Include = /etc/pacman.d/mirrorlist$|Include = $ghost|" /etc/pacman.conf
+
+# paru
+[ -f /etc/paru.conf ] && sudo sed -i 's/^#\(BottomUp\|SudoLoop\|CombinedUpgrade\|CleanAfter\|UpgradeMenu\|NewsOnUpgrade\)$/\1/' /etc/paru.conf
+
+# I/O schedulers: override cachyos-settings' rule; adios only exists in CachyOS kernels.
+if [ -f /usr/lib/udev/rules.d/60-ioschedulers.rules ]; then
+  sudo install -Dm644 /dev/stdin /etc/udev/rules.d/60-ioschedulers.rules <<'EOS'
+# HDD
+ACTION=="add|change", KERNEL=="sd[a-z]*", ATTR{queue/rotational}=="1", \
+    ATTR{queue/scheduler}="bfq"
+
+# SSD
+ACTION=="add|change", KERNEL=="sd[a-z]*|mmcblk[0-9]*", ATTR{queue/rotational}=="0", \
+    ATTR{queue/scheduler}="adios"
+
+# NVMe SSD
+ACTION=="add|change", KERNEL=="nvme[0-9]*", ATTR{queue/rotational}=="0", \
+    ATTR{queue/scheduler}="adios"
+EOS
+  sudo udevadm control --reload
+fi
+
+# noctalia greeter sync: auto_sync runs pkexec on every wallpaper change; skip the password for my active session.
+if [ -f /usr/share/polkit-1/actions/org.noctalia.greeter.apply-appearance.policy ]; then
+  sudo install -Dm644 /dev/stdin /etc/polkit-1/rules.d/50-noctalia-greeter-sync.rules <<'EOS'
+polkit.addRule(function(action, subject) {
+    if (action.id == "org.noctalia.greeter.sync-appearance" &&
+        subject.user == "{{ .chezmoi.username }}" && subject.local && subject.active) {
+        return polkit.Result.YES;
+    }
+});
+EOS
+fi
+{{- if eq .chezmoi.hostname "chromie" }}
+
+# Boot cmdline (this machine only): usbcore.old_scheme_first for a flaky USB mouse; iommu for passthrough.
+if [ -f /etc/sdboot-manage.conf ]; then
+  sudo sed -i 's/^LINUX_OPTIONS=.*/LINUX_OPTIONS="usbcore.old_scheme_first=1 zswap.enabled=0 nowatchdog quiet splash amd_iommu=on iommu=pt"/' /etc/sdboot-manage.conf
+  sudo sdboot-manage gen
+fi
+{{- end }}
+{{ end -}}

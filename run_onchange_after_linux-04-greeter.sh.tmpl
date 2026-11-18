@@ -11,4 +11,8 @@ command = "/usr/bin/noctalia-greeter-session"
 user = "greeter"
 EOS
 
+pam=/etc/pam.d/greetd
+line='session    required     pam_systemd.so'
+grep -qxF "$line" "$pam" || echo "$line" | sudo tee -a "$pam" >/dev/null
+
 sudo systemctl enable greetd.service
